@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  
+  <title>Azure API  Management overview | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Azure API Management is a jungle of configurations, options and possibilities. The documentation is not always that clear and sometimes it’s hard to see what options there are and which suit your solu">
+<meta name="keywords" content="Azure, API Management">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azure API  Management overview">
+<meta property="og:url" content="http://dibranmulder.github.io/2018/11/13/Azure-Api-Management-overview/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Azure API Management is a jungle of configurations, options and possibilities. The documentation is not always that clear and sometimes it’s hard to see what options there are and which suit your solu">
+<meta property="og:locale" content="NL">
+<meta property="og:image" content="http://dibranmulder.github.io/images/apim/apim%20basic.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/apim/apim%20basic%20flow.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/apim/addapi.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/apim/apim.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/apim/apimsecurity.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/apim/apimbackendsecurity.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/apim/backendsecuritydetails.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/apim/functions%20keys.png">
+<meta property="og:updated_time" content="2018-11-13T20:05:49.610Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Azure API  Management overview">
+<meta name="twitter:description" content="Azure API Management is a jungle of configurations, options and possibilities. The documentation is not always that clear and sometimes it’s hard to see what options there are and which suit your solu">
+<meta name="twitter:image" content="http://dibranmulder.github.io/images/apim/apim%20basic.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Dibran&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Cloud, Modern web technologies, Microsoft, security and more</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://dibranmulder.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Azure-Api-Management-overview" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/13/Azure-Api-Management-overview/" class="article-date">
+  <time datetime="2018-11-13T15:43:45.000Z" itemprop="datePublished">2018-11-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Azure API  Management overview
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Azure API Management is a jungle of configurations, options and possibilities. The documentation is not always that clear and sometimes it’s hard to see what options there are and which suit your solution best. In this blogpost I’m trying to shine some light into that darkness.</p>
+<h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><p>Let’s start with some very basics. API Management(from now on APIM) is a service sitting in the middle of one or more consuming client applications and one or more backend services. Its there for reasons, such as: caching, routing, security and so on. Its often used as a central hub within a company to manage outgoing and incoming traffic. Its main goal is to keep control over a company’s API’s.</p>
+<p><img src="/images/apim/apim basic.png"></p>
+<p>Some terminology:</p>
+<ul>
+<li>The consuming client applications are called: Client or front-end application.</li>
+<li>The incoming traffic from a client application is called inbound traffic.</li>
+<li>Your API which you are disclosing via APIM is called the backend service or API.</li>
+<li>The response from the backend service is called outbound traffic.</li>
+</ul>
+<p><img src="/images/apim/apim basic flow.png"></p>
+<h3 id="Products-and-groups"><a href="#Products-and-groups" class="headerlink" title="Products and groups"></a>Products and groups</h3><p>Next up APIM got some features and data structures which you need to be familiar with. It all starts with products and groups. A product essentially is a set of API’s forming a product. For a client application to be effective it might have to consult several backend API’s to get all data. Especially when you are using a microservice based architecture. A product then might be a combination of multiple backend API’s. Its important to keep in mind that a set of backend API’s should look like one product from a client application perspective. Once you’ve defined a set of API’s for a product you’ll have to grant groups of users access to a product. APIM also contains a build in group called ‘Guests’ which once allowed access to a product opens up your API’s inside your product for everyone. </p>
+<p>You can also choose to enable subscriptions for a product. Once enabled users have to request a subscription and they obtain a set of keys. Those keys should be added to every call to APIM so that APIM can validate if your subscription is still valid. </p>
+<p>Lastly a product can also contain policies. Later you’ll see that you can also define policies on API or even on operation level. Policies applied on a product, apply on every API inside the product. It’s a hierarchical  system for defining policies.</p>
+<h2 id="Add-API’s-to-API-Management"><a href="#Add-API’s-to-API-Management" class="headerlink" title="Add API’s to API Management"></a>Add API’s to API Management</h2><p><img src="/images/apim/addapi.png"><br>You can add API’s in various ways. With a blank API’s you’ll have to define everything your self. It doesn’t bootstrap any operations or what so ever. Other options do bootstrap your API’s inside APIM. OpenAPI specifications for instance deliver detailed operations and there by improve your efficiency and increase client usability. OpenAPI definitions were previously called Swagger definitions. </p>
+<p>Its also possible to integrate with a Function App in APIM. As discussed in <a href="2018/10/19/Building-Serverless-APIs-in-Azure/">this post</a> an API Gateway is recommended when you’re creating a Serverless API or when you’re using a Microservice based architecture. Be aware that OpenAPI definitions inside Azure Functions V2 are still in preview and therefore the bootstrapped operations lack some detail.</p>
+<p>In the next blogpost I’ll address the CI/CD posibilities in combination with APIM. In my opinion its indispensable for a DevOps team, let alone a whole company using the same APIM instance.</p>
+<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><p>One of the most common challenges regarding APIM is setting the right security parameters. One has to configure inbound security as well as the backend security. Neither can be overlooked and both are evenly important. It has to be said that a lot of API’s running on Azure are publicly available and that’s a big threat. If you’re positioning APIM in front of your API’s, make sure that your backend services are not directly accessible. You can accomplish this by configuring a VNET, a so called <a href="https://docs.microsoft.com/en-us/azure/app-service/web-sites-integrate-with-vnet" target="_blank" rel="noopener">App Service Environment</a>.</p>
+<p><img src="/images/apim/apim.png"></p>
+<h3 id="Client-Authentication"><a href="#Client-Authentication" class="headerlink" title="Client Authentication"></a>Client Authentication</h3><p>You can pick from several options to secure the communication between the client application and APIM. I’ll discuss them briefly.</p>
+<h4 id="OpenId-or-OAuth-2-0"><a href="#OpenId-or-OAuth-2-0" class="headerlink" title="OpenId or OAuth 2.0"></a>OpenId or OAuth 2.0</h4><p><img src="/images/apim/apimsecurity.png"><br>You can either choose to go for the OpenId or OAuth 2.0 when you want consumers to authenticate with an authority prior to using your API’s. This can be configured relatively easy by adding an OpenId or Auth 2.0 provider and selecting them inside your general API settings.</p>
+<p>Consumers will get a security challenge from the authority when calling your API’s. They should be authenticated and call your API’s with a valid token.</p>
+<h4 id="Subscription-Keys"><a href="#Subscription-Keys" class="headerlink" title="Subscription Keys"></a>Subscription Keys</h4><p>Subscription keys are very useful when you want no additional authentication protocols on top of your API but do want to constrain access. You can invite certain people to use your API and assign them to a group. You can then apply policies for that group to customize their API usage.</p>
+<p>Subscription keys are the straight forward approach to let 3rd party’s interact with your private API’s.</p>
+<h4 id="Open-Guest-usage"><a href="#Open-Guest-usage" class="headerlink" title="Open - Guest usage"></a>Open - Guest usage</h4><p>You can also choose to make your API publicly available and accessible by anyone. This is a very useful scenario when you’re building a public facing API but want to preserve control.</p>
+<p>Bear in mind that you can tighten the control by applying policies. You might want to limit guest usage to a certain amount so that for instance paying users will never notice any performance downgrade.</p>
+<h3 id="Backend-service"><a href="#Backend-service" class="headerlink" title="Backend service"></a>Backend service</h3><p>You can secure your communication with your back-end API’s with either Basic Authentication or Client Certificates. It’s kinda hidden inside the Azure portal but you’ll have to click the pencil at the backend blade.<br><img src="/images/apim/apimbackendsecurity.png"><br>Once you’ve found it you can enter some basic credentials or<br><img src="/images/apim/backendsecuritydetails.png"></p>
+<h4 id="Function-keys"><a href="#Function-keys" class="headerlink" title="Function keys"></a>Function keys</h4><p>Lastly, it’s kind of a magical feature but you can also connect a Function App with your APIM. Once you’ve clicked through the wizard you’ll notice that APIM added another <code>Host key</code> to your Function App. All Http calls to your Http Triggered functions will have that host key inside the <code>code</code> query parameter. Note that that query parameter is also present in logging which makes it a little bit insecure.</p>
+<p><img src="/images/apim/functions keys.png"></p>
+<h2 id="Policies"><a href="#Policies" class="headerlink" title="Policies"></a>Policies</h2><p>The last thing I want to talk about is policies. You can apply policies on various levels, namely: <code>product</code>, <code>api</code> and <code>operation</code>. This is the heart of APIM and you possibly can get the most value by applying the right policies. Policies are added in a XML template and the Azure portal contains drag and drop functionality to add policies. </p>
+<p>This is an example of a clean policy template:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">policies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">inbound</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">base</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">inbound</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">backend</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">base</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">backend</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">outbound</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">base</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">outbound</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">on-error</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">base</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">on-error</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">policies</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Categories"><a href="#Categories" class="headerlink" title="Categories"></a>Categories</h4><p>APIM currently supports dozens of policies in the following categories:</p>
+<ul>
+<li>Restriction</li>
+<li>Advanced</li>
+<li>Authentication</li>
+<li>Caching</li>
+<li>Cross domain policies (CORS)</li>
+<li>Transformation </li>
+</ul>
+<p>I don’t have the time to describe every category and policy in detail and I don’t have to because Microsoft has a lot of documentation on them. For more information please consult the <a href="https://docs.microsoft.com/en-us/azure/api-management/api-management-policies" target="_blank" rel="noopener">Microsoft docs</a></p>
+<p>Hopefully I’ve shed some light in the darkness. If you have any questions feel free to contact me on twitter.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://dibranmulder.github.io/2018/11/13/Azure-Api-Management-overview/" data-id="cjog5uqyl0005y4496etuqchl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Azure-API-Management/">Azure, API Management</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Secrets in Azure DevOps the bad parts</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-DevOps-Secrets-FoxIt-Azure-ResourceGroups/">Azure DevOps, Secrets, FoxIt, Azure, ResourceGroups.</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-AD-MSI-Mananged-Service-Identity/">Azure, AD, MSI, Mananged Service Identity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-API-Management/">Azure, API Management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-API-management-Functions-API-Gateway/">Azure, API management, Functions, API Gateway.</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-CosmosDb-TTL-Expire/">Azure, CosmosDb, TTL, Expire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-CosmosDb-UniqueKeys-PrimaryKey/">Azure, CosmosDb, UniqueKeys, PrimaryKey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-Entity-Framework-Core-EF-Core-Migrations-VSTS-Functions-V2-Dependency-Injection/">Azure, Entity Framework Core, EF Core, Migrations, VSTS, Functions V2, Dependency Injection.</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud-resilient-availability-zone/">cloud, resilient, availability, zone</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Azure-DevOps-Secrets-FoxIt-Azure-ResourceGroups/" style="font-size: 10px;">Azure DevOps, Secrets, FoxIt, Azure, ResourceGroups.</a> <a href="/tags/Azure-AD-MSI-Mananged-Service-Identity/" style="font-size: 10px;">Azure, AD, MSI, Mananged Service Identity</a> <a href="/tags/Azure-API-Management/" style="font-size: 10px;">Azure, API Management</a> <a href="/tags/Azure-API-management-Functions-API-Gateway/" style="font-size: 10px;">Azure, API management, Functions, API Gateway.</a> <a href="/tags/Azure-CosmosDb-TTL-Expire/" style="font-size: 10px;">Azure, CosmosDb, TTL, Expire</a> <a href="/tags/Azure-CosmosDb-UniqueKeys-PrimaryKey/" style="font-size: 10px;">Azure, CosmosDb, UniqueKeys, PrimaryKey</a> <a href="/tags/Azure-Entity-Framework-Core-EF-Core-Migrations-VSTS-Functions-V2-Dependency-Injection/" style="font-size: 10px;">Azure, Entity Framework Core, EF Core, Migrations, VSTS, Functions V2, Dependency Injection.</a> <a href="/tags/cloud-resilient-availability-zone/" style="font-size: 10px;">cloud, resilient, availability, zone</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">november 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">oktober 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">augustus 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">juli 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">juni 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/13/Azure-Api-Management-overview/">Azure API  Management overview</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/">Secrets in Azure DevOps the bad parts</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/19/Building-Serverless-APIs-in-Azure/">Building Serverless API&#39;s in Azure</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/05/Azure-AD-Managed-Service-Identity/">Azure AD Managed Service Identity</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/23/Azure-functions-V2-with-EF-Core/">Azure functions V2 with EF Core</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Dibran Mulder<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

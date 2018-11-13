@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  
+  <title>Building Serverless API&#39;s in Azure | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and maximizing business value by eliminating complexity. Its a true ga">
+<meta name="keywords" content="Azure, API management, Functions, API Gateway.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building Serverless API&#39;s in Azure">
+<meta property="og:url" content="http://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and maximizing business value by eliminating complexity. Its a true ga">
+<meta property="og:locale" content="NL">
+<meta property="og:image" content="http://dibranmulder.github.io/images/serverless/Serverless%20API.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/serverless/Serverless.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/serverless/costs.png">
+<meta property="og:image" content="http://dibranmulder.github.io/images/serverless/announcement.png">
+<meta property="og:updated_time" content="2018-11-13T18:36:02.067Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Building Serverless API&#39;s in Azure">
+<meta name="twitter:description" content="Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and maximizing business value by eliminating complexity. Its a true ga">
+<meta name="twitter:image" content="http://dibranmulder.github.io/images/serverless/Serverless%20API.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Dibran&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Cloud, Modern web technologies, Microsoft, security and more</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://dibranmulder.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Building-Serverless-APIs-in-Azure" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/19/Building-Serverless-APIs-in-Azure/" class="article-date">
+  <time datetime="2018-10-19T13:44:40.000Z" itemprop="datePublished">2018-10-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Building Serverless API&#39;s in Azure
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and maximizing business value by eliminating complexity. Its a true game changer but is it always the best approach for your software? In this blogpost I’ll address the pros and cons regarding Serverless API’s.</p>
+<h2 id="REST-API’s"><a href="#REST-API’s" class="headerlink" title="REST API’s"></a>REST API’s</h2><p>We’ve been building API’s for decades, with techniques like RCP, SOAP, Enterprise Service Buses, etc. The majority of the people nowadays build their API’s based on a REST or RESTful architecture. How does this trend match the new serverless hype that’s taking place? In this blogpost we are trying to find that out. </p>
+<p>I’ll assume that you know what REST is but in case you don’t. It’s based on the following principles: </p>
+<blockquote>
+<p>performance, scalability, simplicity, modifiability, visibility, portability, and reliability</p>
+</blockquote>
+<p>In order for an architecture to achieve those goals, REST has the following constraints:</p>
+<blockquote>
+<p>Client-Server Architecture, Statelessness, Cachability, Layered system, Code on demand and Uniform Interface. </p>
+</blockquote>
+<p>More information about the constraints and principles can be found <a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank" rel="noopener">here</a></p>
+<p>So, at first sight, it doesn’t really look that Serverless computing and REST are in conflict. Moreover, Serverless computing might be complementary to REST. Let’s have a closer look.</p>
+<h2 id="Serverless"><a href="#Serverless" class="headerlink" title="Serverless"></a>Serverless</h2><p>According to Martin Fowler’s blog this is the definition of Serverless:</p>
+<blockquote>
+<p>Serverless can also mean applications where server-side logic is still written by the application developer, but, unlike traditional architectures, it’s run in stateless compute containers that are event-triggered, ephemeral (may only last for one invocation), and fully managed by a third party. One way to think of this is “Functions as a Service” or “FaaS”.</p>
+</blockquote>
+<p><a href="https://martinfowler.com/articles/serverless.html" target="_blank" rel="noopener">Source from Martin Fowler</a></p>
+<p>So the key takeaways are: event triggered, ephemeral and fully managed by a third party. So those Functions are serverside logic, triggered by events. In a REST based scenario that trigger might be an Http call, representing a REST operation. So far so good.</p>
+<p><img src="/images/serverless/Serverless API.png"></p>
+<p>So, we might end up building Azure Functions for every REST operation. The client application then has to orchestrate the REST calls to the right functions. This might be done via naming conventions, a pattern which is common in REST based architectures. If you are questioning if this is really a good idea, hold that thought! I’ll come back to it.</p>
+<p>Calling Azure Functions directly from your Client feels like a bad idea. Azure Functions should be those little snippets of code just executing at crazy scale and they should perform really well. On the other hand, we want to have an API with all kinds of additional features, we need those features to have an effective and future proof communication with our clients. I’m talking about:</p>
+<ul>
+<li>SSL termination</li>
+<li>Authentication</li>
+<li>IP whitelisting</li>
+<li>Client rate limiting (throttling)</li>
+<li>Logging and monitoring</li>
+<li>Response caching</li>
+<li>Web application firewall</li>
+<li>GZIP compression</li>
+<li>Servicing static content</li>
+<li>Restfull routing</li>
+<li>Versioning</li>
+<li>Health checking</li>
+<li>Documentation</li>
+</ul>
+<p>These features and Functions don’t fit really well. If we end up adding all those features to our Azure Functions we should just have picked ASP.net core and we could have built that API way faster than we would have in Azure Functions. So how do we bring those features in play while keeping our Azure Functions lean and mean. Well we need some sort of Application Gateway. A service sitting in the middle of the client and our Azure Functions which takes care of most of the features above. This Application Gateway should scale very good and shouldn’t introduce a new bottle neck. Think of it as an Load Balancer.</p>
+<p><img src="/images/serverless/Serverless.png"></p>
+<h2 id="Azure-API-Gateway"><a href="#Azure-API-Gateway" class="headerlink" title="Azure API Gateway"></a>Azure API Gateway</h2><p>Azure offers a set of services which have the possibility to route traffic, cache and so on. However most of them are not a good fit to act as an API Gateway. </p>
+<p>The following services are just for routing traffic on different levels but don’t implement documentation, logging, analytics, caching and so on:</p>
+<ul>
+<li>Azure Traffic manager<br>DNS based (global) load balancer and fail-over solution</li>
+<li>Azure Application Gateway<br>HTTP/HTTPS based redirect + SSL offload + Web Application Firewall (OWASP) solution </li>
+<li>Azure Load Balancer<br>Generic (port based) load balancer -&gt; often used for IaaS VM’s</li>
+</ul>
+<h2 id="Azure-API-Management"><a href="#Azure-API-Management" class="headerlink" title="Azure API Management"></a>Azure API Management</h2><p>The only service which is an actual API Gateway implementation is Azure API management. It includes caching, routing, security, documentation, logging and so on. It’s a comprehensive suite of features, and I’m planning to write a bunch of blog posts about it. So, stay tuned.</p>
+<p>One thing to consider is the pricing of Azure API management. It’s quite expensive with a start rate of about 670 dollars. If you want to do Global API management or VNET integration you will have to pick the Premium tier, which comes at 2700 dollar a month. So the key take away is that if you want to build a REST API on Functions you might have to give in some features or pay a little extra.</p>
+<p><img src="/images/serverless/costs.png"></p>
+<p>A best practice is to share the API management instance across a company. In this way you can manage all outbound API’s from one service. Also you are managing all clients inside one service, offboarding clients is way easier this way.</p>
+<p><img src="/images/serverless/announcement.png"><br><a href="https://www.youtube.com/watch?v=BoZimCedfq8&amp;t=39m58s" target="_blank" rel="noopener">Link to the Video</a></p>
+<p>On Ignite 2018, Microsoft announced an API Management Consumption based tier. This tier should be optimized to handle Serverless scenarios. So basically Microsoft confirms the need for API Gateway when building Serverless architectures.</p>
+<p>This consumption tier is now in private preview, hopefully it will be in public preview and later GA very soon. In the near future I will write some blog posts on:</p>
+<ul>
+<li>How to configure an API management instance via ARM and Azure DevOps</li>
+<li>How to add Azure Functions to API management via Azure DevOps.</li>
+<li>Building REST API’s on Azure Functions. Including features like:<ul>
+<li>Dependency injection</li>
+<li>Response caching</li>
+<li>Authentication</li>
+</ul>
+</li>
+</ul>
+<p>Stay tuned and happy coding.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/" data-id="cjog5uqyq000dy449avxf608c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Azure-API-management-Functions-API-Gateway/">Azure, API management, Functions, API Gateway.</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Secrets in Azure DevOps the bad parts
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/05/Azure-AD-Managed-Service-Identity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Azure AD Managed Service Identity</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-DevOps-Secrets-FoxIt-Azure-ResourceGroups/">Azure DevOps, Secrets, FoxIt, Azure, ResourceGroups.</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-AD-MSI-Mananged-Service-Identity/">Azure, AD, MSI, Mananged Service Identity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-API-Management/">Azure, API Management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-API-management-Functions-API-Gateway/">Azure, API management, Functions, API Gateway.</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-CosmosDb-TTL-Expire/">Azure, CosmosDb, TTL, Expire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-CosmosDb-UniqueKeys-PrimaryKey/">Azure, CosmosDb, UniqueKeys, PrimaryKey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-Entity-Framework-Core-EF-Core-Migrations-VSTS-Functions-V2-Dependency-Injection/">Azure, Entity Framework Core, EF Core, Migrations, VSTS, Functions V2, Dependency Injection.</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud-resilient-availability-zone/">cloud, resilient, availability, zone</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Azure-DevOps-Secrets-FoxIt-Azure-ResourceGroups/" style="font-size: 10px;">Azure DevOps, Secrets, FoxIt, Azure, ResourceGroups.</a> <a href="/tags/Azure-AD-MSI-Mananged-Service-Identity/" style="font-size: 10px;">Azure, AD, MSI, Mananged Service Identity</a> <a href="/tags/Azure-API-Management/" style="font-size: 10px;">Azure, API Management</a> <a href="/tags/Azure-API-management-Functions-API-Gateway/" style="font-size: 10px;">Azure, API management, Functions, API Gateway.</a> <a href="/tags/Azure-CosmosDb-TTL-Expire/" style="font-size: 10px;">Azure, CosmosDb, TTL, Expire</a> <a href="/tags/Azure-CosmosDb-UniqueKeys-PrimaryKey/" style="font-size: 10px;">Azure, CosmosDb, UniqueKeys, PrimaryKey</a> <a href="/tags/Azure-Entity-Framework-Core-EF-Core-Migrations-VSTS-Functions-V2-Dependency-Injection/" style="font-size: 10px;">Azure, Entity Framework Core, EF Core, Migrations, VSTS, Functions V2, Dependency Injection.</a> <a href="/tags/cloud-resilient-availability-zone/" style="font-size: 10px;">cloud, resilient, availability, zone</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">november 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">oktober 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">augustus 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">juli 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">juni 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/13/Azure-Api-Management-overview/">Azure API  Management overview</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/">Secrets in Azure DevOps the bad parts</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/19/Building-Serverless-APIs-in-Azure/">Building Serverless API&#39;s in Azure</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/05/Azure-AD-Managed-Service-Identity/">Azure AD Managed Service Identity</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/23/Azure-functions-V2-with-EF-Core/">Azure functions V2 with EF Core</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Dibran Mulder<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
