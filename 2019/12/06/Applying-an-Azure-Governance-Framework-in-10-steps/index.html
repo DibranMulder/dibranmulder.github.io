@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Applying an Azure Governance Framework in 10 steps | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Cloud Republic - Azure Governance Framework.  Every year RightScale, now Flexera, holds a survey to measure the current cloud challenges. This year just like in previous years Managing cloud spend and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Applying an Azure Governance Framework in 10 steps">
+<meta property="og:url" content="https://dibranmulder.github.io/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Cloud Republic - Azure Governance Framework.  Every year RightScale, now Flexera, holds a survey to measure the current cloud challenges. This year just like in previous years Managing cloud spend and">
+<meta property="og:locale">
+<meta property="og:image" content="https://dibranmulder.github.io/images/governance/framework.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/governance/subscriptions.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/governance/dta-prod.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/governance/azure-gov.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/governance/resource-group-example.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/governance/rbac-overview.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/governance/security-center.png">
+<meta property="article:published_time" content="2019-12-06T15:17:55.000Z">
+<meta property="article:modified_time" content="2020-09-21T14:45:28.389Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="Azure">
+<meta property="article:tag" content="Governance Framework">
+<meta property="article:tag" content="Compliance">
+<meta property="article:tag" content="Naming conventions">
+<meta property="article:tag" content="Resource groups">
+<meta property="article:tag" content="Policies">
+<meta property="article:tag" content="Blueprints">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dibranmulder.github.io/images/governance/framework.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Dibran&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://dibranmulder.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Applying-an-Azure-Governance-Framework-in-10-steps" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/" class="article-date">
+  <time datetime="2019-12-06T15:17:55.000Z" itemprop="datePublished">2019-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Applying an Azure Governance Framework in 10 steps
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure><img src="/images/governance/framework.png" /><figcaption style="font-style: italic; text-align: center;">Cloud Republic - Azure Governance Framework.</figcaption></figure>
+
+<p>Every year RightScale, now Flexera, holds a survey to measure the current cloud challenges. This year just like in previous years Managing cloud spend and applying governance were the top challenges companies face. This blogpost is to manage the governance challenge. It provides a simple but yet effective framework to apply cloud governance into your business.</p>
+<h1 id="1-Get-a-grip-on-your-subscriptions"><a href="#1-Get-a-grip-on-your-subscriptions" class="headerlink" title="1. Get a grip on your subscriptions"></a>1. Get a grip on your subscriptions</h1><figure><img style="width: 400px;" src="/images/governance/subscriptions.png" /><figcaption style="font-style: italic; text-align: center;">Azure account types</figcaption></figure>
+
+<p>It all starts with your Azure subscriptions. When creating an Azure tetant there are 4 ways of creating it.<br>If you choose to create one via Microsoft then you have 2 options, either the Pay-As-You-Go account type or an Enterprise Agreement.<br>If your organization it not a small or medium business then you will probably need an Enterprise Agreement. It offers you a way to easily create multiple subscriptions and create them accordingly to for instance your business value domains.</p>
+<p>The alternative is to choose either a direct on indirect Microsoft partner. These are so called Cloud Solution Providers. The CSP’s will get a kick back fee for your Azure consumption making it a interesting option for them to help you with your Azure needs. In return Microsoft expects that CSP’s will give a first line of support to their customers.</p>
+<figure><img style="width: 400px;" src="/images/governance/dta-prod.png" /><figcaption style="font-style: italic; text-align: center;">Azure subscriptions; dev, test, acceptance & production.</figcaption></figure>
+
+<p>It’s also wise to always create a separate production subscription or dependent on the size of your value domains also separate dev, test and acceptance subscriptions. For security and governance reasons later described in the Role based Access Control section, it is wise to separate production from dta. </p>
+<h2 id="To-conclude"><a href="#To-conclude" class="headerlink" title="To conclude"></a>To conclude</h2><p>Basically, the rules of thumb are:</p>
+<ol>
+<li>Only if you’re a really small company or start-up use a Pay-As-You-Go subscription.</li>
+<li>Use CSP subscriptions if you need a 3rd party to help you with 1st line of support questions.</li>
+<li>Use an Enterprise Agreement if your reasonable in size and want to negotiate with Microsoft regarding Azure prices.</li>
+</ol>
+<p>Secondly,</p>
+<ol>
+<li>Create multiple subscriptions for different value domains within your company.</li>
+<li>Create separate subscriptions for dev, test, acceptance and production workloads.</li>
+</ol>
+<p>For a detailed overview of Enterprise Agreement, CSP and Pay-As-You-Go subscriptions please visit <a target="_blank" rel="noopener" href="https://medium.com/@vunvulear/different-ways-of-buying-azure-services-pay-as-you-go-ea-direct-csp-indirect-csp-a563aa8cd89d">this blog</a>.</p>
+<h1 id="2-Apply-structure-with-Naming-conventions"><a href="#2-Apply-structure-with-Naming-conventions" class="headerlink" title="2. Apply structure with Naming conventions"></a>2. Apply structure with Naming conventions</h1><p>It sounds evident but it’s certainly not. Applying <strong>transparent</strong> and <strong>clear</strong> naming conventions is often forgotten or poorly implemented. Especially when there is no central organ within an organization that sees to it that the conventions are correctly applied. The importance of naming conventions can’t be overestimated. Without them Azure subscriptions quickly become a mess of unrelated, unregulatable resources. </p>
+<p>It’s very important that the naming conventions are consistent throughout the various subscriptions.<br>Often Infrastructure as Code (IAC) code, such as ARM templates or Azure CLI commands, is parameterized based on these conventions.<br>Its helps to <strong>reuse code</strong> and make <strong>fewer mistakes</strong>.</p>
+<p>A naming convention is often a composition of properties that describe the Azure resource.<br>One composition that I often use is the following:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env-company-businessunit-application-resourcetype-region-suffix</span><br></pre></td></tr></table></figure>
+
+<p>Its made up out of several critical properties, some that are also used within some naming conventions proposed by <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging">the Microsoft documentation</a>.</p>
+<table><tr><th>Property</th><th>Example</th><th>Abbreviation</th></tr><tr><td>Environment</td><td>Production</td><td>p</td></tr><tr><td>Company</td><td>Cloud Republic B.V.</td><td>clr</td></tr><tr><td>Business unit</td><td>Development</td><td>dev</td></tr><tr><td>Application</td><td>Customer Portal</td><td>csp</td></tr><tr><td>Resource type</td><td>Resource Group</td><td>rg</td></tr><tr><td>Region</td><td>West Europe</td><td>weu</td></tr><tr><td>Suffix</td><td>001</td><td>001</td></tr></table>
+
+<p><strong>Resulting in this name</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p-clr-dev-csp-rg-weu-001</span><br></pre></td></tr></table></figure>
+
+<p>Applying the same naming conventions throughout the whole organization can be very useful. Organizations often end up building tooling to automate development processes and workflows. Without a consistent and clear naming convention this can be very hard. Secondly having a consistent and clear naming convention can help to reduce security issues. For Ops-people it has to be clip and clear if the resource is a production one and if its vital to the organization. With the right naming its easier to categorize resources.</p>
+<h2 id="Some-generic-tips-for-composing-a-naming-convention"><a href="#Some-generic-tips-for-composing-a-naming-convention" class="headerlink" title="Some generic tips for composing a naming convention"></a>Some generic tips for composing a naming convention</h2><ol>
+<li>Start with the environment property because its often the only parameterized property. This reduces the need for string concatenation within IaC code.</li>
+<li>Use 3 or 4 letter abbreviations consistently throughout all properties.</li>
+<li>Use the resource abbreviations <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging#recommended-resource-type-prefixes">proposed by Microsoft</a>.</li>
+<li>Add a suffix because it may occur that a resource name is locked for a significant amount of time when its deleted.<ul>
+<li>This happened to me once when I tried to recreate an Azure Service Bus. The name was locked for 2 days.</li>
+</ul>
+</li>
+<li>Use all lower cases characters, <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/architecture/best-practices/resource-naming">there are some restrictions</a>.</li>
+<li>Don’t use special characters, only alphanumeric characters. Hyphen (-) excluded.</li>
+<li>Try to be unique<ul>
+<li>Some resource names, such as PaaS services with public endpoints or virtual machine DNS labels, have global scopes, which means that they must be unique across the entire Azure platform.</li>
+</ul>
+</li>
+</ol>
+<h1 id="3-Take-precautions-with-Blueprints-Policies"><a href="#3-Take-precautions-with-Blueprints-Policies" class="headerlink" title="3. Take precautions with Blueprints / Policies"></a>3. Take precautions with Blueprints / Policies</h1><figure><img src="/images/governance/azure-gov.png" style="width:600px" /><figcaption style="font-style: italic; text-align: center;">[Azure Governance Architecture](https://www.microsoft.com/en-us/us-partner-blog/2019/07/24/azure-governance)</figcaption></figure>
+
+<p>There are several ways to create Azure resources, namely via the Azure portal, ARM templates, Azure CLI or via Powershell. In all cases its very important that Azure resources are created in a controlled manner. We often see organizations struggling with compliance and governance, especially when an organization wants to get back in control after a period of experimenting and starting.</p>
+<p>Its very important to adopt the major DevOps practices to truely get back in control. Some practices that really relate to governance are the following.</p>
+<ol>
+<li>Version control</li>
+<li>Continuous integration</li>
+<li>Continuous delivery</li>
+<li>Infrastructure as Code</li>
+<li>Monitoring and logging</li>
+</ol>
+<p>These practices all point to a set of underlying principles, namely: traceability and accountability and the least access principle.</p>
+<h2 id="Traceability-and-accountability"><a href="#Traceability-and-accountability" class="headerlink" title="Traceability and accountability"></a>Traceability and accountability</h2><p><strong>Version control</strong> and CI/CD enables organizations to get in control of the artifacts that are being deployed in their cloud environment. With an DevOps platform like Azure Devops its very easy to setup source code repositories (with for instance Git) to take care of an organizations source code. Version control helps organizations to collaboratively work on code in a controlled way. </p>
+<p>With <strong>continuous integration</strong> organizations can continuously check the status of their code. Does the latest change negatively or positively impacted the quality of the code? With static code analysis and automated testing with for instance unit testing the quality of the code can be made deterministic. Did the unit test code coverage increase or decrease with the latest change? And did we have more or less compiler warnings?</p>
+<p>With <strong>continuous delivery</strong> organizations can continuously deploy their artifacts to a testing environment. Getting the feedback loop as quick as possible boosts the quality of an Agile development cycle. It enables testers to test a developers work earlier and also it enables product owners and stakeholders to provide feedback earlier. Lastly setting up a delivery pipeline to for instance Azure reduces the amount of deployment mistakes. Once the delivery pipeline is setup it should also work for production.</p>
+<p>With <strong>infrastructure as code (IaC)</strong> organizations can make sure that the created resources in Azure are consistent and reliable. IaC enables developers to specify the infrastructure needed for their applications in code. This can either be template like for instance an JSON ARM template, but it can also be a script with Azure CLI or Azure Powershell. It’s also possible to use cloud independent tools like Terraform, Ansible or Pulumi. In all cases automation accounts are used to create or update resources in Azure. Secondly within your DevOps platform, like Azure DevOps you can make sure that this IaC code is reviewed by at least 2 people and use Continuous delivery pipelines to execute the IaC code against your Azure subscriptions.</p>
+<p>With <strong>monitoring and logging</strong> organizations can get continuous feedback on the health, performance and reliability of their applications. With a good governance framework in place organizations will use the monitoring dashboards as a primary source of information for their production applications. When RBAC is taking care of developers are typically not authorized to sneak and peek into production. More on that in the least access principle.</p>
+<h2 id="Least-access-principle"><a href="#Least-access-principle" class="headerlink" title="Least access principle"></a>Least access principle</h2><p>One very important principle which is truely going to impact your business, both in a developers mindset way but also in a procedural way, is the <strong>least access principle</strong>. Basically it comes down to the fact that no developer has access to read or modify production related resources. DevOps-engineers should use monitoring and logging to get a sense of how table their production applications are running. With this measure we tackle two very important, namely: GPDR law and unintended production disorders.</p>
+<p>When DevOps-engineers can’t touch production and are obligated to work via the CI/CD pipelines and use monitoring then they are going to think different. Initially they might slow down but eventually they will test better and add better monitoring and logging to get insights into their applications. You don’t want your engineers to run blind and therefore implementing this measure requires true care. You can start with taking away their contributor rights and let them fix issues via the CI/CD pipeline.</p>
+<h3 id="Temporary-access-via-Privileged-Identity-Management"><a href="#Temporary-access-via-Privileged-Identity-Management" class="headerlink" title="Temporary access via Privileged Identity Management"></a>Temporary access via Privileged Identity Management</h3><p>Of course we understand that sometimes when a production issue occurs DevOps-engineers have to look into the Azure resources manually. Ideally this is not what you want since how do you know they don’t break other things? How do you know that they do not get access data privacy related data and so on. However sometimes its necessary, especially when the logging isn’t suffice.</p>
+<p>Azure Active Directory has a great feature for this scenario, its called Privileged Identity Management, short PIM. With PIM administrators can give <strong>just-in-time</strong> role assignments to DevOps-engineers. The role assignments can be <strong>time-bound</strong> so that the role assignments will be resigned after a given period of time. Secondly a very important feature for GPDR and the Dutch AVG privacy laws is the <strong>audit history</strong>. An admin can download an audit history for the temporary elevated privileges, this can be needed for audits regarding privacy and security.</p>
+<h2 id="So-what-are-Azure-Policy-and-Azure-Blueprints"><a href="#So-what-are-Azure-Policy-and-Azure-Blueprints" class="headerlink" title="So what are Azure Policy and Azure Blueprints?"></a>So what are Azure Policy and Azure Blueprints?</h2><p>So once you’ve setup the DevOps practices you can apply Azure policies and blueprints to further secure your Azure environment and ensure compliance. Policies are basically a set of rules to which an Azure resource has to comply. Think about tagging your Azure resources with costs center tags or maybe you want to enable SSL/TLS for all web traffic and disable plain Http encrypted traffic. You can enforce this with Azure Policy. </p>
+<p>Blueprints on the other hand are more a template sort of functionality. It enables organizations to define a way of setting up Azure resources, a default way of setting up for instance a SQL Server with a Web App. Complying to the set of rules defined by your organization, like for instance default SSL/TLS, always encrypted databases, integrated Active Directory authentication and so on. This helps to prevent that Azure resources are being created that do not comply to your policies.</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/devops/learn/what-is-devops">https://docs.microsoft.com/en-us/azure/devops/learn/what-is-devops</a><br><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/us-partner-blog/2019/07/24/azure-governance">https://www.microsoft.com/en-us/us-partner-blog/2019/07/24/azure-governance</a></p>
+<h1 id="4-Bring-logic-in-the-universe-with-Azure-Resource-Groups"><a href="#4-Bring-logic-in-the-universe-with-Azure-Resource-Groups" class="headerlink" title="4. Bring logic in the universe with Azure Resource Groups"></a>4. Bring logic in the universe with Azure Resource Groups</h1><figure><img src="/images/governance/resource-group-example.png" style="width:600px" /><figcaption style="font-style: italic; text-align: center">Azure Resource Groups example</figcaption></figure>
+
+<p>Setting up resource groups in Azure sounds like a next-next-finish exercise, however in practice it can be very difficult to come up with a clear and understandable setup of your resource groups. A rule of thumb that you can use is that <strong>a resource group should always be a single unit of deployment</strong>. In the example above I have tried to come up with a clear example.</p>
+<p>Let’s say you are building a portal. Its build with React and an ASP.net core backend. Ideally you want to be able to deploy the backend API separately from your front-end single page application. Its then fundamental to split those resources up into 2 separate resource groups. In the naming scheme we have used the following pattern: environment-company-production-resource-region-suffix, where the company, Cloud Republic is abbreviated to: clr and the product portal to: por and the financial module to: fin. </p>
+<p>With this resource groups are a logical set up Azure resources that are deployed as a single unit. <strong>Secondly resource groups are linked with their names to collectively form a product</strong>. This helps for instance Ops-engineers to determine to importance of the Azure resources and take the necessary steps.</p>
+<h1 id="5-Add-security-with-Role-based-Access-Control-RBAC"><a href="#5-Add-security-with-Role-based-Access-Control-RBAC" class="headerlink" title="5. Add security with Role based Access Control (RBAC)"></a>5. Add security with Role based Access Control (RBAC)</h1><figure><img src="/images/governance/rbac-overview.png" style="width:400px" /><figcaption style="font-style: italic; text-align: center;">[Azure - Role Bassed Access Control](https://docs.microsoft.com/en-us/azure/role-based-access-control/overview)</figcaption></figure>
+
+<p>One of the key pillars of any governance framework is an authorization / authentication framework. In Azure its tightly linked with Azure Active Directory and how that integrates with Azure resources. In essence there are 4 types of security principals namely: <strong>users</strong>, <strong>groups</strong>, <strong>service principals</strong> and <strong>managed identities</strong>. Those service principals are then <strong>assigned a role</strong>, typically: <strong>owner</strong>, <strong>contributor</strong> or <strong>reader</strong> to a specific scope. Let’s say a resource group or subscription.</p>
+<h2 id="Users-and-groups"><a href="#Users-and-groups" class="headerlink" title="Users and groups"></a>Users and groups</h2><p>Having a clear separation between production and dev/test workloads helps to arrange the right RBAC implementation. For dev and test subscription you might want to assign everyone the contributor role to the whole subscription. In acceptance workloads you might want to narrow down the role assignments to teams of DevOps-engineers being having reader role assignments to their resource groups. And in production you only want maybe first line of support engineers to have reader role assignments.</p>
+<p>When DevOps-engineers are assigned roles to certain Azure scopes its very important to create logical groups of users, and then assign the roles to those groups instead of to users directly. If an admin assigns roles directly to users it will quickly become a clumsy mess of role assignments, and people eventually will get access to the Azure resources which they should not get access to.</p>
+<h2 id="Managed-identities"><a href="#Managed-identities" class="headerlink" title="Managed identities"></a>Managed identities</h2><p>Managed identities are basically security principals that behave on behalf of applications. These managed identities and their role assignments should always be created through Infrastructure as Code. Redeploying applications should never break these identities. </p>
+<h2 id="Service-principals"><a href="#Service-principals" class="headerlink" title="Service principals"></a>Service principals</h2><p>Service principals on the other hand are Azure security principals that are used to connected other services to the Azure environment. Its often used to connect Azure Devops pipeliens to an Azure account. Its very important that these service principals do not become God accounts. Its a common mistake to allow the service principals on the whole subscription. One should always narrow the scope of such a service principals to the resource groups a team should have access to. Secondly the service principals will have access to production application. If a developer has access to the service principals via for instance Azure DevOps pipelines then the engineer basically has delegated production rights. Administrators therefore have to take care of the Azure DevOps roles and rights as well. The rule of thumb that we use alot is that every change has to be seen by 2 sets of eyes. So a DevOps-engineer should never be able to release anything into production without having an extra peer review. This especially counts for edits on the release pipelines, that’s why Yaml release pipelines are such a great feature.</p>
+<h1 id="6-Tag-your-resources-to-get-insights"><a href="#6-Tag-your-resources-to-get-insights" class="headerlink" title="6. Tag your resources to get insights"></a>6. Tag your resources to get insights</h1><p>Tagging resources can help to identify important properties of Azure resources. Its often used as a type of documentation for Azure resources. Most of the time a tag is correlated to either: accountability, costs or reliability, but other categories can be useful as well. With accountability tags we often try to answer questions like: Who created this resource? Who should we contact if anything happens? Which business unit is accountable? And additionally some tracability. For costs related tags we often try to answer questions like: Who is paying for the resource? Which budget does it relate to? And lastly with reliability tags we answers questions like: What is the expected uptime? Is this resource business critical? What needs to happen when a disaster happens?</p>
+<p>You can use the template below as a starting point (<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging]">copied from Microsoft</a>).</p>
+<table><tr><th>Accountability</th><th>Costs</th><th>Reliablity</th></tr><tr><td>Start date of the project</td><td>Budget required/approved</td><td>Disaster recovery</td></tr><tr><td>End date of the project</td><td>Cost center</td><td>Service class</td></tr><tr><td>Application name</td><td>Environment deployment</td><td></td></tr><tr><td>Approver name</td><td></td><td></td></tr><tr><td>Requester name</td><td></td><td></td></tr><tr><td>Owner name</td><td></td><td></td></tr><tr><td>Business unit</td><td></td><td></td></tr></table>
+
+<h1 id="7-Monitor-with-Azure-security-center"><a href="#7-Monitor-with-Azure-security-center" class="headerlink" title="7. Monitor with Azure security center"></a>7. Monitor with Azure security center</h1><p>One way of monitoring the security of your Azure resources is with Azure security center. It continuously checks all your Azure resources and will come up with a secure score, recommendations, alerts and possible measures. It’s a costly feature but if security is a top priority for your organization then it can be very helpful. </p>
+<figure><img src="/images/governance/security-center.png" /><figcaption style="font-style: italic; text-align: center;">Azure Security Center</figcaption></figure>
+
+<h2 id="Alerts"><a href="#Alerts" class="headerlink" title="Alerts"></a>Alerts</h2><p>bla</p>
+<h1 id="8-Automate-your-work-with-Azure-Automation"><a href="#8-Automate-your-work-with-Azure-Automation" class="headerlink" title="8. Automate your work with Azure Automation"></a>8. Automate your work with Azure Automation</h1><p>One helpful tool to apply governance measures at scale can be Azure Automation. It can help in several scenario’s ranging from adding tags to all Azure resources to fixing security center findings like outdated VM’s for instance. </p>
+<h1 id="9-Lock-your-viable-resources"><a href="#9-Lock-your-viable-resources" class="headerlink" title="9. Lock your viable resources"></a>9. Lock your viable resources</h1><p>A quick win for organizations who start to implement the governance framework is to enable locking. With locking you can prevent developers or ops-engineers to accidently remove or edit Azure resources. This can be very helpful in securing critical production workloads. Within Azure there are 2 types of locks, namely: CanNotDelete and ReadOnly.</p>
+<h2 id="CanNotDelete"><a href="#CanNotDelete" class="headerlink" title="CanNotDelete"></a>CanNotDelete</h2><p>CanNotDelete means that an authorized user is still able to read and modify the resource. However the user is not able to delete the resource without explicitly removing the lock first.</p>
+<h2 id="ReadOnly"><a href="#ReadOnly" class="headerlink" title="ReadOnly"></a>ReadOnly</h2><p>ReadOnly means that an authorized user is able to read the resource but is not able to change or delete the resource. Effectively it restricts all users even admins to the Reader role.</p>
+<h2 id="To-conclude-1"><a href="#To-conclude-1" class="headerlink" title="To conclude"></a>To conclude</h2><p>In my opinion resource locking is not something organizations have to implement in an ideal situation. When production workloads are separated in production subscriptions, and when RBAC is implement correctly then the need for Locking resources is minimal. However when organizations are in the beginning of applying this or any governance framework it can be a helpful instrument to prevent mistakes or to ensure business continuity.</p>
+<!-- ### An example of locking a App Service via ARM
+```json
+{
+    "type": "Microsoft.Web/sites/providers/locks",
+    "apiVersion": "2016-09-01",
+    "name": "[concat(variables('siteName'), '/Microsoft.Authorization/siteLock')]",
+    "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', variables('siteName'))]"
+    ],
+    "properties": {
+        "level": "CanNotDelete",
+        "notes": "Site should not be deleted."
+    }
+}
+``` -->
+
+<h1 id="Further-reading"><a href="#Further-reading" class="headerlink" title="Further reading"></a>Further reading</h1><table><tr><th>Topic</th><th>Resource</th></tr><tr><td>Azure Accounts / Enterprise agreement</td><td>https://docs.microsoft.com/azure/azure-resource-manager/resourcemanager-subscription-governance</td></tr><tr><td>Naming conventions</td><td>https://docs.microsoft.com/azure/guidance/guidance-naming-conventions</td></tr><tr><td>Azure Blueprints</td><td>https://docs.microsoft.com/en-us/azure/governance/blueprints/overview</td></tr><tr><td>Azure policies</td><td>https://docs.microsoft.com/en-us/azure/governance/policy/overview</td></tr><tr><td>Resource tags</td><td>https://docs.microsoft.com/azure/azure-resource-manager/resourcegroup-using-tags</td></tr><tr><td>Resource groups</td><td>https://docs.microsoft.com/azure/azure-resource-manager/resourcegroup-overview</td></tr><tr><td>RBAC</td><td>https://docs.microsoft.com/azure/active-directory/role-based-accesscontrol-what-is</td></tr><tr><td>Azure locks</td><td>https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-lock-resources</td></tr><tr><td>Azure Automation</td><td>https://docs.microsoft.com/azure/automation/automation-intro</td></tr><tr><td>Security Center</td><td>https://docs.microsoft.com/azure/security-center/security-center-intro</td></tr></table>
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>A big inspiration for this blog comes from this article.<br><a target="_blank" rel="noopener" href="https://novacontext.com/azure-strategy-and-implementation">https://novacontext.com/azure-strategy-and-implementation</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dibranmulder.github.io/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/" data-id="ckfdlvwy9000vfk492oxggrv3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Azure/" rel="tag">Azure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blueprints/" rel="tag">Blueprints</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Compliance/" rel="tag">Compliance</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Governance-Framework/" rel="tag">Governance Framework</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Naming-conventions/" rel="tag">Naming conventions</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Policies/" rel="tag">Policies</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Resource-groups/" rel="tag">Resource groups</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/22/Improving-your-Azure-Seach-performance/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Improving your Azure Cognitive Seach performance
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/06/Running-an-OpenAI-Gym-on-Windows-with-WSL/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Running an OpenAI Gym on Windows with WSL</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AD/" rel="tag">AD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API-Gateway/" rel="tag">API Gateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API-Management/" rel="tag">API Management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API-management/" rel="tag">API management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autonoom-rijden/" rel="tag">Autonoom rijden</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Availability-Zone/" rel="tag">Availability Zone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure/" rel="tag">Azure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-DevOps/" rel="tag">Azure DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-Functions/" rel="tag">Azure Functions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-Search/" rel="tag">Azure Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/" rel="tag">Azure, PaaS, Serverless, Teams, Agile, Versioning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blueprints/" rel="tag">Blueprints</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cache/" rel="tag">Cache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caesar/" rel="tag">Caesar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compliance/" rel="tag">Compliance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CosmosDb/" rel="tag">CosmosDb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependency-Injection/" rel="tag">Dependency Injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EF-Core/" rel="tag">EF Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entity-Framework-Core/" rel="tag">Entity Framework Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functions/" rel="tag">Functions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functions-V2/" rel="tag">Functions V2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Governance-Framework/" rel="tag">Governance Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logic-Apps/" rel="tag">Logic Apps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MSI/" rel="tag">MSI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Migrations/" rel="tag">Migrations</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Naming-conventions/" rel="tag">Naming conventions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Policies/" rel="tag">Policies</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resilient/" rel="tag">Resilient</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resource-groups/" rel="tag">Resource groups</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/" rel="tag">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Self-driving-cars/" rel="tag">Self driving cars</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SendGrid/" rel="tag">SendGrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service-Health/" rel="tag">Service Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Table-Storage/" rel="tag">Table Storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/" rel="tag">Tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tesla/" rel="tag">Tesla</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSTS/" rel="tag">VSTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Woocommerce/" rel="tag">Woocommerce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wordpress/" rel="tag">Wordpress</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AD/" style="font-size: 10px;">AD</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/API-Gateway/" style="font-size: 10px;">API Gateway</a> <a href="/tags/API-Management/" style="font-size: 12.5px;">API Management</a> <a href="/tags/API-management/" style="font-size: 10px;">API management</a> <a href="/tags/Autonoom-rijden/" style="font-size: 10px;">Autonoom rijden</a> <a href="/tags/Availability-Zone/" style="font-size: 10px;">Availability Zone</a> <a href="/tags/Azure/" style="font-size: 20px;">Azure</a> <a href="/tags/Azure-DevOps/" style="font-size: 10px;">Azure DevOps</a> <a href="/tags/Azure-Functions/" style="font-size: 12.5px;">Azure Functions</a> <a href="/tags/Azure-Search/" style="font-size: 10px;">Azure Search</a> <a href="/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/" style="font-size: 10px;">Azure, PaaS, Serverless, Teams, Agile, Versioning</a> <a href="/tags/Blueprints/" style="font-size: 10px;">Blueprints</a> <a href="/tags/Cache/" style="font-size: 10px;">Cache</a> <a href="/tags/Caesar/" style="font-size: 10px;">Caesar</a> <a href="/tags/Compliance/" style="font-size: 10px;">Compliance</a> <a href="/tags/CosmosDb/" style="font-size: 15px;">CosmosDb</a> <a href="/tags/Dependency-Injection/" style="font-size: 10px;">Dependency Injection</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/EF-Core/" style="font-size: 10px;">EF Core</a> <a href="/tags/Entity-Framework-Core/" style="font-size: 10px;">Entity Framework Core</a> <a href="/tags/Functions/" style="font-size: 17.5px;">Functions</a> <a href="/tags/Functions-V2/" style="font-size: 10px;">Functions V2</a> <a href="/tags/Governance-Framework/" style="font-size: 10px;">Governance Framework</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logic-Apps/" style="font-size: 12.5px;">Logic Apps</a> <a href="/tags/MSI/" style="font-size: 10px;">MSI</a> <a href="/tags/Migrations/" style="font-size: 10px;">Migrations</a> <a href="/tags/Naming-conventions/" style="font-size: 10px;">Naming conventions</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/Policies/" style="font-size: 10px;">Policies</a> <a href="/tags/Resilient/" style="font-size: 10px;">Resilient</a> <a href="/tags/Resource-groups/" style="font-size: 10px;">Resource groups</a> <a href="/tags/SQL-Server/" style="font-size: 10px;">SQL Server</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Self-driving-cars/" style="font-size: 10px;">Self driving cars</a> <a href="/tags/SendGrid/" style="font-size: 10px;">SendGrid</a> <a href="/tags/Service-Health/" style="font-size: 10px;">Service Health</a> <a href="/tags/Table-Storage/" style="font-size: 10px;">Table Storage</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Tesla/" style="font-size: 10px;">Tesla</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/VSTS/" style="font-size: 10px;">VSTS</a> <a href="/tags/WSL/" style="font-size: 10px;">WSL</a> <a href="/tags/Woocommerce/" style="font-size: 10px;">Woocommerce</a> <a href="/tags/Wordpress/" style="font-size: 12.5px;">Wordpress</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">september 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">december 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">september 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">augustus 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">juni 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">mei 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">april 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">maart 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">februari 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">januari 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">december 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">november 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">oktober 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">augustus 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">juli 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">juni 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/22/Improving-your-Azure-Seach-performance/">Improving your Azure Cognitive Seach performance</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/">Applying an Azure Governance Framework in 10 steps</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/06/Running-an-OpenAI-Gym-on-Windows-with-WSL/">Running an OpenAI Gym on Windows with WSL</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/23/Sending-e-mails-with-SendGrid-and-Azure-Functions/">Sending e-mails with SendGrid and Azure Functions</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/16/Autonoom-rijden/">Autonoom rijden</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Dibran Mulder<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Dibran&#39;s Blog</title>
+  <icon>https://dibranmulder.github.io/icon.png</icon>
+  <subtitle>Cloud, Modern web technologies, Microsoft, security and more</subtitle>
+  <link href="https://dibranmulder.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://dibranmulder.github.io/"/>
+  <updated>2020-10-15T14:36:16.751Z</updated>
+  <id>https://dibranmulder.github.io/</id>
+  
+  <author>
+    <name>Dibran Mulder</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Improving your Azure Cognitive Seach performance</title>
+    <link href="https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Seach-performance/"/>
+    <id>https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Seach-performance/</id>
+    <published>2020-09-21T22:00:00.000Z</published>
+    <updated>2020-10-15T14:36:16.751Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;It can be a quite a struggle to really understand the in and outs of Azure Search and how search results are scored and how scoring</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Azure Search" scheme="https://dibranmulder.github.io/tags/Azure-Search/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Applying an Azure Governance Framework in 10 steps</title>
+    <link href="https://dibranmulder.github.io/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/"/>
+    <id>https://dibranmulder.github.io/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/</id>
+    <published>2019-12-06T15:17:55.000Z</published>
+    <updated>2020-09-21T14:45:28.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;figure&gt;&lt;img src=&quot;/images/governance/framework.png&quot; /&gt;&lt;figcaption style=&quot;font-style: italic; text-align: center;&quot;&gt;Cloud Republic - Azure</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Governance Framework" scheme="https://dibranmulder.github.io/tags/Governance-Framework/"/>
+    
+    <category term="Compliance" scheme="https://dibranmulder.github.io/tags/Compliance/"/>
+    
+    <category term="Naming conventions" scheme="https://dibranmulder.github.io/tags/Naming-conventions/"/>
+    
+    <category term="Resource groups" scheme="https://dibranmulder.github.io/tags/Resource-groups/"/>
+    
+    <category term="Policies" scheme="https://dibranmulder.github.io/tags/Policies/"/>
+    
+    <category term="Blueprints" scheme="https://dibranmulder.github.io/tags/Blueprints/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Running an OpenAI Gym on Windows with WSL</title>
+    <link href="https://dibranmulder.github.io/2019/09/06/Running-an-OpenAI-Gym-on-Windows-with-WSL/"/>
+    <id>https://dibranmulder.github.io/2019/09/06/Running-an-OpenAI-Gym-on-Windows-with-WSL/</id>
+    <published>2019-09-06T14:17:55.000Z</published>
+    <updated>2020-09-22T06:58:59.605Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Recently, I have been playing with Artifical Intelligence a little bit. I want to take on this subject a little bit more serious and I</summary>
+        
+      
+    
+    
+    
+    
+    <category term="AI" scheme="https://dibranmulder.github.io/tags/AI/"/>
+    
+    <category term="OpenAI" scheme="https://dibranmulder.github.io/tags/OpenAI/"/>
+    
+    <category term="WSL" scheme="https://dibranmulder.github.io/tags/WSL/"/>
+    
+    <category term="Linux" scheme="https://dibranmulder.github.io/tags/Linux/"/>
+    
+    <category term="Tensorflow" scheme="https://dibranmulder.github.io/tags/Tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sending e-mails with SendGrid and Azure Functions</title>
+    <link href="https://dibranmulder.github.io/2019/08/23/Sending-e-mails-with-SendGrid-and-Azure-Functions/"/>
+    <id>https://dibranmulder.github.io/2019/08/23/Sending-e-mails-with-SendGrid-and-Azure-Functions/</id>
+    <published>2019-08-23T10:44:16.000Z</published>
+    <updated>2020-09-21T14:45:28.396Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;In this blogpost I’ll show how to send e-mails with SendGrid and Azure Functions.&lt;br&gt;The goal is to send an email like this, stating in</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure Functions" scheme="https://dibranmulder.github.io/tags/Azure-Functions/"/>
+    
+    <category term="SendGrid" scheme="https://dibranmulder.github.io/tags/SendGrid/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Autonoom rijden</title>
+    <link href="https://dibranmulder.github.io/2019/08/16/Autonoom-rijden/"/>
+    <id>https://dibranmulder.github.io/2019/08/16/Autonoom-rijden/</id>
+    <published>2019-08-15T22:00:00.000Z</published>
+    <updated>2020-09-22T06:59:26.609Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;em&gt;Dibran over Artificial Intelligence&lt;/em&gt;.&lt;br&gt;Dit is de eerste blog in de serie: “Dibran over Artificial Intelligence”, een serie</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Self driving cars" scheme="https://dibranmulder.github.io/tags/Self-driving-cars/"/>
+    
+    <category term="Autonoom rijden" scheme="https://dibranmulder.github.io/tags/Autonoom-rijden/"/>
+    
+    <category term="Tesla" scheme="https://dibranmulder.github.io/tags/Tesla/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Learn CosmosDb in 27 pictures</title>
+    <link href="https://dibranmulder.github.io/2019/06/18/Learn-CosmosDb-in-20-pictures/"/>
+    <id>https://dibranmulder.github.io/2019/06/18/Learn-CosmosDb-in-20-pictures/</id>
+    <published>2019-06-18T12:33:56.000Z</published>
+    <updated>2020-09-21T14:45:28.393Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;The Azure CosmosDb team published a series of cartoons on their &lt;a href=&quot;https://twitter.com/AzureCosmosDB&quot;&gt;twitter account&lt;/a&gt; to</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="CosmosDb" scheme="https://dibranmulder.github.io/tags/CosmosDb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Locally testing Azure Functions</title>
+    <link href="https://dibranmulder.github.io/2019/05/20/Testing-time-triggered-Azure-Functions/"/>
+    <id>https://dibranmulder.github.io/2019/05/20/Testing-time-triggered-Azure-Functions/</id>
+    <published>2019-05-20T11:24:46.000Z</published>
+    <updated>2020-09-21T14:45:28.396Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Azure Functions with for instance TimeTriggers or ServiceBusTriggers can be difficult to test. Especially when you’re trying not to</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure Functions" scheme="https://dibranmulder.github.io/tags/Azure-Functions/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Versioning with Azure PaaS and Serverless</title>
+    <link href="https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/"/>
+    <id>https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/</id>
+    <published>2019-04-16T12:45:39.000Z</published>
+    <updated>2020-09-21T14:45:28.397Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Working with multiple teams on a big microservices architecture can be a real struggle. What I often see is that teams are responsible</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure, PaaS, Serverless, Teams, Agile, Versioning" scheme="https://dibranmulder.github.io/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Migrating Azure Table Storage to SQL with Azure Logic Apps</title>
+    <link href="https://dibranmulder.github.io/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/"/>
+    <id>https://dibranmulder.github.io/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/</id>
+    <published>2019-03-22T08:36:42.000Z</published>
+    <updated>2020-09-21T14:45:28.394Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;I’ve created an App that uses Azure Table Storage as a backing store. At first this looked like the right decision but after a while I</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Logic Apps" scheme="https://dibranmulder.github.io/tags/Logic-Apps/"/>
+    
+    <category term="Table Storage" scheme="https://dibranmulder.github.io/tags/Table-Storage/"/>
+    
+    <category term="SQL Server" scheme="https://dibranmulder.github.io/tags/SQL-Server/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Building a Web Scraper in Azure</title>
+    <link href="https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/"/>
+    <id>https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/</id>
+    <published>2019-02-15T14:44:40.000Z</published>
+    <updated>2020-09-21T14:45:49.683Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Building a web scraper is pretty hard. Doing it in Azure is harder. Utilizing Serverless and PaaS services is challenging. I don’t want</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Functions" scheme="https://dibranmulder.github.io/tags/Functions/"/>
+    
+    <category term="Logic Apps" scheme="https://dibranmulder.github.io/tags/Logic-Apps/"/>
+    
+    <category term="Wordpress" scheme="https://dibranmulder.github.io/tags/Wordpress/"/>
+    
+    <category term="Docker" scheme="https://dibranmulder.github.io/tags/Docker/"/>
+    
+    <category term="TypeScript" scheme="https://dibranmulder.github.io/tags/TypeScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Using Wordpress / Woocommerce in Serverless Azure</title>
+    <link href="https://dibranmulder.github.io/2019/01/25/Using-Wordpress-in-Serverless-Azure/"/>
+    <id>https://dibranmulder.github.io/2019/01/25/Using-Wordpress-in-Serverless-Azure/</id>
+    <published>2019-01-25T08:12:18.000Z</published>
+    <updated>2020-09-21T14:45:28.397Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Sometimes Wordpress isn’t that bad. When for instance you’re building a SEO optimized landing page for a custom made tool and you don’t</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Functions" scheme="https://dibranmulder.github.io/tags/Functions/"/>
+    
+    <category term="Wordpress" scheme="https://dibranmulder.github.io/tags/Wordpress/"/>
+    
+    <category term="Woocommerce" scheme="https://dibranmulder.github.io/tags/Woocommerce/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure Functions Http Response caching</title>
+    <link href="https://dibranmulder.github.io/2019/01/14/Azure-Functions-Http-Response-caching/"/>
+    <id>https://dibranmulder.github.io/2019/01/14/Azure-Functions-Http-Response-caching/</id>
+    <published>2019-01-14T13:06:13.000Z</published>
+    <updated>2020-09-21T14:45:28.391Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;As you might know its a &lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Functions" scheme="https://dibranmulder.github.io/tags/Functions/"/>
+    
+    <category term="Cache" scheme="https://dibranmulder.github.io/tags/Cache/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure API Management ARM Cheat sheet</title>
+    <link href="https://dibranmulder.github.io/2018/12/19/Azure-API-Management-ARM-Cheatsheet/"/>
+    <id>https://dibranmulder.github.io/2018/12/19/Azure-API-Management-ARM-Cheatsheet/</id>
+    <published>2018-12-19T09:09:25.000Z</published>
+    <updated>2020-09-21T14:45:28.390Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Deploying an API Management instance via ARM is complicated. I’ve created a cheat sheet to help you out.&lt;br&gt;Alot is copied from a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="API Management" scheme="https://dibranmulder.github.io/tags/API-Management/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure API  Management overview</title>
+    <link href="https://dibranmulder.github.io/2018/11/13/Azure-Api-Management-overview/"/>
+    <id>https://dibranmulder.github.io/2018/11/13/Azure-Api-Management-overview/</id>
+    <published>2018-11-13T15:43:45.000Z</published>
+    <updated>2020-09-21T14:45:49.683Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Azure API Management is a jungle of configurations, options and possibilities. The documentation is not always that clear and sometimes</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="API Management" scheme="https://dibranmulder.github.io/tags/API-Management/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Secrets in Azure DevOps the bad parts</title>
+    <link href="https://dibranmulder.github.io/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/"/>
+    <id>https://dibranmulder.github.io/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/</id>
+    <published>2018-10-25T10:30:57.000Z</published>
+    <updated>2020-09-21T14:45:28.395Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Storing secrets inside your build and release pipeline variables is a bad practise and Microsoft advises not to use it, but use KeyVault</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure DevOps" scheme="https://dibranmulder.github.io/tags/Azure-DevOps/"/>
+    
+    <category term="Security" scheme="https://dibranmulder.github.io/tags/Security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Building Serverless API&#39;s in Azure</title>
+    <link href="https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/"/>
+    <id>https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/</id>
+    <published>2018-10-19T13:44:40.000Z</published>
+    <updated>2020-09-21T14:45:28.393Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Functions" scheme="https://dibranmulder.github.io/tags/Functions/"/>
+    
+    <category term="API management" scheme="https://dibranmulder.github.io/tags/API-management/"/>
+    
+    <category term="API Gateway" scheme="https://dibranmulder.github.io/tags/API-Gateway/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AD Managed Service Identity</title>
+    <link href="https://dibranmulder.github.io/2018/10/05/Azure-AD-Managed-Service-Identity/"/>
+    <id>https://dibranmulder.github.io/2018/10/05/Azure-AD-Managed-Service-Identity/</id>
+    <published>2018-10-05T15:09:54.000Z</published>
+    <updated>2020-09-21T14:45:28.390Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;What-is-Azure-AD-Managed-Service-Identity-MSI&quot;&gt;&lt;a href=&quot;#What-is-Azure-AD-Managed-Service-Identity-MSI&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="AD" scheme="https://dibranmulder.github.io/tags/AD/"/>
+    
+    <category term="MSI" scheme="https://dibranmulder.github.io/tags/MSI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure functions V2 with EF Core</title>
+    <link href="https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/"/>
+    <id>https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/</id>
+    <published>2018-08-23T13:48:30.000Z</published>
+    <updated>2020-09-21T14:45:28.392Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Last week I was trying to build an API on top of Azure Functions with a backing SQL database. This sounds like a pretty easy task</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Entity Framework Core" scheme="https://dibranmulder.github.io/tags/Entity-Framework-Core/"/>
+    
+    <category term="EF Core" scheme="https://dibranmulder.github.io/tags/EF-Core/"/>
+    
+    <category term="Migrations" scheme="https://dibranmulder.github.io/tags/Migrations/"/>
+    
+    <category term="VSTS" scheme="https://dibranmulder.github.io/tags/VSTS/"/>
+    
+    <category term="Functions V2" scheme="https://dibranmulder.github.io/tags/Functions-V2/"/>
+    
+    <category term="Dependency Injection" scheme="https://dibranmulder.github.io/tags/Dependency-Injection/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure Service Health</title>
+    <link href="https://dibranmulder.github.io/2018/08/20/Azure-Service-Health/"/>
+    <id>https://dibranmulder.github.io/2018/08/20/Azure-Service-Health/</id>
+    <published>2018-08-20T14:13:53.000Z</published>
+    <updated>2020-09-21T14:45:28.391Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;The Azure cloud provides data redundancy, global data centers, disaster recovery, SLA’s, so you would easily forget that incidents can</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Service Health" scheme="https://dibranmulder.github.io/tags/Service-Health/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unique keys in Azure Cosmos DB</title>
+    <link href="https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/"/>
+    <id>https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/</id>
+    <published>2018-07-03T14:06:31.000Z</published>
+    <updated>2020-09-21T14:45:28.397Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;NoSQL databases often don’t have support for database constraints. It doesn’t make sense to constraint since the data is schemaless and</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="CosmosDb" scheme="https://dibranmulder.github.io/tags/CosmosDb/"/>
+    
+  </entry>
+  
+</feed>

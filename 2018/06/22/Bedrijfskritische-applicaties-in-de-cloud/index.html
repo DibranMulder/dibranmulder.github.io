@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -13,24 +13,32 @@
   gtag('config', 'UA-30986898-2');
 </script>
 
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
   
   <title>Bedrijfskritische applicaties in de cloud | Dibran&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Bedrijfskritische applicaties bouwen op een cloud platform als Microsoft Azure is nog niet zo makkelijk als het lijkt. De keuzes die developers en architecten maken kunnen enorme impact hebben op de c">
-<meta name="keywords" content="cloud, resilient, availability, zone">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bedrijfskritische applicaties in de cloud">
-<meta property="og:url" content="http://dibranmulder.github.io/2018/06/22/Bedrijfskritische-applicaties-in-de-cloud/index.html">
+<meta property="og:url" content="https://dibranmulder.github.io/2018/06/22/Bedrijfskritische-applicaties-in-de-cloud/index.html">
 <meta property="og:site_name" content="Dibran&#39;s Blog">
 <meta property="og:description" content="Bedrijfskritische applicaties bouwen op een cloud platform als Microsoft Azure is nog niet zo makkelijk als het lijkt. De keuzes die developers en architecten maken kunnen enorme impact hebben op de c">
-<meta property="og:locale" content="NL">
-<meta property="og:image" content="http://dibranmulder.github.io/images/azure%20regions.png">
-<meta property="og:image" content="http://dibranmulder.github.io/images/azure-regional-architecture.png">
-<meta property="og:updated_time" content="2018-11-13T18:36:02.066Z">
+<meta property="og:locale">
+<meta property="og:image" content="https://dibranmulder.github.io/images/azure%20regions.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/azure-regional-architecture.png">
+<meta property="article:published_time" content="2018-06-22T07:12:39.000Z">
+<meta property="article:modified_time" content="2020-09-21T14:45:28.392Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="Resilient">
+<meta property="article:tag" content="Availability Zone">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bedrijfskritische applicaties in de cloud">
-<meta name="twitter:description" content="Bedrijfskritische applicaties bouwen op een cloud platform als Microsoft Azure is nog niet zo makkelijk als het lijkt. De keuzes die developers en architecten maken kunnen enorme impact hebben op de c">
-<meta name="twitter:image" content="http://dibranmulder.github.io/images/azure%20regions.png">
+<meta name="twitter:image" content="https://dibranmulder.github.io/images/azure%20regions.png">
   
     <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
   
@@ -40,9 +48,15 @@
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"></head>
+
 <body>
   <div id="container">
     <div id="wrap">
@@ -53,10 +67,6 @@
       <h1 id="logo-wrap">
         <a href="/" id="logo">Dibran&#39;s Blog</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">Cloud, Modern web technologies, Microsoft, security and more</a>
-        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -75,13 +85,13 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://dibranmulder.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://dibranmulder.github.io"></form>
       </div>
     </div>
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Bedrijfskritische-applicaties-in-de-cloud" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-Bedrijfskritische-applicaties-in-de-cloud" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/22/Bedrijfskritische-applicaties-in-de-cloud/" class="article-date">
   <time datetime="2018-06-22T07:12:39.000Z" itemprop="datePublished">2018-06-22</time>
@@ -106,12 +116,14 @@
         <p>Bedrijfskritische applicaties bouwen op een cloud platform als Microsoft Azure is nog niet zo makkelijk als het lijkt. De keuzes die developers en architecten maken kunnen enorme impact hebben op de continuiteit van uw business. </p>
 <h1 id="Storingen"><a href="#Storingen" class="headerlink" title="Storingen"></a>Storingen</h1><p>Elke Cloud dienst heeft te maken met storingen. Deze storingen kunnen voorkomen door hardware falen of door softwarematige storingen. In beide gevallen heeft dit direct impact op de continuiteit van de applicaties die u heeft draaien in de betreffende regio.</p>
 <blockquote>
-<p>Storingen van Cloud diensten kun je vaak terug vinden op hun status pagina’s.<br><a href="https://azure.microsoft.com/status" target="_blank" rel="noopener">https://azure.microsoft.com/status</a><br><a href="https://status.aws.amazon.com/" target="_blank" rel="noopener">https://status.aws.amazon.com/</a></p>
+<p>Storingen van Cloud diensten kun je vaak terug vinden op hun status pagina’s.<br><a target="_blank" rel="noopener" href="https://azure.microsoft.com/status">https://azure.microsoft.com/status</a><br><a target="_blank" rel="noopener" href="https://status.aws.amazon.com/">https://status.aws.amazon.com/</a></p>
 </blockquote>
 <p>Deze storingen zijn jammer genoeg niet te voorkomen en hier hadden we vroeger ook al last van met onze eigen Virtual Private Services of Dedicated Rack Space. Maar wat nu als uw applicatie echt kritisch is? Hoe kunt u uw applicatie zo ontwerpen dat er sprake is van maximale availability and resilence?</p>
-<h1 id="Azure-Regions-en-Availability-Zones"><a href="#Azure-Regions-en-Availability-Zones" class="headerlink" title="Azure Regions en Availability Zones"></a>Azure Regions en Availability Zones</h1><p><img src="/images/azure regions.png"><br>Azure heeft momenteel <a href="https://azure.microsoft.com/en-us/global-infrastructure/regions/" target="_blank" rel="noopener">40 regio’s</a> beschikbaar en er zijn er 12 aangekondigd, waaronder de meest recent aangekondigde Norway East en Norway West.</p>
+<h1 id="Azure-Regions-en-Availability-Zones"><a href="#Azure-Regions-en-Availability-Zones" class="headerlink" title="Azure Regions en Availability Zones"></a>Azure Regions en Availability Zones</h1><img src="/images/azure regions.png" />
+Azure heeft momenteel [40 regio's](https://azure.microsoft.com/en-us/global-infrastructure/regions/) beschikbaar en er zijn er 12 aangekondigd, waaronder de meest recent aangekondigde Norway East en Norway West.
+
 <p>Veel mensen denken dat een Azure regio gelijk staat aan 1 datacenter maar dit is zeker niet het geval. In feite zijn het een set van datacenters die samen een regio vormen. Sommige regio’s zoals France central bevatten al 3 datacenters die fysiek meerdere kilometers van elkaar gescheiden zijn. Deze datacenters hebben allemaal een eigen elektriciteits- en wateraansluiting en overige voorzieningen waardoor een failure van 1 datacenter niet direct betekent dat de regio unavailable wordt.</p>
-<p>Maar hoe weet je nou welke applicaties van jou draaien in welke datacenters? Microsoft heeft dat met opzet geabstraheerd voor zijn gebruikers. Het is de bedoeling dat meer regio’s meer dan 3 datacenters krijgen waardoor ze automatisch een <a href="https://docs.microsoft.com/en-us/azure/availability-zones/az-overview" target="_blank" rel="noopener">availability zone</a> worden. Momenteel hebben alleen Central US en France Central support voor Availability zones en zijn er nog 3 in preview.</p>
+<p>Maar hoe weet je nou welke applicaties van jou draaien in welke datacenters? Microsoft heeft dat met opzet geabstraheerd voor zijn gebruikers. Het is de bedoeling dat meer regio’s meer dan 3 datacenters krijgen waardoor ze automatisch een <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/availability-zones/az-overview">availability zone</a> worden. Momenteel hebben alleen Central US en France Central support voor Availability zones en zijn er nog 3 in preview.</p>
 <ul>
 <li>Central US</li>
 <li>France Central</li>
@@ -119,9 +131,11 @@
 <li>West Europe (Preview)</li>
 <li>Southeast Asia (Preview)</li>
 </ul>
-<h2 id="Availability-zone"><a href="#Availability-zone" class="headerlink" title="Availability zone"></a>Availability zone</h2><p><img src="/images/azure-regional-architecture.png"><br>Er is sprake van een availability zone als een Azure regio meerdere fysiek gescheiden datacenters heeft. Zoals eerder gezegd hebben deze datacenters een eigen elektriciteits-, cooling- en netwerkvoorziening. Maar wat houdt zo’n availability zone nu in, en wat heb je eraan?</p>
+<h2 id="Availability-zone"><a href="#Availability-zone" class="headerlink" title="Availability zone"></a>Availability zone</h2><img src="/images/azure-regional-architecture.png" />
+Er is sprake van een availability zone als een Azure regio meerdere fysiek gescheiden datacenters heeft. Zoals eerder gezegd hebben deze datacenters een eigen elektriciteits-, cooling- en netwerkvoorziening. Maar wat houdt zo'n availability zone nu in, en wat heb je eraan?
+
 <p>Availability zones bieden een abstractie voor een set van diensten binnen Azure. Uw diensten worden, mits gebruikmakend van availability zones, automatisch gerepliceerd over de verschillende zones binnen de Azure regio. Wanneer er een storing optreedt in één van de datacenters dan wordt die betreffende zone uitgeschakeld en nemen de overige het werk over.</p>
-<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>Availability zones zijn nog niet beschikbaar voor alle services binnen Azure. Gelukkig groeit de lijst wel, sterker nog deze is <a href="https://azure.microsoft.com/nl-nl/blog/azure-service-bus-is-now-offering-support-for-availability-zones-in-preview/" target="_blank" rel="noopener">support voor Service Bus aangekondigd</a> en daarmee is weer een belangrijke service ondersteund. Dit is een lijst van de beschikbare services:</p>
+<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>Availability zones zijn nog niet beschikbaar voor alle services binnen Azure. Gelukkig groeit de lijst wel, sterker nog deze is <a target="_blank" rel="noopener" href="https://azure.microsoft.com/nl-nl/blog/azure-service-bus-is-now-offering-support-for-availability-zones-in-preview/">support voor Service Bus aangekondigd</a> en daarmee is weer een belangrijke service ondersteund. Dit is een lijst van de beschikbare services:</p>
 <ul>
 <li>Linux Virtual Machines</li>
 <li>Windows Virtual Machines</li>
@@ -138,14 +152,14 @@
 <p>Services op availability zones hebben geen additionele kosten.</p>
 </blockquote>
 <h2 id="Voorbeeld"><a href="#Voorbeeld" class="headerlink" title="Voorbeeld"></a>Voorbeeld</h2><p>Het aanzetten van availability zones op services is zo simpel als een vinkje aanzetten bij het aanmaken van de resource. Via ARM kan het gemakkelijk met de <code>zoneRedundant</code> property.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">"resources": [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"apiVersion"</span>: <span class="string">"2018-01-01-preview"</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"[parameters('serviceBusNamespaceName')]"</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"Microsoft.ServiceBus/namespaces"</span>,</span><br><span class="line">        <span class="attr">"location"</span>: <span class="string">"[parameters('location')]"</span>,</span><br><span class="line">        <span class="attr">"sku"</span>: &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"Premium"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"properties"</span>: &#123;</span><br><span class="line">            <span class="attr">"zoneRedundant"</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;resources&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">&quot;apiVersion&quot;</span>: <span class="string">&quot;2018-01-01-preview&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;[parameters(&#x27;serviceBusNamespaceName&#x27;)]&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Microsoft.ServiceBus/namespaces&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;location&quot;</span>: <span class="string">&quot;[parameters(&#x27;location&#x27;)]&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;sku&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Premium&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;properties&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;zoneRedundant&quot;</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://dibranmulder.github.io/2018/06/22/Bedrijfskritische-applicaties-in-de-cloud/" data-id="cjog5uqyp000by449dq56u3uc" class="article-share-link">Share</a>
+      <a data-url="https://dibranmulder.github.io/2018/06/22/Bedrijfskritische-applicaties-in-de-cloud/" data-id="ckfdlvwxk000gfk492s9obb1v" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cloud-resilient-availability-zone/">cloud, resilient, availability, zone</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Availability-Zone/" rel="tag">Availability Zone</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Resilient/" rel="tag">Resilient</a></li></ul>
 
     </footer>
   </div>
@@ -184,7 +198,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-DevOps-Secrets-FoxIt-Azure-ResourceGroups/">Azure DevOps, Secrets, FoxIt, Azure, ResourceGroups.</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-AD-MSI-Mananged-Service-Identity/">Azure, AD, MSI, Mananged Service Identity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-API-Management/">Azure, API Management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-API-management-Functions-API-Gateway/">Azure, API management, Functions, API Gateway.</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-CosmosDb-TTL-Expire/">Azure, CosmosDb, TTL, Expire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-CosmosDb-UniqueKeys-PrimaryKey/">Azure, CosmosDb, UniqueKeys, PrimaryKey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-Entity-Framework-Core-EF-Core-Migrations-VSTS-Functions-V2-Dependency-Injection/">Azure, Entity Framework Core, EF Core, Migrations, VSTS, Functions V2, Dependency Injection.</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud-resilient-availability-zone/">cloud, resilient, availability, zone</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AD/" rel="tag">AD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API-Gateway/" rel="tag">API Gateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API-Management/" rel="tag">API Management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API-management/" rel="tag">API management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autonoom-rijden/" rel="tag">Autonoom rijden</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Availability-Zone/" rel="tag">Availability Zone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure/" rel="tag">Azure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-DevOps/" rel="tag">Azure DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-Functions/" rel="tag">Azure Functions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-Search/" rel="tag">Azure Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/" rel="tag">Azure, PaaS, Serverless, Teams, Agile, Versioning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blueprints/" rel="tag">Blueprints</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cache/" rel="tag">Cache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caesar/" rel="tag">Caesar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compliance/" rel="tag">Compliance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CosmosDb/" rel="tag">CosmosDb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependency-Injection/" rel="tag">Dependency Injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EF-Core/" rel="tag">EF Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entity-Framework-Core/" rel="tag">Entity Framework Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functions/" rel="tag">Functions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functions-V2/" rel="tag">Functions V2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Governance-Framework/" rel="tag">Governance Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logic-Apps/" rel="tag">Logic Apps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MSI/" rel="tag">MSI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Migrations/" rel="tag">Migrations</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Naming-conventions/" rel="tag">Naming conventions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Policies/" rel="tag">Policies</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resilient/" rel="tag">Resilient</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resource-groups/" rel="tag">Resource groups</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/" rel="tag">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Self-driving-cars/" rel="tag">Self driving cars</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SendGrid/" rel="tag">SendGrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service-Health/" rel="tag">Service Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Table-Storage/" rel="tag">Table Storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/" rel="tag">Tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tesla/" rel="tag">Tesla</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSTS/" rel="tag">VSTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Woocommerce/" rel="tag">Woocommerce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wordpress/" rel="tag">Wordpress</a></li></ul>
     </div>
   </div>
 
@@ -194,7 +208,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Azure-DevOps-Secrets-FoxIt-Azure-ResourceGroups/" style="font-size: 10px;">Azure DevOps, Secrets, FoxIt, Azure, ResourceGroups.</a> <a href="/tags/Azure-AD-MSI-Mananged-Service-Identity/" style="font-size: 10px;">Azure, AD, MSI, Mananged Service Identity</a> <a href="/tags/Azure-API-Management/" style="font-size: 10px;">Azure, API Management</a> <a href="/tags/Azure-API-management-Functions-API-Gateway/" style="font-size: 10px;">Azure, API management, Functions, API Gateway.</a> <a href="/tags/Azure-CosmosDb-TTL-Expire/" style="font-size: 10px;">Azure, CosmosDb, TTL, Expire</a> <a href="/tags/Azure-CosmosDb-UniqueKeys-PrimaryKey/" style="font-size: 10px;">Azure, CosmosDb, UniqueKeys, PrimaryKey</a> <a href="/tags/Azure-Entity-Framework-Core-EF-Core-Migrations-VSTS-Functions-V2-Dependency-Injection/" style="font-size: 10px;">Azure, Entity Framework Core, EF Core, Migrations, VSTS, Functions V2, Dependency Injection.</a> <a href="/tags/cloud-resilient-availability-zone/" style="font-size: 10px;">cloud, resilient, availability, zone</a>
+      <a href="/tags/AD/" style="font-size: 10px;">AD</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/API-Gateway/" style="font-size: 10px;">API Gateway</a> <a href="/tags/API-Management/" style="font-size: 12.5px;">API Management</a> <a href="/tags/API-management/" style="font-size: 10px;">API management</a> <a href="/tags/Autonoom-rijden/" style="font-size: 10px;">Autonoom rijden</a> <a href="/tags/Availability-Zone/" style="font-size: 10px;">Availability Zone</a> <a href="/tags/Azure/" style="font-size: 20px;">Azure</a> <a href="/tags/Azure-DevOps/" style="font-size: 10px;">Azure DevOps</a> <a href="/tags/Azure-Functions/" style="font-size: 12.5px;">Azure Functions</a> <a href="/tags/Azure-Search/" style="font-size: 10px;">Azure Search</a> <a href="/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/" style="font-size: 10px;">Azure, PaaS, Serverless, Teams, Agile, Versioning</a> <a href="/tags/Blueprints/" style="font-size: 10px;">Blueprints</a> <a href="/tags/Cache/" style="font-size: 10px;">Cache</a> <a href="/tags/Caesar/" style="font-size: 10px;">Caesar</a> <a href="/tags/Compliance/" style="font-size: 10px;">Compliance</a> <a href="/tags/CosmosDb/" style="font-size: 15px;">CosmosDb</a> <a href="/tags/Dependency-Injection/" style="font-size: 10px;">Dependency Injection</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/EF-Core/" style="font-size: 10px;">EF Core</a> <a href="/tags/Entity-Framework-Core/" style="font-size: 10px;">Entity Framework Core</a> <a href="/tags/Functions/" style="font-size: 17.5px;">Functions</a> <a href="/tags/Functions-V2/" style="font-size: 10px;">Functions V2</a> <a href="/tags/Governance-Framework/" style="font-size: 10px;">Governance Framework</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logic-Apps/" style="font-size: 12.5px;">Logic Apps</a> <a href="/tags/MSI/" style="font-size: 10px;">MSI</a> <a href="/tags/Migrations/" style="font-size: 10px;">Migrations</a> <a href="/tags/Naming-conventions/" style="font-size: 10px;">Naming conventions</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/Policies/" style="font-size: 10px;">Policies</a> <a href="/tags/Resilient/" style="font-size: 10px;">Resilient</a> <a href="/tags/Resource-groups/" style="font-size: 10px;">Resource groups</a> <a href="/tags/SQL-Server/" style="font-size: 10px;">SQL Server</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Self-driving-cars/" style="font-size: 10px;">Self driving cars</a> <a href="/tags/SendGrid/" style="font-size: 10px;">SendGrid</a> <a href="/tags/Service-Health/" style="font-size: 10px;">Service Health</a> <a href="/tags/Table-Storage/" style="font-size: 10px;">Table Storage</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Tesla/" style="font-size: 10px;">Tesla</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/VSTS/" style="font-size: 10px;">VSTS</a> <a href="/tags/WSL/" style="font-size: 10px;">WSL</a> <a href="/tags/Woocommerce/" style="font-size: 10px;">Woocommerce</a> <a href="/tags/Wordpress/" style="font-size: 12.5px;">Wordpress</a>
     </div>
   </div>
 
@@ -203,7 +217,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">november 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">oktober 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">augustus 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">juli 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">juni 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">september 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">december 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">september 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">augustus 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">juni 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">mei 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">april 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">maart 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">februari 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">januari 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">december 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">november 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">oktober 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">augustus 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">juli 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">juni 2018</a></li></ul>
     </div>
   </div>
 
@@ -216,23 +230,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/13/Azure-Api-Management-overview/">Azure API  Management overview</a>
+            <a href="/2020/09/22/Improving-your-Azure-Seach-performance/">Improving your Azure Cognitive Seach performance</a>
           </li>
         
           <li>
-            <a href="/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/">Secrets in Azure DevOps the bad parts</a>
+            <a href="/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/">Applying an Azure Governance Framework in 10 steps</a>
           </li>
         
           <li>
-            <a href="/2018/10/19/Building-Serverless-APIs-in-Azure/">Building Serverless API&#39;s in Azure</a>
+            <a href="/2019/09/06/Running-an-OpenAI-Gym-on-Windows-with-WSL/">Running an OpenAI Gym on Windows with WSL</a>
           </li>
         
           <li>
-            <a href="/2018/10/05/Azure-AD-Managed-Service-Identity/">Azure AD Managed Service Identity</a>
+            <a href="/2019/08/23/Sending-e-mails-with-SendGrid-and-Azure-Functions/">Sending e-mails with SendGrid and Azure Functions</a>
           </li>
         
           <li>
-            <a href="/2018/08/23/Azure-functions-V2-with-EF-Core/">Azure functions V2 with EF Core</a>
+            <a href="/2019/08/16/Autonoom-rijden/">Autonoom rijden</a>
           </li>
         
       </ul>
@@ -247,7 +261,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Dibran Mulder<br>
+      &copy; 2020 Dibran Mulder<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -265,11 +279,17 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

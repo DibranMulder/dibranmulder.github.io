@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Versioning with Azure PaaS and Serverless | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Working with multiple teams on a big microservices architecture can be a real struggle. What I often see is that teams are responsible for their set of microservices and struggle to isolate their serv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Versioning with Azure PaaS and Serverless">
+<meta property="og:url" content="https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Working with multiple teams on a big microservices architecture can be a real struggle. What I often see is that teams are responsible for their set of microservices and struggle to isolate their serv">
+<meta property="og:locale">
+<meta property="og:image" content="https://dibranmulder.github.io/images/versioning/releasetrain.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/versioning/servicebus.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/versioning/sendmessage.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/serverless/Serverless.png">
+<meta property="article:published_time" content="2019-04-16T12:45:39.000Z">
+<meta property="article:modified_time" content="2020-09-21T14:45:28.397Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="Azure, PaaS, Serverless, Teams, Agile, Versioning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dibranmulder.github.io/images/versioning/releasetrain.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Dibran&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://dibranmulder.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Versioning-with-Azure-PaaS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/16/Versioning-with-Azure-PaaS/" class="article-date">
+  <time datetime="2019-04-16T12:45:39.000Z" itemprop="datePublished">2019-04-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Versioning with Azure PaaS and Serverless
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Working with multiple teams on a big microservices architecture can be a real struggle. What I often see is that teams are responsible for their set of microservices and struggle to isolate their services. Resulting in the following problems:</p>
+<ul>
+<li>Teams are not able to release independently.</li>
+<li>Teams are building release trains that have to be coordinated precisely.<ul>
+<li>Hence, companies are hiring people as release coordinators.</li>
+</ul>
+</li>
+<li>Reverting release trains is not possible, fix-over-fix scenario’s will occur.</li>
+<li>The applications are temporary in a state of flux while releasing a train.</li>
+</ul>
+<img src='/images/versioning/releasetrain.png' />
+
+<p>What we ideally want is that teams stop building release trains and start releasing independently at any given time of the day. However, a lot has to be done before companies achieve that kind of development maturity. I came up with a set of principles that will guide an organization to become more maturity, and there by increasing flexibility, productivity and quality.</p>
+<h3 id="The-golden-principles"><a href="#The-golden-principles" class="headerlink" title="The golden principles."></a>The golden principles.</h3><ol>
+<li>Services must be able to run independently.<ul>
+<li>Services must be able to reconnect with other services. Any dependency can be deployed at any time. Design your service to fail.</li>
+</ul>
+</li>
+<li>Services can never introduce breaking changes.<ul>
+<li>This means services should adopt a versioning strategy.</li>
+</ul>
+</li>
+<li>There can be no direct dependencies between services, that means no direct REST interfaces anymore.</li>
+<li>Teams are able to release their service at any given time.</li>
+<li>Teams are responsible and accountable for their own services.</li>
+</ol>
+<p>Most of the principles are kind of straight forward, but keep in mind they are key for success. Sometimes simple principles are the hardest to implement, especially when you have legacy components in your microservices architecture, or maybe because it’s technically difficult to implement them. In this blog I’ll help you implementing some of the principles in Azure PaaS and Serverless services. Let’s start with a combination of versioning strategy and mitigating direct dependencies. </p>
+<h2 id="Service-bus-versioning"><a href="#Service-bus-versioning" class="headerlink" title="Service bus versioning"></a>Service bus versioning</h2><p>The most common way for microservices to communicate in an asynchronous matter on Azure is the use of Azure Service Bus. With Azure Service Bus, teams can define message channels to communicate between microservices. What a lot of development teams forget is to adopt a versioning strategy for their service bus messages.</p>
+<p>One way of versioning service bus messages is to add a <code>custom property</code> to a message. I like this better then to add a <code>version</code> property to the actual JSON or XML message because, in my opinion, a version is not part of the data you actually want to send, it’s the metadata. It’s important for the consuming party to know.</p>
+<p>So depending on the programming language you use you can add a <code>custom message property</code> to a service bus message. In C# it will look like something like this.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Data you want to send.</span></span><br><span class="line"><span class="keyword">var</span> user = <span class="keyword">new</span></span><br><span class="line">&#123;</span><br><span class="line">    name = <span class="string">&quot;Dibran&quot;</span>,</span><br><span class="line">    lastName = <span class="string">&quot;Mulder&quot;</span>,</span><br><span class="line">    position = <span class="string">&quot;Dev&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// Serialize to JSON.</span></span><br><span class="line"><span class="keyword">string</span> json = JsonConvert.SerializeObject(user);</span><br><span class="line">Message message = <span class="keyword">new</span> Message(Encoding.UTF8.GetBytes(json));</span><br><span class="line"><span class="comment">// Add a custom verison property.</span></span><br><span class="line">message.UserProperties.Add(<span class="string">&quot;Version&quot;</span>, <span class="string">&quot;1.0&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>I like to keep the version the same as the version of your microservice. In this way we are not bogged down into a versioning hell. The version of the message is equal to the version of the service that actually created the message. A simple but effective rule. In this way you can also track by what version of a microservice a message is actually created.</p>
+<p>With <a target="_blank" rel="noopener" href="https://github.com/paolosalvatori/ServiceBusExplorer">Azure Service Bus explorer</a> you can easily check messages, create additional subscriptions, etc. I highly recommend you to use it, you can see what kind of messages are send and also inspect the custom message properties. It’s a nice tool to debug your versioning strategy.</p>
+<p>So if you send messages with a Version <code>custom message property</code> you can create for instance create 2 subscriptions for each version. With a service bus filter you can then make sure that messages with a specific version are only received by certain topics.</p>
+<img src='/images/versioning/servicebus.png' />
+<img src='/images/versioning/sendmessage.png' />
+
+<p>A simple service bus filter can be:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Version=&#x27;1.0&#x27;</span><br></pre></td></tr></table></figure>
+<p><strong>Don’t forget to remove the default rule: 1=1.</strong> If one of the rules match a message will be accepted by a subscription.</p>
+<p>You can also choose to do the filtering and version handling in the consuming service. But I personally like it better to separate messages in subscriptions based on version numbers.</p>
+<p>Lastly, I would like to add that service bus filters can easily be created by <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-resource-manager-namespace-topic-with-rule">ARM scripts</a>. In this way you won’t need to service bus explorer or code to manage your infrastructure. </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;apiVersion&quot;</span>: <span class="string">&quot;[variables(&#x27;sbVersion&#x27;)]&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;[parameters(&#x27;serviceBusRuleName&#x27;)]&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;Rules&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dependsOn&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;[parameters(&#x27;serviceBusSubscriptionName&#x27;)]&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;properties&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;filterType&quot;</span>: <span class="string">&quot;SqlFilter&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;sqlFilter&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;sqlExpression&quot;</span>: <span class="string">&quot;Version = &#x27;1.0&#x27;&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;requiresPreprocessing&quot;</span>: <span class="string">&quot;false&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;action&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;sqlExpression&quot;</span>: <span class="string">&quot;set FilterTag = &#x27;true&#x27;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Azure-Functions-versioning"><a href="#Azure-Functions-versioning" class="headerlink" title="Azure Functions versioning"></a>Azure Functions versioning</h2><p>With Azure functions it’s pretty easy to handle versioning. You can add a versioning scheme to the route of an <code>Http Trigger</code> like this.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">FunctionName(<span class="meta-string">&quot;SomeHttpFunction&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> Task&lt;HttpResponseMessage&gt; <span class="title">Run</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">    [HttpTrigger(</span></span></span><br><span class="line"><span class="function"><span class="params">        AuthorizationLevel.Function,</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="string">&quot;POST&quot;</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">        Route = <span class="string">&quot;api/v1/entity&quot;</span></span>)]</span></span><br><span class="line"><span class="function">    HttpRequestMessage req,</span></span><br><span class="line"><span class="function">    ILogger log)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Code...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>However, routing in Azure Functions is pretty badly implemented. ASP.net core handles it way better and its therefore highly recommended to use an API gateway in front of it. As I described in <a href="https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/">this blog post</a> you can use for instance Azure API Management to handle that for you. You will then get a lot of additional options such as: routing, mocking, caching, authorization, etc.<br><img src='/images/serverless/Serverless.png' /></p>
+<h2 id="ASP-net-core-versioning"><a href="#ASP-net-core-versioning" class="headerlink" title="ASP.net core versioning"></a>ASP.net core versioning</h2><p>Lastly I would like to point out to a very nice <a target="_blank" rel="noopener" href="https://github.com/Microsoft/aspnet-api-versioning">Github repository</a> for ASP.net core versioning. It has several examples to implement versioning correctly. Versioning is actually a 1st class citizen in ASP.net core, enabling you to adopt a solid strategy and never make breaking changes again.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/" data-id="ckfdlvwy0000pfk493wmyaufc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/" rel="tag">Azure, PaaS, Serverless, Teams, Agile, Versioning</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/20/Testing-time-triggered-Azure-Functions/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Locally testing Azure Functions
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Migrating Azure Table Storage to SQL with Azure Logic Apps</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AD/" rel="tag">AD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API-Gateway/" rel="tag">API Gateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API-Management/" rel="tag">API Management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API-management/" rel="tag">API management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autonoom-rijden/" rel="tag">Autonoom rijden</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Availability-Zone/" rel="tag">Availability Zone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure/" rel="tag">Azure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-DevOps/" rel="tag">Azure DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-Functions/" rel="tag">Azure Functions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-Search/" rel="tag">Azure Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/" rel="tag">Azure, PaaS, Serverless, Teams, Agile, Versioning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blueprints/" rel="tag">Blueprints</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cache/" rel="tag">Cache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caesar/" rel="tag">Caesar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compliance/" rel="tag">Compliance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CosmosDb/" rel="tag">CosmosDb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependency-Injection/" rel="tag">Dependency Injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EF-Core/" rel="tag">EF Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entity-Framework-Core/" rel="tag">Entity Framework Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functions/" rel="tag">Functions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functions-V2/" rel="tag">Functions V2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Governance-Framework/" rel="tag">Governance Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logic-Apps/" rel="tag">Logic Apps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MSI/" rel="tag">MSI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Migrations/" rel="tag">Migrations</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Naming-conventions/" rel="tag">Naming conventions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Policies/" rel="tag">Policies</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resilient/" rel="tag">Resilient</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resource-groups/" rel="tag">Resource groups</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/" rel="tag">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Self-driving-cars/" rel="tag">Self driving cars</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SendGrid/" rel="tag">SendGrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service-Health/" rel="tag">Service Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Table-Storage/" rel="tag">Table Storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/" rel="tag">Tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tesla/" rel="tag">Tesla</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSTS/" rel="tag">VSTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Woocommerce/" rel="tag">Woocommerce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wordpress/" rel="tag">Wordpress</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AD/" style="font-size: 10px;">AD</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/API-Gateway/" style="font-size: 10px;">API Gateway</a> <a href="/tags/API-Management/" style="font-size: 12.5px;">API Management</a> <a href="/tags/API-management/" style="font-size: 10px;">API management</a> <a href="/tags/Autonoom-rijden/" style="font-size: 10px;">Autonoom rijden</a> <a href="/tags/Availability-Zone/" style="font-size: 10px;">Availability Zone</a> <a href="/tags/Azure/" style="font-size: 20px;">Azure</a> <a href="/tags/Azure-DevOps/" style="font-size: 10px;">Azure DevOps</a> <a href="/tags/Azure-Functions/" style="font-size: 12.5px;">Azure Functions</a> <a href="/tags/Azure-Search/" style="font-size: 10px;">Azure Search</a> <a href="/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/" style="font-size: 10px;">Azure, PaaS, Serverless, Teams, Agile, Versioning</a> <a href="/tags/Blueprints/" style="font-size: 10px;">Blueprints</a> <a href="/tags/Cache/" style="font-size: 10px;">Cache</a> <a href="/tags/Caesar/" style="font-size: 10px;">Caesar</a> <a href="/tags/Compliance/" style="font-size: 10px;">Compliance</a> <a href="/tags/CosmosDb/" style="font-size: 15px;">CosmosDb</a> <a href="/tags/Dependency-Injection/" style="font-size: 10px;">Dependency Injection</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/EF-Core/" style="font-size: 10px;">EF Core</a> <a href="/tags/Entity-Framework-Core/" style="font-size: 10px;">Entity Framework Core</a> <a href="/tags/Functions/" style="font-size: 17.5px;">Functions</a> <a href="/tags/Functions-V2/" style="font-size: 10px;">Functions V2</a> <a href="/tags/Governance-Framework/" style="font-size: 10px;">Governance Framework</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logic-Apps/" style="font-size: 12.5px;">Logic Apps</a> <a href="/tags/MSI/" style="font-size: 10px;">MSI</a> <a href="/tags/Migrations/" style="font-size: 10px;">Migrations</a> <a href="/tags/Naming-conventions/" style="font-size: 10px;">Naming conventions</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/Policies/" style="font-size: 10px;">Policies</a> <a href="/tags/Resilient/" style="font-size: 10px;">Resilient</a> <a href="/tags/Resource-groups/" style="font-size: 10px;">Resource groups</a> <a href="/tags/SQL-Server/" style="font-size: 10px;">SQL Server</a> <a href="/tags/Security/" style="font-size: 10px;">Security</a> <a href="/tags/Self-driving-cars/" style="font-size: 10px;">Self driving cars</a> <a href="/tags/SendGrid/" style="font-size: 10px;">SendGrid</a> <a href="/tags/Service-Health/" style="font-size: 10px;">Service Health</a> <a href="/tags/Table-Storage/" style="font-size: 10px;">Table Storage</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Tesla/" style="font-size: 10px;">Tesla</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/VSTS/" style="font-size: 10px;">VSTS</a> <a href="/tags/WSL/" style="font-size: 10px;">WSL</a> <a href="/tags/Woocommerce/" style="font-size: 10px;">Woocommerce</a> <a href="/tags/Wordpress/" style="font-size: 12.5px;">Wordpress</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">september 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">december 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">september 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">augustus 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">juni 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">mei 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">april 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">maart 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">februari 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">januari 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">december 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">november 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">oktober 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">augustus 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">juli 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">juni 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/22/Improving-your-Azure-Seach-performance/">Improving your Azure Cognitive Seach performance</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/">Applying an Azure Governance Framework in 10 steps</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/06/Running-an-OpenAI-Gym-on-Windows-with-WSL/">Running an OpenAI Gym on Windows with WSL</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/23/Sending-e-mails-with-SendGrid-and-Azure-Functions/">Sending e-mails with SendGrid and Azure Functions</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/16/Autonoom-rijden/">Autonoom rijden</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Dibran Mulder<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
