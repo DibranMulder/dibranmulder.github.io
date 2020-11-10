@@ -6,7 +6,7 @@
   <link href="https://dibranmulder.github.io/atom.xml" rel="self"/>
   
   <link href="https://dibranmulder.github.io/"/>
-  <updated>2020-10-15T14:43:47.281Z</updated>
+  <updated>2020-11-10T10:57:25.862Z</updated>
   <id>https://dibranmulder.github.io/</id>
   
   <author>
@@ -17,18 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Improving your Azure Cognitive Seach performance</title>
-    <link href="https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Seach-performance/"/>
-    <id>https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Seach-performance/</id>
+    <title>Improving your Azure Cognitive Search performance</title>
+    <link href="https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Search-performance/"/>
+    <id>https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Search-performance/</id>
     <published>2020-09-21T22:00:00.000Z</published>
-    <updated>2020-10-15T14:43:47.281Z</updated>
+    <updated>2020-11-10T10:57:25.862Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;It can be a quite a struggle to really understand the in and outs of Azure Search and how search results are scored and how scoring</summary>
+    <summary type="html">&lt;p&gt;It can be quite a struggle to really understand the ins and outs of Azure Search, how search results are scored, and how scoring</summary>
         
       
     
