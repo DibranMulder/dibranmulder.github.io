@@ -6,7 +6,7 @@
   <link href="https://dibranmulder.github.io/atom.xml" rel="self"/>
   
   <link href="https://dibranmulder.github.io/"/>
-  <updated>2020-11-10T10:57:25.862Z</updated>
+  <updated>2021-02-03T15:43:35.836Z</updated>
   <id>https://dibranmulder.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Integration patterns using NServiceBus &amp; Azure Functions</title>
+    <link href="https://dibranmulder.github.io/2021/02/03/Integration-patterns-using-NServiceBus-Azure-Functions/"/>
+    <id>https://dibranmulder.github.io/2021/02/03/Integration-patterns-using-NServiceBus-Azure-Functions/</id>
+    <published>2021-02-03T15:36:47.000Z</published>
+    <updated>2021-02-03T15:43:35.836Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;At the SeverlessDays Amsterdam online meetup on February the 3rd I gave a talk on &lt;code&gt;Integration patterns using NServiceBus &amp;amp;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
+    
+    <category term="Azure Functions" scheme="https://dibranmulder.github.io/tags/Azure-Functions/"/>
+    
+    <category term="Service Bus" scheme="https://dibranmulder.github.io/tags/Service-Bus/"/>
+    
+    <category term="NServiceBus" scheme="https://dibranmulder.github.io/tags/NServiceBus/"/>
+    
+  </entry>
   
   <entry>
     <title>Improving your Azure Cognitive Search performance</title>
@@ -536,31 +565,6 @@
     <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
     
     <category term="Service Health" scheme="https://dibranmulder.github.io/tags/Service-Health/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Unique keys in Azure Cosmos DB</title>
-    <link href="https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/"/>
-    <id>https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/</id>
-    <published>2018-07-03T14:06:31.000Z</published>
-    <updated>2020-09-21T14:45:28.397Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;NoSQL databases often don’t have support for database constraints. It doesn’t make sense to constraint since the data is schemaless and</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
-    
-    <category term="CosmosDb" scheme="https://dibranmulder.github.io/tags/CosmosDb/"/>
     
   </entry>
   
