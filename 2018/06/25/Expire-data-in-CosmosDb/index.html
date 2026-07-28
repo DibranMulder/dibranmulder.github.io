@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Expire data in CosmosDb | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Applications often have to deal with temporary data, such as: logs, user session information and others.Purging that data can be a struggle especially when your database doesn’t support temporary stor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Expire data in CosmosDb">
+<meta property="og:url" content="https://dibranmulder.github.io/2018/06/25/Expire-data-in-CosmosDb/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Applications often have to deal with temporary data, such as: logs, user session information and others.Purging that data can be a struggle especially when your database doesn’t support temporary stor">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-06-25T09:50:22.000Z">
+<meta property="article:modified_time" content="2026-07-28T11:18:48.896Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="Azure">
+<meta property="article:tag" content="CosmosDb">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="is-reading">
+  <div id="container">
+    
+      <div id="reading-progress" aria-hidden="true"><span></span></div>
+    
+    
+<header id="header">
+  <div class="header-inner">
+    <a class="wordmark" href="/">Dibran Mulder</a>
+    <nav class="site-nav" aria-label="Main">
+      
+        <a href="/" class="is-current" aria-current="page">Writing</a>
+      
+        <a href="/archives">Archive</a>
+      
+        <a href="/about">About</a>
+      
+      
+        <a href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+<article class="page page-post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-kicker">
+        
+          <a class="post-kicker-topic" href="/tags/Azure/">Azure</a>
+          <span class="dot" aria-hidden="true"></span>
+        
+        <time datetime="2018-06-25T09:50:22.000Z" itemprop="datePublished">25 juni 2018</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>2 min read</span>
+      </div>
+      <h1 itemprop="headline">Expire data in CosmosDb</h1>
+      
+    </div>
+  </header>
+
+  <div class="reading-grid">
+
+    <aside class="reading-rail reading-rail-toc">
+      
+        <nav class="toc" aria-label="Contents">
+          <div class="eyebrow">Contents</div>
+          
+            <a class="toc-link toc-level-2" href="#Example">Example</a>
+          
+            <a class="toc-link toc-level-3" href="#Create-a-collection-with-a-default-time-to-live">Create a collection with a default time to live</a>
+          
+        </nav>
+      
+      <div class="reading-rail-foot">
+        <div>471 words</div>
+        <a class="share-link" data-url="https://dibranmulder.github.io/2018/06/25/Expire-data-in-CosmosDb/" href="https://dibranmulder.github.io/2018/06/25/Expire-data-in-CosmosDb/">Share ↗</a>
+      </div>
+    </aside>
+
+    <div class="reading-main">
+      <div class="prose article-entry" itemprop="articleBody">
+        <p>Applications often have to deal with temporary data, such as: logs, user session information and others.<br>Purging that data can be a struggle especially when your database doesn’t support temporary storage.<br>With CosmosDb, developers are able to set Time To Live properties on Collections and Documents.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Lets say you have a shopping cart in your application with which users can select items.<br>It doesn’t make sense to have those items indefinitely in your cart, lets say one week will be suffice.<br>Lets see how we can set the time to live to one week.</p>
+<h3 id="Create-a-collection-with-a-default-time-to-live"><a href="#Create-a-collection-with-a-default-time-to-live" class="headerlink" title="Create a collection with a default time to live"></a>Create a collection with a default time to live</h3><p>In order for time to live to be effective you have to set a default time to live on the collection. Setting it on <strong>documents alone will not work</strong>. You can also replace the collection and set it to <code>null</code> to disable the time to live for the collection.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> documentClient.CreateDatabaseIfNotExistsAsync(<span class="keyword">new</span> Database()</span><br><span class="line">&#123;</span><br><span class="line">    Id = <span class="string">&quot;MyShop&quot;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating a collection with a default time to live.</span></span><br><span class="line">DocumentCollection collection = <span class="keyword">await</span> documentClient.CreateDocumentCollectionIfNotExistsAsync(</span><br><span class="line">    UriFactory.CreateDatabaseUri(<span class="string">&quot;MyShop&quot;</span>),</span><br><span class="line">    <span class="keyword">new</span> DocumentCollection</span><br><span class="line">    &#123;</span><br><span class="line">        Id = <span class="string">&quot;ShoppingCart&quot;</span>,</span><br><span class="line">        <span class="comment">// Set default time to live to one week. </span></span><br><span class="line">        DefaultTimeToLive = <span class="number">24</span> * <span class="number">60</span> * <span class="number">7</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">new</span> RequestOptions</span><br><span class="line">    &#123;</span><br><span class="line">        OfferThroughput = <span class="number">400</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Disable the time to live.</span></span><br><span class="line">collection.DefaultTimeToLive = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> client.ReplaceDocumentCollectionAsync(collection);</span><br></pre></td></tr></table></figure>
+
+<p>Once you’ve set the time to live on collections than every document will have that time to live as default. You can override it to prolong, shorten or disable the time to live for the selected document.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set time to live</span></span><br><span class="line">cart.TimeToLive = TimeToLiveSeconds;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Disable time to live</span></span><br><span class="line">cart.TimeToLive = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> documentClient.CreateDocumentAsync(</span><br><span class="line">    UriFactory.CreateDocumentCollectionUri(<span class="string">&quot;MyShop&quot;</span>, <span class="string">&quot;ShoppingCart&quot;</span>),</span><br><span class="line">    cart);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Update time to live</span></span><br><span class="line">cart.TimeToLive = TimeToLiveSeconds;</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> documentClient.ReplaceDocumentAsync(cart);</span><br></pre></td></tr></table></figure>
+
+<p>Once a document is created in a time to live collection then a <code>_ttl</code> property will be added to the document. Note that it doesn’t count down or something like that so you can’t see if a document is about to expire.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;userId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;test@user.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cart&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;itemId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;49a4ce2c-ddde-4f04-bb79-46546566a&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Bike&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;A brandnew bike&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;itemId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dfsa8789-abde-4f04-bb79-46546566a&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Helmet&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;A helmet keeps you save&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ttl&quot;</span><span class="punctuation">:</span> <span class="number">10080</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;49a4ce2c-99e4-4f04-bb79-35a9c3a4d6b5&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;_rid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;VfYnAKmODgAkAAAAAAAAAA==&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;_self&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dbs/VfYnAA==/colls/VfYnAKmODgA=/docs/VfYnAKmODgAkAAAAAAAAAA==/&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;_etag&quot;</span><span class="punctuation">:</span> <span class="string">&quot;\&quot;0100cb12-0000-0000-0000-5b2a44170000\&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;_attachments&quot;</span><span class="punctuation">:</span> <span class="string">&quot;attachments/&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;_ts&quot;</span><span class="punctuation">:</span> <span class="number">1529496599</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Hopefully this helped a little, for further reading please see:<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/cosmos-db/time-to-live">https://docs.microsoft.com/en-us/azure/cosmos-db/time-to-live</a></p>
+
+      </div>
+
+      
+        <div class="tag-row">
+          
+            <a href="/tags/Azure/">Azure</a>
+          
+            <a href="/tags/CosmosDb/">CosmosDb</a>
+          
+        </div>
+      
+
+      
+
+<nav class="post-nav">
+  
+    <a class="post-nav-link post-nav-prev" href="/2018/06/22/Bedrijfskritische-applicaties-in-de-cloud/">
+      <span class="eyebrow">← Previous</span>
+      <span class="post-nav-title">Bedrijfskritische applicaties in de cloud</span>
+    </a>
+  
+  
+    <a class="post-nav-link post-nav-next" href="/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/">
+      <span class="eyebrow">Next →</span>
+      <span class="post-nav-title">Unique keys in Azure Cosmos DB</span>
+    </a>
+  
+</nav>
+
+
+    </div>
+
+    <aside class="reading-rail reading-rail-author">
+      <div class="eyebrow">Author</div>
+      
+        <div class="author-avatar author-avatar-placeholder" aria-hidden="true"></div>
+      
+      <p class="author-bio">
+        <strong>Dibran Mulder</strong> — CTO at Yivi and Caesar Groep. Digital identity, and engineering with agents.
+      </p>
+      
+        <a class="underlined" href="/about/">About →</a>
+      
+    </aside>
+  </div>
+</article>
+</main>
+    <footer id="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Dibran Mulder</span>
+    
+      <span>Yivi · Caesar Groep</span>
+    
+  </div>
+</footer>
+
+  </div>
+  
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>

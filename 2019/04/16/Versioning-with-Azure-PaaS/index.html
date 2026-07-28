@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Versioning with Azure PaaS and Serverless | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Working with multiple teams on a big microservices architecture can be a real struggle. What I often see is that teams are responsible for their set of microservices and struggle to isolate their serv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Versioning with Azure PaaS and Serverless">
+<meta property="og:url" content="https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Working with multiple teams on a big microservices architecture can be a real struggle. What I often see is that teams are responsible for their set of microservices and struggle to isolate their serv">
+<meta property="og:locale">
+<meta property="og:image" content="https://dibranmulder.github.io/images/versioning/releasetrain.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/versioning/servicebus.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/versioning/sendmessage.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/serverless/Serverless.png">
+<meta property="article:published_time" content="2019-04-16T12:45:39.000Z">
+<meta property="article:modified_time" content="2026-07-28T11:18:48.898Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="Azure, PaaS, Serverless, Teams, Agile, Versioning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dibranmulder.github.io/images/versioning/releasetrain.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="is-reading">
+  <div id="container">
+    
+      <div id="reading-progress" aria-hidden="true"><span></span></div>
+    
+    
+<header id="header">
+  <div class="header-inner">
+    <a class="wordmark" href="/">Dibran Mulder</a>
+    <nav class="site-nav" aria-label="Main">
+      
+        <a href="/" class="is-current" aria-current="page">Writing</a>
+      
+        <a href="/archives">Archive</a>
+      
+        <a href="/about">About</a>
+      
+      
+        <a href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+<article class="page page-post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-kicker">
+        
+          <a class="post-kicker-topic" href="/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/">Azure, PaaS, Serverless, Teams, Agile, Versioning</a>
+          <span class="dot" aria-hidden="true"></span>
+        
+        <time datetime="2019-04-16T12:45:39.000Z" itemprop="datePublished">16 april 2019</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>5 min read</span>
+      </div>
+      <h1 itemprop="headline">Versioning with Azure PaaS and Serverless</h1>
+      
+    </div>
+  </header>
+
+  <div class="reading-grid">
+
+    <aside class="reading-rail reading-rail-toc">
+      
+        <nav class="toc" aria-label="Contents">
+          <div class="eyebrow">Contents</div>
+          
+            <a class="toc-link toc-level-3" href="#The-golden-principles">The golden principles.</a>
+          
+            <a class="toc-link toc-level-2" href="#Service-bus-versioning">Service bus versioning</a>
+          
+            <a class="toc-link toc-level-2" href="#Azure-Functions-versioning">Azure Functions versioning</a>
+          
+            <a class="toc-link toc-level-2" href="#ASP-net-core-versioning">ASP.net core versioning</a>
+          
+        </nav>
+      
+      <div class="reading-rail-foot">
+        <div>1 011 words</div>
+        <a class="share-link" data-url="https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/" href="https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/">Share ↗</a>
+      </div>
+    </aside>
+
+    <div class="reading-main">
+      <div class="prose article-entry" itemprop="articleBody">
+        <p>Working with multiple teams on a big microservices architecture can be a real struggle. What I often see is that teams are responsible for their set of microservices and struggle to isolate their services. Resulting in the following problems:</p>
+<ul>
+<li>Teams are not able to release independently.</li>
+<li>Teams are building release trains that have to be coordinated precisely.<ul>
+<li>Hence, companies are hiring people as release coordinators.</li>
+</ul>
+</li>
+<li>Reverting release trains is not possible, fix-over-fix scenario’s will occur.</li>
+<li>The applications are temporary in a state of flux while releasing a train.</li>
+</ul>
+<img src='/images/versioning/releasetrain.png' />
+
+<p>What we ideally want is that teams stop building release trains and start releasing independently at any given time of the day. However, a lot has to be done before companies achieve that kind of development maturity. I came up with a set of principles that will guide an organization to become more maturity, and there by increasing flexibility, productivity and quality.</p>
+<h3 id="The-golden-principles"><a href="#The-golden-principles" class="headerlink" title="The golden principles."></a>The golden principles.</h3><ol>
+<li>Services must be able to run independently.<ul>
+<li>Services must be able to reconnect with other services. Any dependency can be deployed at any time. Design your service to fail.</li>
+</ul>
+</li>
+<li>Services can never introduce breaking changes.<ul>
+<li>This means services should adopt a versioning strategy.</li>
+</ul>
+</li>
+<li>There can be no direct dependencies between services, that means no direct REST interfaces anymore.</li>
+<li>Teams are able to release their service at any given time.</li>
+<li>Teams are responsible and accountable for their own services.</li>
+</ol>
+<p>Most of the principles are kind of straight forward, but keep in mind they are key for success. Sometimes simple principles are the hardest to implement, especially when you have legacy components in your microservices architecture, or maybe because it’s technically difficult to implement them. In this blog I’ll help you implementing some of the principles in Azure PaaS and Serverless services. Let’s start with a combination of versioning strategy and mitigating direct dependencies. </p>
+<h2 id="Service-bus-versioning"><a href="#Service-bus-versioning" class="headerlink" title="Service bus versioning"></a>Service bus versioning</h2><p>The most common way for microservices to communicate in an asynchronous matter on Azure is the use of Azure Service Bus. With Azure Service Bus, teams can define message channels to communicate between microservices. What a lot of development teams forget is to adopt a versioning strategy for their service bus messages.</p>
+<p>One way of versioning service bus messages is to add a <code>custom property</code> to a message. I like this better then to add a <code>version</code> property to the actual JSON or XML message because, in my opinion, a version is not part of the data you actually want to send, it’s the metadata. It’s important for the consuming party to know.</p>
+<p>So depending on the programming language you use you can add a <code>custom message property</code> to a service bus message. In C# it will look like something like this.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Data you want to send.</span></span><br><span class="line"><span class="keyword">var</span> user = <span class="keyword">new</span></span><br><span class="line">&#123;</span><br><span class="line">    name = <span class="string">&quot;Dibran&quot;</span>,</span><br><span class="line">    lastName = <span class="string">&quot;Mulder&quot;</span>,</span><br><span class="line">    position = <span class="string">&quot;Dev&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// Serialize to JSON.</span></span><br><span class="line"><span class="built_in">string</span> json = JsonConvert.SerializeObject(user);</span><br><span class="line">Message message = <span class="keyword">new</span> Message(Encoding.UTF8.GetBytes(json));</span><br><span class="line"><span class="comment">// Add a custom verison property.</span></span><br><span class="line">message.UserProperties.Add(<span class="string">&quot;Version&quot;</span>, <span class="string">&quot;1.0&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>I like to keep the version the same as the version of your microservice. In this way we are not bogged down into a versioning hell. The version of the message is equal to the version of the service that actually created the message. A simple but effective rule. In this way you can also track by what version of a microservice a message is actually created.</p>
+<p>With <a target="_blank" rel="noopener" href="https://github.com/paolosalvatori/ServiceBusExplorer">Azure Service Bus explorer</a> you can easily check messages, create additional subscriptions, etc. I highly recommend you to use it, you can see what kind of messages are send and also inspect the custom message properties. It’s a nice tool to debug your versioning strategy.</p>
+<p>So if you send messages with a Version <code>custom message property</code> you can create for instance create 2 subscriptions for each version. With a service bus filter you can then make sure that messages with a specific version are only received by certain topics.</p>
+<img src='/images/versioning/servicebus.png' />
+<img src='/images/versioning/sendmessage.png' />
+
+<p>A simple service bus filter can be:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Version<span class="operator">=</span><span class="string">&#x27;1.0&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>Don’t forget to remove the default rule: 1&#x3D;1.</strong> If one of the rules match a message will be accepted by a subscription.</p>
+<p>You can also choose to do the filtering and version handling in the consuming service. But I personally like it better to separate messages in subscriptions based on version numbers.</p>
+<p>Lastly, I would like to add that service bus filters can easily be created by <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-resource-manager-namespace-topic-with-rule">ARM scripts</a>. In this way you won’t need to service bus explorer or code to manage your infrastructure. </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;[variables(&#x27;sbVersion&#x27;)]&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;[parameters(&#x27;serviceBusRuleName&#x27;)]&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Rules&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependsOn&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;[parameters(&#x27;serviceBusSubscriptionName&#x27;)]&quot;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;filterType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SqlFilter&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;sqlFilter&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;sqlExpression&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Version = &#x27;1.0&#x27;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;requiresPreprocessing&quot;</span><span class="punctuation">:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;action&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;sqlExpression&quot;</span><span class="punctuation">:</span> <span class="string">&quot;set FilterTag = &#x27;true&#x27;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Azure-Functions-versioning"><a href="#Azure-Functions-versioning" class="headerlink" title="Azure Functions versioning"></a>Azure Functions versioning</h2><p>With Azure functions it’s pretty easy to handle versioning. You can add a versioning scheme to the route of an <code>Http Trigger</code> like this.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">FunctionName(<span class="string">&quot;SomeHttpFunction&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> Task&lt;HttpResponseMessage&gt; <span class="title">Run</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">    [HttpTrigger(</span></span></span><br><span class="line"><span class="params"><span class="function">        AuthorizationLevel.Function,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="string">&quot;POST&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">        Route = <span class="string">&quot;api/v1/entity&quot;</span></span>)]</span></span><br><span class="line"><span class="function">    HttpRequestMessage req,</span></span><br><span class="line"><span class="function">    ILogger log)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Code...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>However, routing in Azure Functions is pretty badly implemented. ASP.net core handles it way better and its therefore highly recommended to use an API gateway in front of it. As I described in <a href="https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/">this blog post</a> you can use for instance Azure API Management to handle that for you. You will then get a lot of additional options such as: routing, mocking, caching, authorization, etc.<br><img src='/images/serverless/Serverless.png' /></p>
+<h2 id="ASP-net-core-versioning"><a href="#ASP-net-core-versioning" class="headerlink" title="ASP.net core versioning"></a>ASP.net core versioning</h2><p>Lastly I would like to point out to a very nice <a target="_blank" rel="noopener" href="https://github.com/Microsoft/aspnet-api-versioning">Github repository</a> for ASP.net core versioning. It has several examples to implement versioning correctly. Versioning is actually a 1st class citizen in ASP.net core, enabling you to adopt a solid strategy and never make breaking changes again.</p>
+
+      </div>
+
+      
+        <div class="tag-row">
+          
+            <a href="/tags/Azure-PaaS-Serverless-Teams-Agile-Versioning/">Azure, PaaS, Serverless, Teams, Agile, Versioning</a>
+          
+        </div>
+      
+
+      
+
+<nav class="post-nav">
+  
+    <a class="post-nav-link post-nav-prev" href="/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/">
+      <span class="eyebrow">← Previous</span>
+      <span class="post-nav-title">Migrating Azure Table Storage to SQL with Azure Logic Apps</span>
+    </a>
+  
+  
+    <a class="post-nav-link post-nav-next" href="/2019/05/20/Testing-time-triggered-Azure-Functions/">
+      <span class="eyebrow">Next →</span>
+      <span class="post-nav-title">Locally testing Azure Functions</span>
+    </a>
+  
+</nav>
+
+
+    </div>
+
+    <aside class="reading-rail reading-rail-author">
+      <div class="eyebrow">Author</div>
+      
+        <div class="author-avatar author-avatar-placeholder" aria-hidden="true"></div>
+      
+      <p class="author-bio">
+        <strong>Dibran Mulder</strong> — CTO at Yivi and Caesar Groep. Digital identity, and engineering with agents.
+      </p>
+      
+        <a class="underlined" href="/about/">About →</a>
+      
+    </aside>
+  </div>
+</article>
+</main>
+    <footer id="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Dibran Mulder</span>
+    
+      <span>Yivi · Caesar Groep</span>
+    
+  </div>
+</footer>
+
+  </div>
+  
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>

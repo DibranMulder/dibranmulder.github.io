@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Lights Out, part 1: the insane adoption of agentic coding | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="While You BlinkedOn 5 February 2026, SemiAnalysis opened a research note with a sentence that should have rattled every engineering manager in Europe:  “4% of GitHub public commits are being authored">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lights Out, part 1: the insane adoption of agentic coding">
+<meta property="og:url" content="https://dibranmulder.github.io/2026/07/28/Lights-out-01-while-you-blinked/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="While You BlinkedOn 5 February 2026, SemiAnalysis opened a research note with a sentence that should have rattled every engineering manager in Europe:  “4% of GitHub public commits are being authored">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-07-28T14:17:55.000Z">
+<meta property="article:modified_time" content="2026-07-28T14:32:58.501Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Agentic coding">
+<meta property="article:tag" content="Developer tools">
+<meta property="article:tag" content="Productivity">
+<meta property="article:tag" content="Software development">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="is-reading">
+  <div id="container">
+    
+      <div id="reading-progress" aria-hidden="true"><span></span></div>
+    
+    
+<header id="header">
+  <div class="header-inner">
+    <a class="wordmark" href="/">Dibran Mulder</a>
+    <nav class="site-nav" aria-label="Main">
+      
+        <a href="/" class="is-current" aria-current="page">Writing</a>
+      
+        <a href="/archives">Archive</a>
+      
+        <a href="/about">About</a>
+      
+      
+        <a href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+<article class="page page-post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-kicker">
+        
+          <a class="post-kicker-topic" href="/tags/AI/">AI</a>
+          <span class="dot" aria-hidden="true"></span>
+        
+        <time datetime="2026-07-28T14:17:55.000Z" itemprop="datePublished">28 juli 2026</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>11 min read</span>
+      </div>
+      <h1 itemprop="headline">Lights Out, part 1: the insane adoption of agentic coding</h1>
+      
+    </div>
+  </header>
+
+  <div class="reading-grid">
+
+    <aside class="reading-rail reading-rail-toc">
+      
+        <nav class="toc" aria-label="Contents">
+          <div class="eyebrow">Contents</div>
+          
+            <a class="toc-link toc-level-2" href="#While-You-Blinked">While You Blinked</a>
+          
+            <a class="toc-link toc-level-2" href="#The-people-who-build-the-tools-have-already-surrendered">The people who build the tools have already surrendered</a>
+          
+            <a class="toc-link toc-level-2" href="#The-gap-where-your-competitors-live">The gap where your competitors live</a>
+          
+            <a class="toc-link toc-level-2" href="#The-Torvalds-arc">The Torvalds arc</a>
+          
+            <a class="toc-link toc-level-2" href="#The-bot-that-finds-bugs-your-humans-missed">The bot that finds bugs your humans missed</a>
+          
+            <a class="toc-link toc-level-2" href="#What-this-series-is-about">What this series is about</a>
+          
+            <a class="toc-link toc-level-2" href="#Sources">Sources</a>
+          
+        </nav>
+      
+      <div class="reading-rail-foot">
+        <div>2 208 words</div>
+        <a class="share-link" data-url="https://dibranmulder.github.io/2026/07/28/Lights-out-01-while-you-blinked/" href="https://dibranmulder.github.io/2026/07/28/Lights-out-01-while-you-blinked/">Share ↗</a>
+      </div>
+    </aside>
+
+    <div class="reading-main">
+      <div class="prose article-entry" itemprop="articleBody">
+        <h2 id="While-You-Blinked"><a href="#While-You-Blinked" class="headerlink" title="While You Blinked"></a>While You Blinked</h2><p>On 5 February 2026, SemiAnalysis opened a research note with a sentence that should have rattled every engineering manager in Europe:</p>
+<blockquote>
+<p>“4% of GitHub public commits are being authored by Claude Code right now. At the current trajectory, we believe that Claude Code will be 20%+ of all daily commits by the end of 2026. While you blinked, AI consumed all of software development.”</p>
+</blockquote>
+<p>Read that again, because the framing matters. Not “4% of commits were AI-assisted.” Not “4% of developers use AI.” Four percent of all public commits on the world’s largest code host, <em>authored</em> by a single product from a single vendor. One tool. One year after its research preview.</p>
+<p>We are now in late July 2026. Roughly halfway through the window of that projection. And it is worth being honest about something: I could not find a credible, methodologically transparent update to that number. There are SEO blogs claiming Claude Code has passed 9% of global public commits this month. They cite nobody. Discard them. The 4% figure stands as the last serious measurement I can point at, and even that comes from a firm modelling the number rather than GitHub publishing it.</p>
+<p>Which is itself part of the story. The single most consequential shift in how software gets made is happening faster than our ability to measure it.</p>
+<h2 id="The-people-who-build-the-tools-have-already-surrendered"><a href="#The-people-who-build-the-tools-have-already-surrendered" class="headerlink" title="The people who build the tools have already surrendered"></a>The people who build the tools have already surrendered</h2><p>If the commit data feels abstract, the practitioner quotes do not.</p>
+<p>Ryan Dahl, the creator of Node.js and not a man given to hype, posted in January: “the era of humans writing code is over. Disturbing for those of us who identify as SWEs, but no less true. That’s not to say SWEs don’t have work to do, but writing syntax directly is not it.” Seven million views.</p>
+<p>Boris Cherny, who built Claude Code, says of his own team: “Pretty much 100% of our code is written by Claude Code + Opus 4.5.”</p>
+<p>Malte Ubl, CTO of Vercel, describes his job with a precision that should make you uncomfortable: “my new primary job” is “to tell AI what it did wrong.”</p>
+<p>And Andrej Karpathy, the man who coined “vibe coding”, reports the thing nobody wants to say out loud: “I’ve already noticed that I am slowly starting to atrophy my ability to write code manually. Generation (writing code) and discrimination (reading code) are different capabilities in the brain.”</p>
+<p>That last quote is the one I’d pin above my desk. It is not a complaint about the tools. It is an early clinical note on what the tools do to us. Hold onto it, because a later post in this series is entirely about it.</p>
+<p>Meanwhile David Heinemeier Hansson, of Rails, writes elegies: “Writing Ruby code by hand in a text editor feels like such a luxury. Maybe this will soon be a lost art.”</p>
+<p>When the authors of your runtime, your framework, and your tooling all independently announce the end of an era within eight weeks of each other, that is not a hype cycle. That is a phase change.</p>
+<h2 id="The-gap-where-your-competitors-live"><a href="#The-gap-where-your-competitors-live" class="headerlink" title="The gap where your competitors live"></a>The gap where your competitors live</h2><p>Here is the number from all this research that I find most actionable, and it is not the 4%.</p>
+<p>The Stack Overflow 2025 Developer Survey found <strong>84% of developers using AI</strong> in some form, and only <strong>31% using coding agents</strong>.</p>
+<p>Eighty-four versus thirty-one. That gap is the entire competitive landscape of the next eighteen months.</p>
+<p>Because those are not two points on the same curve. Autocomplete and agentic delegation are different activities requiring different skills, different review practices, different team structures, and a different definition of what a developer’s day looks like. The 84% bought a faster typewriter. The 31% are learning to run a team of tireless, overconfident junior engineers who never sleep and never learn from yesterday.</p>
+<p>Most organisations I talk to think they are in the second group because they bought licences. They are in the first group. Buying Copilot seats is not agentic adoption, any more than buying Jira made anyone agile.</p>
+<p>And the enterprise money has already moved. Accenture signed a partnership with Anthropic, running over several years, to train <strong>30,000 professionals</strong> on Claude. At the time of announcement it was the largest Claude Code deployment to date, and it aimed squarely at financial services, life sciences, healthcare, and the public sector. Those are the regulated, conservative industries that resist change. They are not waiting for your architecture board to finish deliberating.</p>
+<h2 id="The-Torvalds-arc"><a href="#The-Torvalds-arc" class="headerlink" title="The Torvalds arc"></a>The Torvalds arc</h2><p>If you want a single narrative that captures how completely the ground has shifted in twenty months, follow Linus Torvalds.</p>
+<p><strong>October 2024.</strong> In an interview at the time of Open Source Summit Europe, he calls the AI industry “90% marketing and 10% reality” and says his approach is to “basically ignore it.” He adds: “In five years, things will change, and at that point we’ll see what AI is getting used every day for real workloads.”</p>
+<p>He gave himself five years. It took roughly eighteen months.</p>
+<p><strong>November 2025.</strong> At Open Source Summit Korea he is “fairly positive” about vibe coding as a way for people to “get computers to do something that maybe they couldn’t do otherwise”, but warns it “may be a horrible, horrible idea from a maintenance standpoint.” He is still not using AI assistance for his own coding. He complains about maintainers drowning in “bugs and security notices that are… made up by people who misuse AI.”</p>
+<p><strong>January 2026.</strong> He publishes AudioNoise. From his own README: “the python visualizer tool has been basically written by vibe-coding… I cut out the middle-man – me – and just used Google Antigravity to do the audio sample visualizer.”</p>
+<p><strong>17 May 2026.</strong> In the Linux 7.1-rc4 announcement, the pain is operational and specific: “the continued flood of AI reports has basically made the security list almost entirely unmanageable, with enormous duplication due to different people finding the same things with the same tools.” His conclusion is not prohibition, it is engineering discipline: “AI tools are great, but only if they actually help, rather than cause unnecessary pain and pointless make-believe work. Feel free to use them, but use them in a way that is productive and makes for a better experience.”</p>
+<p><strong>20 May 2026.</strong> On stage with Dirk Hohndel at Open Source Summit North America, he asks the room who is using AI to code. His read: “yeah, pretty much everybody.” He reports kernel commit volume up around <strong>20% for the past two releases</strong>, which he attributes to AI tooling lowering the barrier to writing a patch. And he delivers the best deflationary line anyone has produced on this subject: “AI will increase your productivity by a factor of 10. And I claim that compilers increase your productivity by a factor of a thousand. So AI is great, but AI is not changing programming.”</p>
+<p>He also identifies exactly where the real problem sits: “The conflict is not that AI is bad, the conflict is then that there are some social checkpoints and social pain points that come with this new tool.” And: “I’m actually very positive about this whole thing.”</p>
+<p><strong>Mid-July 2026.</strong> On the linux-media list, in a thread about wiring Patchwork up to an AI review bot, someone invokes recommendations that projects should support contributors who reject LLM tooling outright. Torvalds puts his foot down:</p>
+<blockquote>
+<p>“I realize that some people really dislike AI, but this is an area where I’m willing to absolutely put my foot down as the top-level maintainer. Linux is not one of those anti-AI projects, and if somebody has issues with that, they can do the open-source thing and fork it. Or just walk away.”</p>
+</blockquote>
+<blockquote>
+<p>“AI is a tool, just like other tools we use. And it’s clearly a useful one. It may not have been that ‘clearly’ even just a year ago, but it’s no longer in question today. There are other questions around AI (like what the economy of it will actually look like in the end), but ‘is it useful’ is no longer one of those questions. Anybody who doubts that clearly hasn’t actually used it.”</p>
+</blockquote>
+<p>And then the line that is the actual thesis of this entire blog series:</p>
+<blockquote>
+<p>“But the solution is not to put your head in the sand and sing ‘La La La, I can’t hear you’ at the top of your voice like some people seem to do. The solution is to make sure those LLM tools <em>help</em> maintainers instead of just causing them pain.”</p>
+</blockquote>
+<p>Be precise about what he did and did not say, because the internet was not. He did not mandate AI. He did not say maintainers must accept generated patches. The kernel’s own documentation is strict in the other direction: AI agents <strong>must not</strong> add <code>Signed-off-by</code> tags, because only a human can certify the Developer Certificate of Origin. A human reviews, a human signs, a human takes “full responsibility for the contribution.” Generated work gets “additional scrutiny in proportion to how much of it was generated,” and maintainers may reject a series outright if you cannot defend it.</p>
+<p>What Torvalds said is narrower and far more interesting: <em>you no longer get to argue about whether. You only get to argue about how.</em></p>
+<h2 id="The-bot-that-finds-bugs-your-humans-missed"><a href="#The-bot-that-finds-bugs-your-humans-missed" class="headerlink" title="The bot that finds bugs your humans missed"></a>The bot that finds bugs your humans missed</h2><p>One more data point, because it is the one that ends the “AI code is slop” conversation in its current form.</p>
+<p>Sashiko is an agentic kernel patch reviewer, announced in March 2026 and now reviewing traffic on kernel mailing lists. Its creator, Roman Gushchin, measured it against a thousand recent upstream issues identified by <code>Fixes:</code> tags:</p>
+<blockquote>
+<p>“Sashiko was able to find 53% of bugs based on a completely unfiltered set of 1,000 recent upstream issues using ‘Fixes:’ tags. Some might say that 53% is not that impressive, but 100% of these issues were missed by human reviewers.”</p>
+</blockquote>
+<p>One hundred percent of them got through the most scrutinised code review process in the history of software.</p>
+<p>Andrew Morton’s reaction was the correct engineering reaction: “Rule #1 is, surely, ‘don’t add bugs’. This thing finds bugs. If its hit rate is 50% then that’s plenty high enough… That’s a really high hit rate! How can we possibly not use this, if we care about Rule #1?”</p>
+<p>And the pushback was equally correct. Within a month Sashiko had produced over 10,000 reviews averaging some 3,500 words per patch, with a rate of false positives its own author put in the neighbourhood of 20%. Lorenzo Stoakes, on the proposal to make responses to every bot comment mandatory: “Andrew, for crying out loud. Please don’t do this.”</p>
+<p>Both men are right. That is the whole problem in miniature. The tool creates real value and real load, and the load lands on humans who did not choose it. Nothing in your Definition of Done, your sprint ceremony, or your team topology was designed for an actor that generates 3,500 words of plausible review commentary per patch at four in the morning.</p>
+<h2 id="What-this-series-is-about"><a href="#What-this-series-is-about" class="headerlink" title="What this series is about"></a>What this series is about</h2><p>So: the adoption question is settled. It happened faster than the measurement infrastructure, faster than the five years Torvalds gave himself, and faster than any governance framework you have written.</p>
+<p>What is emphatically <em>not</em> settled is everything downstream. Who is accountable when the commit was authored by an agent and merely approved by a human? What does a sprint mean when the work happens overnight and continuously? What happens to the craft of engineering when, as Karpathy warns, the generation muscle atrophies while the discrimination muscle becomes the only one that pays? What does a team look like when its throughput is bounded by review capacity rather than typing capacity?</p>
+<p>Torvalds framed it as well as anyone: “you need to understand not just your prompts, but you need to understand your end result, because that’s the only way you can maintain it long term.”</p>
+<p>That is the uncomfortable middle we now live in. The machines write. We are still responsible. And almost none of our processes, org charts, or professional identities have caught up.</p>
+<p>Lights out. Let’s see what’s actually running in the dark.</p>
+<hr>
+<p><em>Next in this series: <strong>Who is running the nightshift?</strong> What it actually means to have agents working while your team sleeps, and why nobody owns the output.</em></p>
+<hr>
+<h2 id="Sources"><a href="#Sources" class="headerlink" title="Sources"></a>Sources</h2><ul>
+<li>SemiAnalysis, “Claude Code is the Inflection Point,” 5 February 2026. <a target="_blank" rel="noopener" href="https://newsletter.semianalysis.com/p/claude-code-is-the-inflection-point">https://newsletter.semianalysis.com/p/claude-code-is-the-inflection-point</a> (Dahl, Cherny, Ubl, Karpathy and DHH quotes, Stack Overflow figures and the Accenture deal are all cited via this note; originals linked within it)</li>
+<li>Stack Overflow Developer Survey 2025. <a target="_blank" rel="noopener" href="https://survey.stackoverflow.co/2025">https://survey.stackoverflow.co/2025</a></li>
+<li>Accenture and Anthropic partnership announcement. <a target="_blank" rel="noopener" href="https://newsroom.accenture.com/news/2025/accenture-and-anthropic-launch-multi-year-partnership-to-drive-enterprise-ai-innovation-and-value-across-industries">https://newsroom.accenture.com/news/2025/accenture-and-anthropic-launch-multi-year-partnership-to-drive-enterprise-ai-innovation-and-value-across-industries</a></li>
+<li>Torvalds, “90% marketing and 10% reality,” TFiR interview, published 17 October 2024. <a target="_blank" rel="noopener" href="https://tfir.io/linus-torvalds-on-the-kernel-genai-evs-programming-languages-and-more/">https://tfir.io/linus-torvalds-on-the-kernel-genai-evs-programming-languages-and-more/</a></li>
+<li>Torvalds on vibe coding, Open Source Summit Korea, The Register, 18 November 2025. <a target="_blank" rel="noopener" href="https://www.theregister.com/2025/11/18/linus_torvalds_vibe_coding/">https://www.theregister.com/2025/11/18/linus_torvalds_vibe_coding/</a></li>
+<li>Torvalds, AudioNoise README. <a target="_blank" rel="noopener" href="https://github.com/torvalds/AudioNoise">https://github.com/torvalds/AudioNoise</a></li>
+<li>Torvalds, Linux 7.1-rc4 release announcement, 17 May 2026. <a target="_blank" rel="noopener" href="https://lwn.net/Articles/1073192/">https://lwn.net/Articles/1073192/</a></li>
+<li>Torvalds and Hohndel keynote, Open Source Summit NA, LWN, 25 May 2026. <a target="_blank" rel="noopener" href="https://lwn.net/Articles/1073761/">https://lwn.net/Articles/1073761/</a></li>
+<li>Torvalds, “Linux is not one of those anti-AI projects,” linux-media list, mid-July 2026. <a target="_blank" rel="noopener" href="https://lore.kernel.org/linux-media/CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com/">https://lore.kernel.org/linux-media/CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com/</a> (reproduced verbatim at <a target="_blank" rel="noopener" href="https://www.phoronix.com/news/Linux-Is-Not-Anti-AI">https://www.phoronix.com/news/Linux-Is-Not-Anti-AI</a>)</li>
+<li>Linux kernel, <code>Documentation/process/coding-assistants.rst</code>. <a target="_blank" rel="noopener" href="https://docs.kernel.org/process/coding-assistants.html">https://docs.kernel.org/process/coding-assistants.html</a></li>
+<li>Linux kernel, “Guidelines for Tool-Generated Content”. <a target="_blank" rel="noopener" href="https://docs.kernel.org/process/generated-content.html">https://docs.kernel.org/process/generated-content.html</a></li>
+<li>Sashiko announcement and Gushchin’s 53% measurement, LWN, 19 March 2026. <a target="_blank" rel="noopener" href="https://lwn.net/Articles/1063303/">https://lwn.net/Articles/1063303/</a></li>
+<li>Sashiko in the mm workflow (Morton and Stoakes exchange, review volume), LWN, 31 March 2026. <a target="_blank" rel="noopener" href="https://lwn.net/Articles/1064830/">https://lwn.net/Articles/1064830/</a></li>
+</ul>
+
+      </div>
+
+      
+        <div class="tag-row">
+          
+            <a href="/tags/AI/">AI</a>
+          
+            <a href="/tags/Agentic-coding/">Agentic coding</a>
+          
+            <a href="/tags/Software-development/">Software development</a>
+          
+            <a href="/tags/Developer-tools/">Developer tools</a>
+          
+            <a href="/tags/Productivity/">Productivity</a>
+          
+        </div>
+      
+
+      
+
+<nav class="post-nav">
+  
+    <a class="post-nav-link post-nav-prev" href="/2021/02/03/Integration-patterns-using-NServiceBus-Azure-Functions/">
+      <span class="eyebrow">← Previous</span>
+      <span class="post-nav-title">Integration patterns using NServiceBus &amp; Azure Functions</span>
+    </a>
+  
+  
+</nav>
+
+
+    </div>
+
+    <aside class="reading-rail reading-rail-author">
+      <div class="eyebrow">Author</div>
+      
+        <div class="author-avatar author-avatar-placeholder" aria-hidden="true"></div>
+      
+      <p class="author-bio">
+        <strong>Dibran Mulder</strong> — CTO at Yivi and Caesar Groep. Digital identity, and engineering with agents.
+      </p>
+      
+        <a class="underlined" href="/about/">About →</a>
+      
+    </aside>
+  </div>
+</article>
+</main>
+    <footer id="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Dibran Mulder</span>
+    
+      <span>Yivi · Caesar Groep</span>
+    
+  </div>
+</footer>
+
+  </div>
+  
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>

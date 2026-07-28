@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Locally testing Azure Functions | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Azure Functions with for instance TimeTriggers or ServiceBusTriggers can be difficult to test. Especially when you’re trying not to interfere in a development or testing environment. What a lot of peo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Locally testing Azure Functions">
+<meta property="og:url" content="https://dibranmulder.github.io/2019/05/20/Testing-time-triggered-Azure-Functions/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Azure Functions with for instance TimeTriggers or ServiceBusTriggers can be difficult to test. Especially when you’re trying not to interfere in a development or testing environment. What a lot of peo">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-05-20T11:24:46.000Z">
+<meta property="article:modified_time" content="2026-07-28T11:18:48.898Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="Azure Functions">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="is-reading">
+  <div id="container">
+    
+      <div id="reading-progress" aria-hidden="true"><span></span></div>
+    
+    
+<header id="header">
+  <div class="header-inner">
+    <a class="wordmark" href="/">Dibran Mulder</a>
+    <nav class="site-nav" aria-label="Main">
+      
+        <a href="/" class="is-current" aria-current="page">Writing</a>
+      
+        <a href="/archives">Archive</a>
+      
+        <a href="/about">About</a>
+      
+      
+        <a href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+<article class="page page-post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-kicker">
+        
+          <a class="post-kicker-topic" href="/tags/Azure-Functions/">Azure Functions</a>
+          <span class="dot" aria-hidden="true"></span>
+        
+        <time datetime="2019-05-20T11:24:46.000Z" itemprop="datePublished">20 mei 2019</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>1 min read</span>
+      </div>
+      <h1 itemprop="headline">Locally testing Azure Functions</h1>
+      
+    </div>
+  </header>
+
+  <div class="reading-grid">
+
+    <aside class="reading-rail reading-rail-toc">
+      
+      <div class="reading-rail-foot">
+        <div>224 words</div>
+        <a class="share-link" data-url="https://dibranmulder.github.io/2019/05/20/Testing-time-triggered-Azure-Functions/" href="https://dibranmulder.github.io/2019/05/20/Testing-time-triggered-Azure-Functions/">Share ↗</a>
+      </div>
+    </aside>
+
+    <div class="reading-main">
+      <div class="prose article-entry" itemprop="articleBody">
+        <p>Azure Functions with for instance TimeTriggers or ServiceBusTriggers can be difficult to test. Especially when you’re trying not to interfere in a development or testing environment. What a lot of people don’t know is that the Azure Functions platform provides a feature to manually trigger Azure Functions, regardless of their actual trigger type.</p>
+<p>The only thing you’ll have to do is to send a Http POST message to an admin enpoint. <strong>Keep it mind to add a payload with at least an empty input property</strong>, otherwise the function will not be triggered.</p>
+<p>Take for instance this Functions with a TimeTrigger named <code>TriggerOnTime</code>.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">Functions</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">FunctionName(<span class="string">&quot;TriggerOnTime&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> Task <span class="title">DoSomethingAsync</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        [TimerTrigger(<span class="string">&quot;0 0 */8 * * *&quot;</span></span>)] TimerInfo myTimer,</span></span><br><span class="line"><span class="function">        ILogger log)</span></span><br><span class="line">    &#123;</span><br><span class="line">        log.LogInformation(<span class="string">&quot;This function triggers every 8 hours.&quot;</span>);</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>To manually fire this off, perform a Http POST message to the following endpoint: <code>POST: http://localhost:7071/admin/functions/TriggerOnTime</code><br>Don’t forget to add an empty payload.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;input&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>You can perform this request with a simple curl command.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl</span><br><span class="line">    --header <span class="string">&quot;Content-Type: application/json&quot;</span></span><br><span class="line">    --request POST </span><br><span class="line">    --data <span class="string">&#x27;&#123;&quot;input&quot;:&quot;&quot;&#125;&#x27;</span> </span><br><span class="line">    http://localhost:7071/admin/functions/TriggerOnTime</span><br></pre></td></tr></table></figure>
+<p>To mock a ServiceBusMessage simple provide the JSON serialized content of the message inside the input property.</p>
+<p>Happy coding!</p>
+
+      </div>
+
+      
+        <div class="tag-row">
+          
+            <a href="/tags/Azure-Functions/">Azure Functions</a>
+          
+        </div>
+      
+
+      
+
+<nav class="post-nav">
+  
+    <a class="post-nav-link post-nav-prev" href="/2019/04/16/Versioning-with-Azure-PaaS/">
+      <span class="eyebrow">← Previous</span>
+      <span class="post-nav-title">Versioning with Azure PaaS and Serverless</span>
+    </a>
+  
+  
+    <a class="post-nav-link post-nav-next" href="/2019/06/18/Learn-CosmosDb-in-20-pictures/">
+      <span class="eyebrow">Next →</span>
+      <span class="post-nav-title">Learn CosmosDb in 27 pictures</span>
+    </a>
+  
+</nav>
+
+
+    </div>
+
+    <aside class="reading-rail reading-rail-author">
+      <div class="eyebrow">Author</div>
+      
+        <div class="author-avatar author-avatar-placeholder" aria-hidden="true"></div>
+      
+      <p class="author-bio">
+        <strong>Dibran Mulder</strong> — CTO at Yivi and Caesar Groep. Digital identity, and engineering with agents.
+      </p>
+      
+        <a class="underlined" href="/about/">About →</a>
+      
+    </aside>
+  </div>
+</article>
+</main>
+    <footer id="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Dibran Mulder</span>
+    
+      <span>Yivi · Caesar Groep</span>
+    
+  </div>
+</footer>
+
+  </div>
+  
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>

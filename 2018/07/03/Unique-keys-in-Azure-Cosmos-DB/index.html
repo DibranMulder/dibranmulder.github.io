@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Unique keys in Azure Cosmos DB | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="NoSQL databases often don’t have support for database constraints. It doesn’t make sense to constraint since the data is schemaless and therefore where does the database has to constrain on?Well its t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unique keys in Azure Cosmos DB">
+<meta property="og:url" content="https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="NoSQL databases often don’t have support for database constraints. It doesn’t make sense to constraint since the data is schemaless and therefore where does the database has to constrain on?Well its t">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-07-03T14:06:31.000Z">
+<meta property="article:modified_time" content="2026-07-28T11:18:48.898Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="Azure">
+<meta property="article:tag" content="CosmosDb">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="is-reading">
+  <div id="container">
+    
+      <div id="reading-progress" aria-hidden="true"><span></span></div>
+    
+    
+<header id="header">
+  <div class="header-inner">
+    <a class="wordmark" href="/">Dibran Mulder</a>
+    <nav class="site-nav" aria-label="Main">
+      
+        <a href="/" class="is-current" aria-current="page">Writing</a>
+      
+        <a href="/archives">Archive</a>
+      
+        <a href="/about">About</a>
+      
+      
+        <a href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+<article class="page page-post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-kicker">
+        
+          <a class="post-kicker-topic" href="/tags/Azure/">Azure</a>
+          <span class="dot" aria-hidden="true"></span>
+        
+        <time datetime="2018-07-03T14:06:31.000Z" itemprop="datePublished">3 juli 2018</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>3 min read</span>
+      </div>
+      <h1 itemprop="headline">Unique keys in Azure Cosmos DB</h1>
+      
+    </div>
+  </header>
+
+  <div class="reading-grid">
+
+    <aside class="reading-rail reading-rail-toc">
+      
+        <nav class="toc" aria-label="Contents">
+          <div class="eyebrow">Contents</div>
+          
+            <a class="toc-link toc-level-2" href="#Unique-keys">Unique keys</a>
+          
+        </nav>
+      
+      <div class="reading-rail-foot">
+        <div>582 words</div>
+        <a class="share-link" data-url="https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/" href="https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/">Share ↗</a>
+      </div>
+    </aside>
+
+    <div class="reading-main">
+      <div class="prose article-entry" itemprop="articleBody">
+        <p>NoSQL databases often don’t have support for database constraints. It doesn’t make sense to constraint since the data is schemaless and therefore where does the database has to constrain on?<br>Well its true for most cases but sometimes you just want to make sure that there’s only 1 document for an entity. Lets say your CosmosDb is managing client or user entities. It doesn’t make sense to have 2 users documents representing the same user, does it? It could result in bugs or other unwanted behavior.</p>
+<h2 id="Unique-keys"><a href="#Unique-keys" class="headerlink" title="Unique keys"></a>Unique keys</h2><p>CosmosDb supports Unique Keys, well I rather call them Unique Paths.<br>Lets say you have a document representing a client and it looks something like this:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1234567&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;BigFirm&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;country&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The Netherlands&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;address&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;street&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Sillicon Valley Road&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;housenumber&quot;</span><span class="punctuation">:</span> <span class="string">&quot;42&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;state&quot;</span><span class="punctuation">:</span> <span class="string">&quot;California&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;country&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The Greatest Country on Earth&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;users&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Dibran&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;CEO&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;username&quot;</span><span class="punctuation">:</span> <span class="string">&quot;d.mulder@bigfirm.com&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Charles&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Slave&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;username&quot;</span><span class="punctuation">:</span> <span class="string">&quot;charles@bigfirm.com&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Lets say you want every document to have an unique combination of name and country. And secondly, you want to have unique list of user titles inside your users array. Its actually quite easy to do that, but the sad part is that you can only add unique keys at the creation of a collection. After that you’re not able to edit them anymore.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DocumentCollection myCollection = <span class="keyword">new</span> DocumentCollection();</span><br><span class="line">myCollection.Id = <span class="string">&quot;ClientCollection&quot;</span>;</span><br><span class="line">myCollection.UniqueKeyPolicy = <span class="keyword">new</span> UniqueKeyPolicy</span><br><span class="line">&#123;</span><br><span class="line">    UniqueKeys =</span><br><span class="line">    <span class="keyword">new</span> Collection&lt;UniqueKey&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">new</span> UniqueKey &#123; Paths = <span class="keyword">new</span> Collection&lt;<span class="built_in">string</span>&gt; &#123; <span class="string">&quot;/name&quot;</span> , <span class="string">&quot;/country&quot;</span> &#125;&#125;</span><br><span class="line">        <span class="keyword">new</span> UniqueKey &#123; Paths = <span class="keyword">new</span> Collection&lt;<span class="built_in">string</span>&gt; &#123; <span class="string">&quot;/users/title&quot;</span> &#125; &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">await</span> client.CreateDocumentCollectionAsync(</span><br><span class="line">    UriFactory.CreateDatabaseUri(dataBase),</span><br><span class="line">    myCollection,</span><br><span class="line">    <span class="keyword">new</span> RequestOptions &#123; OfferThroughput = <span class="number">400</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>Its just that simple, now you’ll have a collection with a unique key policy. Actually if you look at the json definition of a collection then you’ll be able to see it, take a look:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ClientCollection&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;indexingPolicy&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;indexingMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;consistent&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;automatic&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;includedPaths&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/*&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;indexes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Range&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;dataType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Number&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;precision&quot;</span><span class="punctuation">:</span> <span class="number">-1</span></span><br><span class="line">          <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Hash&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;dataType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;String&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;precision&quot;</span><span class="punctuation">:</span> <span class="number">3</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;excludedPaths&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;uniqueKeyPolicy&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;uniqueKeys&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="string">&quot;/name&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="string">&quot;/country&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="string">&quot;/users/title&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Bear in mind that you’ll have to check for conflict exceptions in your code. If you’re violating the unique key policy then a <code>Microsoft.Azure.Documents.DocumentClientException</code> is thrown. This exceptions contains a <code>System.Net.HttpStatusCode.Conflict</code> status code, this is where you want to check on. Your code will look something like this:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">    response = <span class="keyword">await</span> client.CreateDocumentAsync(collectionUri, document, requestOptions);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (Microsoft.Azure.Documents.DocumentClientException ex)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ( ex.StatusCode == System.Net.HttpStatusCode.Conflict )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Unique key constraint violation ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Some other issue ...</span></span><br><span class="line">        <span class="keyword">throw</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Hopefully this helped a little, for further reading please see:<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/cosmos-db/unique-keys">https://docs.microsoft.com/en-us/azure/cosmos-db/unique-keys</a></p>
+
+      </div>
+
+      
+        <div class="tag-row">
+          
+            <a href="/tags/Azure/">Azure</a>
+          
+            <a href="/tags/CosmosDb/">CosmosDb</a>
+          
+        </div>
+      
+
+      
+
+<nav class="post-nav">
+  
+    <a class="post-nav-link post-nav-prev" href="/2018/06/25/Expire-data-in-CosmosDb/">
+      <span class="eyebrow">← Previous</span>
+      <span class="post-nav-title">Expire data in CosmosDb</span>
+    </a>
+  
+  
+    <a class="post-nav-link post-nav-next" href="/2018/08/20/Azure-Service-Health/">
+      <span class="eyebrow">Next →</span>
+      <span class="post-nav-title">Azure Service Health</span>
+    </a>
+  
+</nav>
+
+
+    </div>
+
+    <aside class="reading-rail reading-rail-author">
+      <div class="eyebrow">Author</div>
+      
+        <div class="author-avatar author-avatar-placeholder" aria-hidden="true"></div>
+      
+      <p class="author-bio">
+        <strong>Dibran Mulder</strong> — CTO at Yivi and Caesar Groep. Digital identity, and engineering with agents.
+      </p>
+      
+        <a class="underlined" href="/about/">About →</a>
+      
+    </aside>
+  </div>
+</article>
+</main>
+    <footer id="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Dibran Mulder</span>
+    
+      <span>Yivi · Caesar Groep</span>
+    
+  </div>
+</footer>
+
+  </div>
+  
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>

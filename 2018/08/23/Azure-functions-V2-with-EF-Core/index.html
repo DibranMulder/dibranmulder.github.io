@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Azure functions V2 with EF Core | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Last week I was trying to build an API on top of Azure Functions with a backing SQL database. This sounds like a pretty easy task however that was not the case, here’s my story. Normally when I use a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azure functions V2 with EF Core">
+<meta property="og:url" content="https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Last week I was trying to build an API on top of Azure Functions with a backing SQL database. This sounds like a pretty easy task however that was not the case, here’s my story. Normally when I use a">
+<meta property="og:locale">
+<meta property="og:image" content="https://dibranmulder.github.io/images/efcore/vstsbuild.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/efcore/vstsrelease.png">
+<meta property="article:published_time" content="2018-08-23T13:48:30.000Z">
+<meta property="article:modified_time" content="2026-07-28T11:35:43.907Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="Azure">
+<meta property="article:tag" content="Dependency Injection">
+<meta property="article:tag" content="EF Core">
+<meta property="article:tag" content="Entity Framework Core">
+<meta property="article:tag" content="Functions V2">
+<meta property="article:tag" content="Migrations">
+<meta property="article:tag" content="VSTS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dibranmulder.github.io/images/efcore/vstsbuild.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="is-reading">
+  <div id="container">
+    
+      <div id="reading-progress" aria-hidden="true"><span></span></div>
+    
+    
+<header id="header">
+  <div class="header-inner">
+    <a class="wordmark" href="/">Dibran Mulder</a>
+    <nav class="site-nav" aria-label="Main">
+      
+        <a href="/" class="is-current" aria-current="page">Writing</a>
+      
+        <a href="/archives">Archive</a>
+      
+        <a href="/about">About</a>
+      
+      
+        <a href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+<article class="page page-post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-kicker">
+        
+          <a class="post-kicker-topic" href="/tags/Azure/">Azure</a>
+          <span class="dot" aria-hidden="true"></span>
+        
+        <time datetime="2018-08-23T13:48:30.000Z" itemprop="datePublished">23 augustus 2018</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>8 min read</span>
+      </div>
+      <h1 itemprop="headline">Azure functions V2 with EF Core</h1>
+      
+    </div>
+  </header>
+
+  <div class="reading-grid">
+
+    <aside class="reading-rail reading-rail-toc">
+      
+        <nav class="toc" aria-label="Contents">
+          <div class="eyebrow">Contents</div>
+          
+            <a class="toc-link toc-level-2" href="#Installation">Installation</a>
+          
+            <a class="toc-link toc-level-2" href="#Setting-up-the-context">Setting up the context</a>
+          
+            <a class="toc-link toc-level-2" href="#Azure-Functions-V2-Dependency-injection">Azure Functions V2 Dependency injection</a>
+          
+            <a class="toc-link toc-level-2" href="#Migrations">Migrations</a>
+          
+            <a class="toc-link toc-level-2" href="#CI-CD">CI CD</a>
+          
+            <a class="toc-link toc-level-3" href="#VSTS">VSTS</a>
+          
+            <a class="toc-link toc-level-2" href="#Some-tips-and-tricks">Some tips and tricks</a>
+          
+        </nav>
+      
+      <div class="reading-rail-foot">
+        <div>1 646 words</div>
+        <a class="share-link" data-url="https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/" href="https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/">Share ↗</a>
+      </div>
+    </aside>
+
+    <div class="reading-main">
+      <div class="prose article-entry" itemprop="articleBody">
+        <p>Last week I was trying to build an API on top of Azure Functions with a backing SQL database. This sounds like a pretty easy task however that was not the case, here’s my story.</p>
+<p>Normally when I use a SQL database in a WebApp, and therefore this also applies to Functions, I use an ORM mapper. I’m pretty familiar with Entity Framework so that’s what I tried. You might think why don’t you use <a href="(https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings">Triggers and Bindings</a> to connect with your SQL database? Well SQL bindings and triggers aren’t supported yet.</p>
+<p>If you want to use Entity Framework inside Azure Functions V2 then you would have to use Entity Framework Core (EF Core) since EF core runs on .NET Core which supports .NET Standard 2.0, and .NET Standard 2.0 is the target for Azure Functions v2 projects.</p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>Well having that said I chose to have a separate class library for my EF Core database context to live in because I have multiple function apps inside my solution, which all have to use that same database context.</p>
+<p>EF core requires some Nuget packages, at the time of writing I use the 2.1.2 versions of the understanding packages. The <code>Design</code> package is required when you want to work with migrations, if your not planning to do that then forget about that package. The <code>SqlServer</code> package has actually a pretty cool story. It is possible to use <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/ef/core/providers/">other underlying databases</a> such as CosmosDb, MySql or what have you. So only use that <code>SqlServer</code> package when you have a backing Sql Server database.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Microsoft.EntityFrameworkCore</span><br><span class="line">Microsoft.EntityFrameworkCore.Design</span><br><span class="line">Microsoft.EntityFrameworkCore.SqlServer</span><br></pre></td></tr></table></figure>
+
+<p>Do not install the following packages.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Microsoft.EntityFrameworkCore.Tools</span><br><span class="line">Microsoft.EntityFrameworkCore.Tools.DotNet</span><br></pre></td></tr></table></figure>
+<p>Those packages got <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/dotnet">deprecated after .Net core 2.1.3</a>. Before you continue, make sure you have downloaded the latest .NET Core SDK. To check your local version execute:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; dotnet --version</span><br><span class="line">2.1.400</span><br></pre></td></tr></table></figure>
+<h2 id="Setting-up-the-context"><a href="#Setting-up-the-context" class="headerlink" title="Setting up the context"></a>Setting up the context</h2><p>Just like with the traditional EF you have to setup a DbContext class with all the DbSets&#x2F;tables and models and stuff. Generally EF core is simular to EF but there are some differences. A good site with alot of documentation is: <a target="_blank" rel="noopener" href="https://www.learnentityframeworkcore.com/">https://www.learnentityframeworkcore.com/</a>. Your context might look like this:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyContext</span> : <span class="title">DbContext</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyContext</span>(<span class="params">DbContextOptions&lt;MyContext&gt; dbContextOptions</span>) : <span class="title">base</span>(<span class="params">dbContextOptions</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnModelCreating</span>(<span class="params">ModelBuilder modelBuilder</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> DbSet&lt;Order&gt; Orders &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> DbSet&lt;Client&gt; Clients &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Azure-Functions-V2-Dependency-injection"><a href="#Azure-Functions-V2-Dependency-injection" class="headerlink" title="Azure Functions V2 Dependency injection"></a>Azure Functions V2 Dependency injection</h2><p>After setting up your DbContext you probably want to use it in your Azure Functions. In order for you to effectively do that you have to setup proper dependency injection. Sadly this is not yet supported out of the box in Azure Functions V1 or V2 so you’ll have to build it your own. Don’t be sad I have found a pretty good implementation on <a target="_blank" rel="noopener" href="https://github.com/BorisWilhelms/azure-function-dependency-injection">Github</a>. Once you have a project with that code you can just reference that project from within your Azure Functions project or just create a Nuget package.</p>
+<p>All you then have to do is setup a ServiceProvider and add your dependencies simular to what you would have done in ASP.net core for instance. Note that the package <code>Microsoft.EntityFrameworkCore</code> contains a <code>AddDbContext</code> method that is build for injecting EF Core DbContexts.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ServiceProviderBuilder</span> : <span class="title">IServiceProviderBuilder</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IServiceProvider <span class="title">BuildServiceProvider</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        IConfigurationRoot config = <span class="keyword">new</span> ConfigurationBuilder()</span><br><span class="line">            .SetBasePath(Environment.CurrentDirectory)</span><br><span class="line">            .AddJsonFile(<span class="string">&quot;local.settings.json&quot;</span>, optional: <span class="literal">true</span>, reloadOnChange: <span class="literal">true</span>)</span><br><span class="line">            .AddEnvironmentVariables()</span><br><span class="line">            .Build();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> connectionString = config.GetConnectionString(<span class="string">&quot;SqlConnectionString&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> services = <span class="keyword">new</span> ServiceCollection();</span><br><span class="line"></span><br><span class="line">        services.AddSingleton&lt;IDemoService, DemoService&gt;();</span><br><span class="line"></span><br><span class="line">        services.AddDbContext&lt;MyContext&gt;(options =&gt; options.UseSqlServer(connectionString));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> services.BuildServiceProvider(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Once you’ve setup the registration then it’s very easy to inject it into your Azure Functions, take a look at this sample:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">DemoFunction</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">FunctionName(nameof(DemoFunction))</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">Run</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        [HttpTrigger(</span></span></span><br><span class="line"><span class="params"><span class="function">            AuthorizationLevel.Anonymous,</span></span></span><br><span class="line"><span class="params"><span class="function">            <span class="string">&quot;get&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">            Route = <span class="string">&quot;demo/route/&#123;id&#125;&quot;</span></span>)]HttpRequestMessage req,</span></span><br><span class="line"><span class="function">        [Inject] MyContext myContext,</span></span><br><span class="line"><span class="function">        <span class="built_in">string</span> id,</span></span><br><span class="line"><span class="function">        ILogger log)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> order = myContext.Orders.FirstOrDefault(x =&gt; x.Id == id);</span><br><span class="line">        order.Paid = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">await</span> mspContext.SaveChangesAsync();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Migrations"><a href="#Migrations" class="headerlink" title="Migrations"></a>Migrations</h2><p>So we’ve got a DbContext setup and injected it into our Azure Functions, the next thing what you probably want to do is to use Migrations. EF core comes with great command line tooling, remember when we were using the Package Manager console to execute some Powershell? Finally those days are over. With the new <code>dotnet ef</code> tooling you can just do it from the command line.</p>
+<p>There is no such thing as <code>Enable-Migrations</code> anymore, you just add a Migration and you’ve enabled it. The command to add a migrations is: <code>dotnet ef migrations add &lt;name&gt;</code>.</p>
+<p>Remember that I created a Shared Class Library which targets .NET Standard? Well If you get the following error you’ve done the same as I did:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; dotnet ef migrations add InitialCreate</span><br><span class="line"></span><br><span class="line">Startup project &#x27;MyProject.Shared.csproj&#x27; targets framework &#x27;.NETStandard&#x27;. There is no runtime associated with this framework, and projects targeting it cannot be executed directly. To use the Entity Framework Core .NET Command-line Tools with this project, add an executable project targeting .NET Core or .NET Framework that references this project, and set it as the startup project using --startup-project; or, update this project to cross-target .NET Core or .NET Framework.</span><br></pre></td></tr></table></figure>
+<p>An easy work around is to enable multiple TargetFrameworks, note that its plural, add an ‘s’ after TargetFramework. If you add a netcoreapp target framework then your Class Library can execute on its own, even without a <code>static void main()</code> or something like that.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">Sdk</span>=<span class="string">&quot;Microsoft.NET.Sdk&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">TargetFrameworks</span>&gt;</span>netcoreapp2.0.7;netstandard2.0<span class="tag">&lt;/<span class="name">TargetFrameworks</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>If you execute the <code>dotnet ef migrations add &lt;name&gt;</code> again then you will probably get the following error.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; dotnet ef migrations add InitialCreate</span><br><span class="line"></span><br><span class="line">Unable to create an object of type &#x27;MyContext&#x27;. Add an implementation of &#x27;IDesignTimeDbContextFactory&lt;MyContext&gt;&#x27; to the project, or see https://go.microsoft.com/fwlink/?linkid=851728 for additional patterns supported at design time.</span><br></pre></td></tr></table></figure>
+<p>This error states that you do not have setup a <code>DbContextOptions</code> object for your <code>DbContext</code> class. In other words during command line execution it doesn’t know where to execute or check the migrations on. In order for you to workaround this you’ll have to implement a <code>IDesignTimeDbContextFactory&lt;MyContext&gt;</code>. You’ll not have to reference it anywhere, the tooling will just check for the existence and initiate the class. I chose to create an <code>appsettings.json</code> file and inject a connectionString inside that file.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DesignTimeDbContextFactory</span> : <span class="title">IDesignTimeDbContextFactory</span>&lt;<span class="title">MyContext</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyContext <span class="title">CreateDbContext</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        IConfigurationRoot configuration = <span class="keyword">new</span> ConfigurationBuilder()</span><br><span class="line">            .SetBasePath(Directory.GetCurrentDirectory())</span><br><span class="line">            .AddJsonFile(<span class="string">&quot;appsettings.json&quot;</span>)</span><br><span class="line">            .Build();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> builder = <span class="keyword">new</span> DbContextOptionsBuilder&lt;MyContext&gt;();</span><br><span class="line">        <span class="keyword">var</span> connectionString = configuration.GetConnectionString(<span class="string">&quot;SqlConnectionString&quot;</span>);</span><br><span class="line">        builder.UseSqlServer(connectionString);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyContext(builder.Options);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;ConnectionStrings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;SqlConnectionString&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Server=tcp:whatever.database.windows.net,1433;Initial Catalog=whatever;Persist Security Info=False;User ID=whateveradmin;Password=secret;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>If you try the command again, it should work.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; dotnet ef migrations add InitialCreate</span><br><span class="line">Done. To undo this action, use &#x27;ef migrations remove&#x27;</span><br></pre></td></tr></table></figure>
+<h2 id="CI-CD"><a href="#CI-CD" class="headerlink" title="CI &#x2F; CD"></a>CI &#x2F; CD</h2><p>Last but not least you probably want to generate migrations and execute them from your CI&#x2F;CD environment. This way you’ll get a fully managed way of migrating&#x2F;managing your database for all different environments.</p>
+<h3 id="VSTS"><a href="#VSTS" class="headerlink" title="VSTS"></a>VSTS</h3><img src="/images/efcore/vstsbuild.png">
+In VSTS you just setup a build with the following steps:
+* dotnet restore
+* dotnet build
+* dotnet publish
+    - Name the projects of your function apps.
+* dotnet custom
+    - Add `ef` as custom command
+    - Add the arguments below. Set the project and the startup-project to your Class Library.
+* Stage the ARM template
+* Publish the artifacts
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrations script -i --project $(Build.SourcesDirectory)\MyProject.Shared\MyProject.Shared.csproj --startup-project $(Build.SourcesDirectory)\MyProject.Shared.csproj\MyProject.Shared.csproj.csproj -o $(build.artifactstagingdirectory)\Migrations\scripts.sql</span><br></pre></td></tr></table></figure>
+Its important that you add the `-i` argument. This argument will generate the migrations script in such a way that it checks if the migration is already executed on the database. This prevents the pipeline from applying the same migrations twice. Notice that the migrations script is outputed to the artifacts directory which is published at the last step of the build.
+
+<img src="/images/efcore/vstsrelease.png">
+In the release part of the CI/CD pipeline you'll just have to the following:
+* Execute the ARM script
+* I use ARM script outputs to get the SQL Server name and Database name.
+* Stop your Azure Functions
+* Redeploy them
+* Execute the migrations script against the database
+* Restart the Azure Functions.
+
+<p>Well that’s it, you’ve got Azure Functions V2 running Entity Framework Core in Azure! Thanks for reading and happy coding.</p>
+<h2 id="Some-tips-and-tricks"><a href="#Some-tips-and-tricks" class="headerlink" title="Some tips and tricks"></a>Some tips and tricks</h2><p>Just some tips and tricks.</p>
+<p>Don’t worry about this warning. Since EF Core tools are build into the .NET Core tooling you might have mismatches with your EF Core packages.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The EF Core tools version &#x27;2.1.0-rtm-30799&#x27; is older than that of the runtime &#x27;2.1.1-rtm-30846&#x27;. Update the tools for the latest features and bug fixes.</span><br></pre></td></tr></table></figure>
+<p>It can also occur that you only get this warning in VSTS. That might be the result of different .NET Core SDK’s on your client pc and VSTS. Check <a target="_blank" rel="noopener" href="https://github.com/Microsoft/vsts-image-generation/blob/master/images/win/Vs2017-Server2016-Readme.md#net-core">this page</a> out to see what version of <code>dotnet</code> is running in VSTS.</p>
+<p>Adding the <code>-i</code> argument prevents migrations from being executed twice.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; dotnet ef migrations script -i</span><br></pre></td></tr></table></figure>
+<p>It adds the following check to the generated SQL:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(<span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> [__EFMigrationsHistory] <span class="keyword">WHERE</span> [MigrationId] <span class="operator">=</span> N<span class="string">&#x27;20180823120412_InitialCreate&#x27;</span>)</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">    <span class="comment">-- Generated migrations code here</span></span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+<p>To remove all migrations and start over just simply execute this.<br>It can be handy at the initial development.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; dotnet ef database update <span class="number">0</span></span><br><span class="line">&gt; dotnet ef migrations remove</span><br></pre></td></tr></table></figure>
+      </div>
+
+      
+        <div class="tag-row">
+          
+            <a href="/tags/Azure/">Azure</a>
+          
+            <a href="/tags/Entity-Framework-Core/">Entity Framework Core</a>
+          
+            <a href="/tags/EF-Core/">EF Core</a>
+          
+            <a href="/tags/Migrations/">Migrations</a>
+          
+            <a href="/tags/VSTS/">VSTS</a>
+          
+            <a href="/tags/Functions-V2/">Functions V2</a>
+          
+            <a href="/tags/Dependency-Injection/">Dependency Injection</a>
+          
+        </div>
+      
+
+      
+
+<nav class="post-nav">
+  
+    <a class="post-nav-link post-nav-prev" href="/2018/08/20/Azure-Service-Health/">
+      <span class="eyebrow">← Previous</span>
+      <span class="post-nav-title">Azure Service Health</span>
+    </a>
+  
+  
+    <a class="post-nav-link post-nav-next" href="/2018/10/05/Azure-AD-Managed-Service-Identity/">
+      <span class="eyebrow">Next →</span>
+      <span class="post-nav-title">Azure AD Managed Service Identity</span>
+    </a>
+  
+</nav>
+
+
+    </div>
+
+    <aside class="reading-rail reading-rail-author">
+      <div class="eyebrow">Author</div>
+      
+        <div class="author-avatar author-avatar-placeholder" aria-hidden="true"></div>
+      
+      <p class="author-bio">
+        <strong>Dibran Mulder</strong> — CTO at Yivi and Caesar Groep. Digital identity, and engineering with agents.
+      </p>
+      
+        <a class="underlined" href="/about/">About →</a>
+      
+    </aside>
+  </div>
+</article>
+</main>
+    <footer id="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Dibran Mulder</span>
+    
+      <span>Yivi · Caesar Groep</span>
+    
+  </div>
+</footer>
+
+  </div>
+  
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>

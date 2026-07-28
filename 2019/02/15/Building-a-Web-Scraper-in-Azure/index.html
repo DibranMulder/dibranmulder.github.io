@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Building a Web Scraper in Azure | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Building a web scraper is pretty hard. Doing it in Azure is harder. Utilizing Serverless and PaaS services is challenging. I don’t want to pay for a VM and just deploy the scraper on it because I need">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building a Web Scraper in Azure">
+<meta property="og:url" content="https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Building a web scraper is pretty hard. Doing it in Azure is harder. Utilizing Serverless and PaaS services is challenging. I don’t want to pay for a VM and just deploy the scraper on it because I need">
+<meta property="og:locale">
+<meta property="og:image" content="https://dibranmulder.github.io/images/scraper/azure-web-scraper.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/scraper/logicapp.PNG">
+<meta property="article:published_time" content="2019-02-15T14:44:40.000Z">
+<meta property="article:modified_time" content="2026-07-28T11:18:48.896Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="Azure">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Functions">
+<meta property="article:tag" content="Logic Apps">
+<meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="Wordpress">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dibranmulder.github.io/images/scraper/azure-web-scraper.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="is-reading">
+  <div id="container">
+    
+      <div id="reading-progress" aria-hidden="true"><span></span></div>
+    
+    
+<header id="header">
+  <div class="header-inner">
+    <a class="wordmark" href="/">Dibran Mulder</a>
+    <nav class="site-nav" aria-label="Main">
+      
+        <a href="/" class="is-current" aria-current="page">Writing</a>
+      
+        <a href="/archives">Archive</a>
+      
+        <a href="/about">About</a>
+      
+      
+        <a href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+<article class="page page-post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-kicker">
+        
+          <a class="post-kicker-topic" href="/tags/Azure/">Azure</a>
+          <span class="dot" aria-hidden="true"></span>
+        
+        <time datetime="2019-02-15T14:44:40.000Z" itemprop="datePublished">15 februari 2019</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>8 min read</span>
+      </div>
+      <h1 itemprop="headline">Building a Web Scraper in Azure</h1>
+      
+    </div>
+  </header>
+
+  <div class="reading-grid">
+
+    <aside class="reading-rail reading-rail-toc">
+      
+        <nav class="toc" aria-label="Contents">
+          <div class="eyebrow">Contents</div>
+          
+            <a class="toc-link toc-level-2" href="#The-case">The case</a>
+          
+            <a class="toc-link toc-level-2" href="#The-solution">The solution</a>
+          
+            <a class="toc-link toc-level-3" href="#Puppeteer-TypeScript-and-NodeJs">Puppeteer, TypeScript and NodeJs</a>
+          
+            <a class="toc-link toc-level-3" href="#Docker-and-Azure">Docker and Azure</a>
+          
+            <a class="toc-link toc-level-3" href="#Service-bus">Service bus</a>
+          
+            <a class="toc-link toc-level-3" href="#Azure-Logic-Apps">Azure Logic Apps</a>
+          
+        </nav>
+      
+      <div class="reading-rail-foot">
+        <div>1 611 words</div>
+        <a class="share-link" data-url="https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/" href="https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/">Share ↗</a>
+      </div>
+    </aside>
+
+    <div class="reading-main">
+      <div class="prose article-entry" itemprop="articleBody">
+        <p>Building a web scraper is pretty hard. Doing it in Azure is harder. Utilizing Serverless and PaaS services is challenging. I don’t want to pay for a VM and just deploy the scraper on it because I need the solution to be scalable. Secondly I only want to pay for actual usage and not for a VM thats idle.</p>
+<h2 id="The-case"><a href="#The-case" class="headerlink" title="The case"></a>The case</h2><p>I want to scrape certain websites twice a day. At 10:00 UTC and at 18:00 UTC. This frequency might change in the future so I don’t want to have it build in hard coded. I’m scraping ecommerce sites and the pages that need to be scraped depend on a list of id’s comming from a database. So the input for the scraper is dynamic. Lastly the output of the scraper has to be stored in a database. Later on I will have to develop some UI which discloses the information for ecommerce traders.</p>
+<h2 id="The-solution"><a href="#The-solution" class="headerlink" title="The solution"></a>The solution</h2><img src="/images/scraper/azure-web-scraper.png" />
+Web scraping comes in different shapes and sizes. Some packages just perform Http calls and evaluate the response. Others spin up and entire (headless) browser and perform actual DOM operations. Since I want to scrape different ecommerce sites spinning up an actual browser looked like the way to go. Also because lots of ecommerce sites rely on alot on JavaScript. Some are build as an SPA and that requires per definition a browser based approach. After some research I stumbled upon `puppeteer`. A headless Chrome API build by Google itself, very promising.
+
+<p>My initial idea was to run puppeteer inside an Azure Function, however after some research I came to the conclusion that running a headless browser on Azure PaaS or Serverless <a target="_blank" rel="noopener" href="https://github.com/GoogleChrome/puppeteer/issues/515">is not going to happen</a>. So what are the alternatives? Well containers seems like a reasonable solution. I can spin up and tear down the container with some orchestration and thereby limit my costs. A good start point for running puppeteer containers in Azure is <a target="_blank" rel="noopener" href="https://medium.com/@bogdanbujdea/running-puppeteer-in-azure-container-instances-b24fb0a8d3e">this blog post</a>.</p>
+<p>For orchestrating the scraper I was thinking about using Azure Functions again. But then on a bright day I figured I would use Azure Logic Apps instead. Logic Apps are great for defining and running workflows and look like a perfect fit. They are pay per usage and are easy to develop!</p>
+<h3 id="Puppeteer-TypeScript-and-NodeJs"><a href="#Puppeteer-TypeScript-and-NodeJs" class="headerlink" title="Puppeteer, TypeScript and NodeJs"></a>Puppeteer, TypeScript and NodeJs</h3><p>I wanted to brush up my TypeScript and NodeJS skills since it has been a while that I seriously developed in TypeScript. The last time I did something significant I was still using Visual Studio instead of VS Code for TypeScript development. So here’s the story to get a puppeteer scraper working in NodeJs and TypeScript.</p>
+<h4 id="Depedencies"><a href="#Depedencies" class="headerlink" title="Depedencies"></a>Depedencies</h4><p>First of all get TypeScript tsconfig.json file there using the following command. </p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tsc --init</span><br><span class="line">message TS6071: Successfully created a tsconfig.json file.</span><br></pre></td></tr></table></figure>
+<p>A sample of how your TypeScript configuration file might look like is this.<br>Once important thing is to enable source maps. This allows you to debug your TypeScript code instead of debugging the transpiled JavaScript (which is a mess).</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;es5&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;declaration&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;lib&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="string">&quot;es2015&quot;</span><span class="punctuation">,</span> <span class="string">&quot;dom&quot;</span></span><br><span class="line">      <span class="punctuation">]</span>        </span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="string">&quot;node_modules&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Once you’ve setup the TypeScript configuration its time to setup a NPM project.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<p>You are now ready to start developing your TypeScript application.<br>You probably need some packages to interface with Puppeteer, Azure storage or whatever. Install them using npm.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install puppeteer --save</span><br><span class="line">npm install azure-storage --save</span><br><span class="line">npm install azure-sb --save</span><br></pre></td></tr></table></figure>
+<p>A lot of packages got separate TypeScript definition packages. These are required to have type checking. We also require them for puppeteer. You should install them as a dev-dependency instead of a regular dependency.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install @types/puppeteer --save-dev</span><br><span class="line">npm install @types/azure-sb --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="Puppeteer"><a href="#Puppeteer" class="headerlink" title="Puppeteer"></a>Puppeteer</h4><p>Once you’ve installed your dependencies you can start developing your scraper. It’s all up to you to interact with the page and retrieve the right information. A very basic example is this:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> puppeteer <span class="keyword">from</span> <span class="string">&#x27;puppeteer&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.<span class="title function_">launch</span>();</span><br><span class="line"><span class="keyword">const</span> page = <span class="keyword">await</span> browser.<span class="title function_">newPage</span>();</span><br><span class="line"><span class="keyword">await</span> page.<span class="title function_">goto</span>(<span class="string">&#x27;https://somesite.com&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Evaluate the page and interact with it.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> browser.<span class="title function_">close</span>();</span><br></pre></td></tr></table></figure>
+<p>One thing you probably want to do is to debug your code. In VSCode you’ll have to add a debug configuration. This can be achieved by adding the following configuration in <code>launch.json</code>. Notice the “Launch program” configuration inside the debug panel of VS Code.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;preLaunchTask&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tsc&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Launch Program &quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;sourceMaps&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;program&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;workspaceFolder&#125;\\src\\index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;outFiles&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;$&#123;workspaceFolder&#125;/**/*.js&quot;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Docker-and-Azure"><a href="#Docker-and-Azure" class="headerlink" title="Docker and Azure"></a>Docker and Azure</h3><p>Well you’ve got your scraper working on Node using TypeScript. The next thing is to host it in the Cloud. We want to containerize the application inside a docker container. Building a docker container requires a dockerfile. Here’s one that works for the Puppeteer scraper. The Google Chrome teams has made a nice <a target="_blank" rel="noopener" href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker">Docker file</a> with some tricks applied, I basically copied that. Secondly <a target="_blank" rel="noopener" href="https://medium.com/@bogdanbujdea/running-puppeteer-in-azure-container-instances-b24fb0a8d3e">is this</a> a nice blogpost about running Docker containers on Azure Container Instances. Its worth a read.</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">8</span>-slim</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get -yq upgrade &amp;&amp; apt-get install \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; apt-get autoremove &amp;&amp; apt-get autoclean</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install -y wget --no-install-recommends \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; sh -c <span class="string">&#x27;echo &quot;deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main&quot; &gt;&gt; /etc/apt/sources.list.d/google.list&#x27;</span> \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; apt-get update \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; apt-get install -y google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \</span></span><br><span class="line"><span class="language-bash">      --no-install-recommends \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; <span class="built_in">rm</span> -rf /var/lib/apt/lists/* \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; apt-get purge --auto-remove -y curl \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; <span class="built_in">rm</span> -rf /src/*.deb</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64 /usr/local/bin/dumb-init</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chmod</span> +x /usr/local/bin/dumb-init</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># copy project files and install dependencies</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . /var/app  </span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /var/app</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm install</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm i puppeteer </span></span><br><span class="line"><span class="keyword">ENV</span> AZURE_STORAGE_CONNECTION_STRING=secret</span><br><span class="line"><span class="keyword">ENV</span> AZURE_SERVICEBUS_CONNECTION_STRING=secret</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add pptr user.</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> groupadd -r pptruser &amp;&amp; useradd -r -g pptruser -G audio,video pptruser \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; <span class="built_in">mkdir</span> -p /home/pptruser/Downloads \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; <span class="built_in">chown</span> -R pptruser:pptruser /home/pptruser \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; <span class="built_in">chown</span> -R pptruser:pptruser /var/app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run user as non privileged.</span></span><br><span class="line"><span class="keyword">USER</span> pptruser</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;dumb-init&quot;</span>, <span class="string">&quot;--&quot;</span>]</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [ <span class="string">&quot;node&quot;</span>, <span class="string">&quot;src/index.js&quot;</span> ]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Service-bus"><a href="#Service-bus" class="headerlink" title="Service bus"></a>Service bus</h3><p>Now that we’ve got a very basis scraper running inside a Docker container on Azure Container Instances, its time to feed to scraper with commands.<br>I therefore created a queue of <code>scrape commands</code>. I prefer using Service Bus technology over Http REST interfaces because it has better fault handling. Secondly it might take a while for a scrape commands to finish and I dont want to run in any Http timeouts or whatsoever.</p>
+<p>So we have to listen to a Service Bus inside your Node application. Microsoft has created a package that can be used to setup a connection, namely: <code>azure-sb</code>.<br>Here’s the code to listen to Service Bus messages on a queue.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> azure <span class="keyword">from</span> <span class="string">&quot;azure-sb&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Logger</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./logger&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> logger = <span class="keyword">new</span> <span class="title class_">Logger</span>(instrumentationKey);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">checkForMessages</span>(<span class="params"><span class="attr">sbService</span>: azure.<span class="title class_">ServiceBusService</span>, <span class="attr">queueName</span>: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="attr">options</span>: azure.<span class="property">Azure</span>.<span class="property">ServiceBus</span>.<span class="property">ReceiveSubscriptionMessageOptions</span> = &#123;</span><br><span class="line">    <span class="attr">timeoutIntervalInS</span>: <span class="number">60</span>,</span><br><span class="line">    <span class="attr">isPeekLock</span>: <span class="literal">true</span></span><br><span class="line">  &#125;;</span><br><span class="line">  sbService.<span class="title function_">receiveQueueMessage</span>(queueName, options, <span class="keyword">function</span> (<span class="params"><span class="attr">err</span>: <span class="title class_">Error</span> | <span class="literal">null</span> | <span class="built_in">string</span>, <span class="attr">lockedMessage</span>: azure.<span class="title class_">Azure</span>.<span class="title class_">ServiceBus</span>.<span class="title class_">Message</span></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">if</span> (err == <span class="string">&#x27;No messages to receive&#x27;</span>) &#123;</span><br><span class="line">        logger.<span class="title function_">log</span>(<span class="string">&#x27;No messages&#x27;</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_">processMessage</span>(sbService, err, <span class="literal">null</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="title function_">processMessage</span>(sbService, <span class="literal">null</span>, lockedMessage);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">processMessage</span>(<span class="params"><span class="attr">sbService</span>: azure.<span class="title class_">ServiceBusService</span>, <span class="attr">err</span>: <span class="title class_">Error</span> | <span class="literal">null</span> | <span class="built_in">string</span>, <span class="attr">lockedMsg</span>: azure.<span class="title class_">Azure</span>.<span class="title class_">ServiceBus</span>.<span class="title class_">Message</span></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    logger.<span class="title function_">log</span>(<span class="string">&#x27;Error processing message: &#x27;</span> + err);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    logger.<span class="title function_">log</span>(<span class="string">&#x27;Processing message - setting lock&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> model = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(lockedMsg.<span class="property">body</span>) <span class="keyword">as</span> <span class="title class_">Model</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Initiate your scrape here.</span></span><br><span class="line"></span><br><span class="line">    sbService.<span class="title function_">deleteMessage</span>(lockedMsg, <span class="keyword">function</span> (<span class="params">err2</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err2) &#123;</span><br><span class="line">        logger.<span class="title function_">log</span>(<span class="string">&#x27;Failed to delete message: &#x27;</span> + err2);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        logger.<span class="title function_">log</span>(<span class="string">&#x27;Deleted message.&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> queueName = <span class="string">&#x27;queuename&#x27;</span>;</span><br><span class="line">logger.<span class="title function_">log</span>(<span class="string">&#x27;Connecting to queue &#x27;</span> + queueName);</span><br><span class="line"><span class="keyword">var</span> sbService = azure.<span class="title function_">createServiceBusService</span>(<span class="variable constant_">AZURE_SERVICEBUS_CONNECTION_STRING</span>);</span><br><span class="line">sbService.<span class="title function_">createQueueIfNotExists</span>(queueName, <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    logger.<span class="title function_">log</span>(<span class="string">&#x27;Failed to create queue: &#x27;</span> + err);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="title function_">checkForMessages</span>(sbService, queueName);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        logger.<span class="title function_">log</span>(<span class="string">&#x27;Error during check for messages.&#x27;</span>);</span><br><span class="line">        logger.<span class="title function_">error</span>(error);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">5000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Azure-Logic-Apps"><a href="#Azure-Logic-Apps" class="headerlink" title="Azure Logic Apps"></a>Azure Logic Apps</h3><img src="/images/scraper/logicapp.PNG" />
+Now that we can initiate a scrape session with a Service Bus queue message. We should queue some scrape commands.
+I chose to use Logic Apps for that because its on pay per use base and secondly its just a basic workflow which probably doesn't change a lot.
+Another benefit of Azure Logic Apps is the ability to analyse your 'runs' and exactly see the data flow through your Logic App.
+The steps are pretty basic and straight forward.
+
+      </div>
+
+      
+        <div class="tag-row">
+          
+            <a href="/tags/Azure/">Azure</a>
+          
+            <a href="/tags/Functions/">Functions</a>
+          
+            <a href="/tags/Wordpress/">Wordpress</a>
+          
+            <a href="/tags/Logic-Apps/">Logic Apps</a>
+          
+            <a href="/tags/Docker/">Docker</a>
+          
+            <a href="/tags/TypeScript/">TypeScript</a>
+          
+        </div>
+      
+
+      
+
+<nav class="post-nav">
+  
+    <a class="post-nav-link post-nav-prev" href="/2019/01/25/Using-Wordpress-in-Serverless-Azure/">
+      <span class="eyebrow">← Previous</span>
+      <span class="post-nav-title">Using Wordpress / Woocommerce in Serverless Azure</span>
+    </a>
+  
+  
+    <a class="post-nav-link post-nav-next" href="/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/">
+      <span class="eyebrow">Next →</span>
+      <span class="post-nav-title">Migrating Azure Table Storage to SQL with Azure Logic Apps</span>
+    </a>
+  
+</nav>
+
+
+    </div>
+
+    <aside class="reading-rail reading-rail-author">
+      <div class="eyebrow">Author</div>
+      
+        <div class="author-avatar author-avatar-placeholder" aria-hidden="true"></div>
+      
+      <p class="author-bio">
+        <strong>Dibran Mulder</strong> — CTO at Yivi and Caesar Groep. Digital identity, and engineering with agents.
+      </p>
+      
+        <a class="underlined" href="/about/">About →</a>
+      
+    </aside>
+  </div>
+</article>
+</main>
+    <footer id="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Dibran Mulder</span>
+    
+      <span>Yivi · Caesar Groep</span>
+    
+  </div>
+</footer>
+
+  </div>
+  
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>

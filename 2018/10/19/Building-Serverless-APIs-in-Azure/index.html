@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30986898-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30986898-2');
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1187111537862676",
+          enable_page_level_ads: true
+     });
+</script>
+  
+  <title>Building Serverless API&#39;s in Azure | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and maximizing business value by eliminating complexity. Its a true ga">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building Serverless API&#39;s in Azure">
+<meta property="og:url" content="https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and maximizing business value by eliminating complexity. Its a true ga">
+<meta property="og:locale">
+<meta property="og:image" content="https://dibranmulder.github.io/images/serverless/Serverless%20API.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/serverless/Serverless.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/serverless/costs.png">
+<meta property="og:image" content="https://dibranmulder.github.io/images/serverless/announcement.png">
+<meta property="article:published_time" content="2018-10-19T13:44:40.000Z">
+<meta property="article:modified_time" content="2026-07-28T11:31:10.772Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="API Gateway">
+<meta property="article:tag" content="API management">
+<meta property="article:tag" content="Azure">
+<meta property="article:tag" content="Functions">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dibranmulder.github.io/images/serverless/Serverless%20API.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="is-reading">
+  <div id="container">
+    
+      <div id="reading-progress" aria-hidden="true"><span></span></div>
+    
+    
+<header id="header">
+  <div class="header-inner">
+    <a class="wordmark" href="/">Dibran Mulder</a>
+    <nav class="site-nav" aria-label="Main">
+      
+        <a href="/" class="is-current" aria-current="page">Writing</a>
+      
+        <a href="/archives">Archive</a>
+      
+        <a href="/about">About</a>
+      
+      
+        <a href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+<article class="page page-post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-kicker">
+        
+          <a class="post-kicker-topic" href="/tags/Azure/">Azure</a>
+          <span class="dot" aria-hidden="true"></span>
+        
+        <time datetime="2018-10-19T13:44:40.000Z" itemprop="datePublished">19 oktober 2018</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>5 min read</span>
+      </div>
+      <h1 itemprop="headline">Building Serverless API&#39;s in Azure</h1>
+      
+    </div>
+  </header>
+
+  <div class="reading-grid">
+
+    <aside class="reading-rail reading-rail-toc">
+      
+        <nav class="toc" aria-label="Contents">
+          <div class="eyebrow">Contents</div>
+          
+            <a class="toc-link toc-level-2" href="#REST-API’s">REST API’s</a>
+          
+            <a class="toc-link toc-level-2" href="#Serverless">Serverless</a>
+          
+            <a class="toc-link toc-level-2" href="#Azure-API-Gateway">Azure API Gateway</a>
+          
+            <a class="toc-link toc-level-2" href="#Azure-API-Management">Azure API Management</a>
+          
+        </nav>
+      
+      <div class="reading-rail-foot">
+        <div>955 words</div>
+        <a class="share-link" data-url="https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/" href="https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/">Share ↗</a>
+      </div>
+    </aside>
+
+    <div class="reading-main">
+      <div class="prose article-entry" itemprop="articleBody">
+        <p>Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and maximizing business value by eliminating complexity. Its a true game changer but is it always the best approach for your software? In this blogpost I’ll address the pros and cons regarding Serverless API’s.</p>
+<h2 id="REST-API’s"><a href="#REST-API’s" class="headerlink" title="REST API’s"></a>REST API’s</h2><p>We’ve been building API’s for decades, with techniques like RCP, SOAP, Enterprise Service Buses, etc. The majority of the people nowadays build their API’s based on a REST or RESTful architecture. How does this trend match the new serverless hype that’s taking place? In this blogpost we are trying to find that out. </p>
+<p>I’ll assume that you know what REST is but in case you don’t. It’s based on the following principles: </p>
+<blockquote>
+<p>performance, scalability, simplicity, modifiability, visibility, portability, and reliability</p>
+</blockquote>
+<p>In order for an architecture to achieve those goals, REST has the following constraints:</p>
+<blockquote>
+<p>Client-Server Architecture, Statelessness, Cachability, Layered system, Code on demand and Uniform Interface. </p>
+</blockquote>
+<p>More information about the constraints and principles can be found <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Representational_state_transfer">here</a></p>
+<p>So, at first sight, it doesn’t really look that Serverless computing and REST are in conflict. Moreover, Serverless computing might be complementary to REST. Let’s have a closer look.</p>
+<h2 id="Serverless"><a href="#Serverless" class="headerlink" title="Serverless"></a>Serverless</h2><p>According to Martin Fowler’s blog this is the definition of Serverless:</p>
+<blockquote>
+<p>Serverless can also mean applications where server-side logic is still written by the application developer, but, unlike traditional architectures, it’s run in stateless compute containers that are event-triggered, ephemeral (may only last for one invocation), and fully managed by a third party. One way to think of this is “Functions as a Service” or “FaaS”.</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://martinfowler.com/articles/serverless.html">Source from Martin Fowler</a></p>
+<p>So the key takeaways are: event triggered, ephemeral and fully managed by a third party. So those Functions are serverside logic, triggered by events. In a REST based scenario that trigger might be an Http call, representing a REST operation. So far so good.</p>
+<img src="/images/serverless/Serverless API.png" />
+
+<p>So, we might end up building Azure Functions for every REST operation. The client application then has to orchestrate the REST calls to the right functions. This might be done via naming conventions, a pattern which is common in REST based architectures. If you are questioning if this is really a good idea, hold that thought! I’ll come back to it.</p>
+<p>Calling Azure Functions directly from your Client feels like a bad idea. Azure Functions should be those little snippets of code just executing at crazy scale and they should perform really well. On the other hand, we want to have an API with all kinds of additional features, we need those features to have an effective and future proof communication with our clients. I’m talking about:</p>
+<ul>
+<li>SSL termination</li>
+<li>Authentication</li>
+<li>IP whitelisting</li>
+<li>Client rate limiting (throttling)</li>
+<li>Logging and monitoring</li>
+<li>Response caching</li>
+<li>Web application firewall</li>
+<li>GZIP compression</li>
+<li>Servicing static content</li>
+<li>Restfull routing</li>
+<li>Versioning</li>
+<li>Health checking</li>
+<li>Documentation</li>
+</ul>
+<p>These features and Functions don’t fit really well. If we end up adding all those features to our Azure Functions we should just have picked ASP.net core and we could have built that API way faster than we would have in Azure Functions. So how do we bring those features in play while keeping our Azure Functions lean and mean. Well we need some sort of Application Gateway. A service sitting in the middle of the client and our Azure Functions which takes care of most of the features above. This Application Gateway should scale very good and shouldn’t introduce a new bottle neck. Think of it as an Load Balancer.</p>
+<img src="/images/serverless/Serverless.png" />
+
+<h2 id="Azure-API-Gateway"><a href="#Azure-API-Gateway" class="headerlink" title="Azure API Gateway"></a>Azure API Gateway</h2><p>Azure offers a set of services which have the possibility to route traffic, cache and so on. However most of them are not a good fit to act as an API Gateway. </p>
+<p>The following services are just for routing traffic on different levels but don’t implement documentation, logging, analytics, caching and so on:</p>
+<ul>
+<li>Azure Traffic manager<br>DNS based (global) load balancer and fail-over solution</li>
+<li>Azure Application Gateway<br>HTTP&#x2F;HTTPS based redirect + SSL offload + Web Application Firewall (OWASP) solution </li>
+<li>Azure Load Balancer<br>Generic (port based) load balancer -&gt; often used for IaaS VM’s</li>
+</ul>
+<h2 id="Azure-API-Management"><a href="#Azure-API-Management" class="headerlink" title="Azure API Management"></a>Azure API Management</h2><p>The only service which is an actual API Gateway implementation is Azure API management. It includes caching, routing, security, documentation, logging and so on. It’s a comprehensive suite of features, and I’m planning to write a bunch of blog posts about it. So, stay tuned.</p>
+<p>One thing to consider is the pricing of Azure API management. It’s quite expensive with a start rate of about 670 dollars. If you want to do Global API management or VNET integration you will have to pick the Premium tier, which comes at 2700 dollar a month. So the key take away is that if you want to build a REST API on Functions you might have to give in some features or pay a little extra.</p>
+<img src="/images/serverless/costs.png" />
+
+<p>A best practice is to share the API management instance across a company. In this way you can manage all outbound API’s from one service. Also you are managing all clients inside one service, offboarding clients is way easier this way.</p>
+<img src="/images/serverless/announcement.png" />
+[Link to the Video](https://www.youtube.com/watch?v=BoZimCedfq8&t=39m58s)
+
+<p>On Ignite 2018, Microsoft announced an API Management Consumption based tier. This tier should be optimized to handle Serverless scenarios. So basically Microsoft confirms the need for API Gateway when building Serverless architectures.</p>
+<p>This consumption tier is now in private preview, hopefully it will be in public preview and later GA very soon. In the near future I will write some blog posts on:</p>
+<ul>
+<li>How to configure an API management instance via ARM and Azure DevOps</li>
+<li>How to add Azure Functions to API management via Azure DevOps.</li>
+<li>Building REST API’s on Azure Functions. Including features like:<ul>
+<li>Dependency injection</li>
+<li>Response caching</li>
+<li>Authentication</li>
+</ul>
+</li>
+</ul>
+<p>Stay tuned and happy coding.</p>
+
+      </div>
+
+      
+        <div class="tag-row">
+          
+            <a href="/tags/Azure/">Azure</a>
+          
+            <a href="/tags/Functions/">Functions</a>
+          
+            <a href="/tags/API-management/">API management</a>
+          
+            <a href="/tags/API-Gateway/">API Gateway</a>
+          
+        </div>
+      
+
+      
+
+<nav class="post-nav">
+  
+    <a class="post-nav-link post-nav-prev" href="/2018/10/05/Azure-AD-Managed-Service-Identity/">
+      <span class="eyebrow">← Previous</span>
+      <span class="post-nav-title">Azure AD Managed Service Identity</span>
+    </a>
+  
+  
+    <a class="post-nav-link post-nav-next" href="/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/">
+      <span class="eyebrow">Next →</span>
+      <span class="post-nav-title">Secrets in Azure DevOps the bad parts</span>
+    </a>
+  
+</nav>
+
+
+    </div>
+
+    <aside class="reading-rail reading-rail-author">
+      <div class="eyebrow">Author</div>
+      
+        <div class="author-avatar author-avatar-placeholder" aria-hidden="true"></div>
+      
+      <p class="author-bio">
+        <strong>Dibran Mulder</strong> — CTO at Yivi and Caesar Groep. Digital identity, and engineering with agents.
+      </p>
+      
+        <a class="underlined" href="/about/">About →</a>
+      
+    </aside>
+  </div>
+</article>
+</main>
+    <footer id="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Dibran Mulder</span>
+    
+      <span>Yivi · Caesar Groep</span>
+    
+  </div>
+</footer>
+
+  </div>
+  
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>
