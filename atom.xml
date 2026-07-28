@@ -11,7 +11,7 @@
   <rights>All rights reserved 2026, Dibran Mulder</rights>
   <subtitle>Cloud, Modern web technologies, Microsoft, security and more</subtitle>
   <title>Dibran's Blog</title>
-  <updated>2026-07-28T14:32:58.501Z</updated>
+  <updated>2026-07-28T14:43:41.460Z</updated>
   <entry>
     <author>
       <name>Dibran Mulder</name>
@@ -28,7 +28,7 @@
       <![CDATA[<h2 id="While-You-Blinked"><a href="#While-You-Blinked" class="headerlink" title="While You Blinked"></a>While You Blinked</h2><p>On 5]]>
     </summary>
     <title>Lights Out, part 1: the insane adoption of agentic coding</title>
-    <updated>2026-07-28T14:32:58.501Z</updated>
+    <updated>2026-07-28T14:43:41.460Z</updated>
   </entry>
   <entry>
     <author>
@@ -181,8 +181,8 @@
       <name>Dibran Mulder</name>
     </author>
     <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
-    <category term="Table Storage" scheme="https://dibranmulder.github.io/tags/Table-Storage/"/>
     <category term="Logic Apps" scheme="https://dibranmulder.github.io/tags/Logic-Apps/"/>
+    <category term="Table Storage" scheme="https://dibranmulder.github.io/tags/Table-Storage/"/>
     <category term="SQL Server" scheme="https://dibranmulder.github.io/tags/SQL-Server/"/>
     <id>https://dibranmulder.github.io/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/</id>
     <link href="https://dibranmulder.github.io/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/"/>
@@ -199,8 +199,8 @@
     </author>
     <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
     <category term="Functions" scheme="https://dibranmulder.github.io/tags/Functions/"/>
-    <category term="Wordpress" scheme="https://dibranmulder.github.io/tags/Wordpress/"/>
     <category term="Logic Apps" scheme="https://dibranmulder.github.io/tags/Logic-Apps/"/>
+    <category term="Wordpress" scheme="https://dibranmulder.github.io/tags/Wordpress/"/>
     <category term="Docker" scheme="https://dibranmulder.github.io/tags/Docker/"/>
     <category term="TypeScript" scheme="https://dibranmulder.github.io/tags/TypeScript/"/>
     <id>https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/</id>
