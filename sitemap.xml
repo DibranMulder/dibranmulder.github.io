@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://dibranmulder.github.io/2026/07/28/lights-out-02-old-school-stays-king/</loc>
+    <loc>https://dibranmulder.github.io/2026/07/31/lights-out-02-old-school-stays-king/</loc>
     
-    <lastmod>2026-07-31T06:37:20.135Z</lastmod>
+    <lastmod>2026-07-31T07:26:14.892Z</lastmod>
     
   </url>
   
@@ -44,14 +44,14 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/</loc>
+    <loc>https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/</loc>
     
     <lastmod>2026-07-31T06:35:56.778Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/</loc>
+    <loc>https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/</loc>
     
     <lastmod>2026-07-31T06:35:56.778Z</lastmod>
     
@@ -86,14 +86,14 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/</loc>
+    <loc>https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/</loc>
     
     <lastmod>2026-07-28T11:18:48.898Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/</loc>
+    <loc>https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/</loc>
     
     <lastmod>2026-07-28T11:18:48.898Z</lastmod>
     
@@ -142,6 +142,13 @@
   </url>
   
   <url>
+    <loc>https://dibranmulder.github.io/2018/06/22/Bedrijfskritische-applicaties-in-de-cloud/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.896Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/</loc>
     
     <lastmod>2026-07-28T11:18:48.896Z</lastmod>
@@ -156,14 +163,14 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/06/22/Bedrijfskritische-applicaties-in-de-cloud/</loc>
+    <loc>https://dibranmulder.github.io/2019/08/16/Autonoom-rijden/</loc>
     
-    <lastmod>2026-07-28T11:18:48.896Z</lastmod>
+    <lastmod>2026-07-28T11:18:48.895Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/08/16/Autonoom-rijden/</loc>
+    <loc>https://dibranmulder.github.io/2018/10/05/Azure-AD-Managed-Service-Identity/</loc>
     
     <lastmod>2026-07-28T11:18:48.895Z</lastmod>
     
@@ -178,13 +185,6 @@
   
   <url>
     <loc>https://dibranmulder.github.io/2018/11/13/Azure-Api-Management-overview/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.895Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dibranmulder.github.io/2018/10/05/Azure-AD-Managed-Service-Identity/</loc>
     
     <lastmod>2026-07-28T11:18:48.895Z</lastmod>
     

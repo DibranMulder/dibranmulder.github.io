@@ -11,7 +11,25 @@
   <rights>All rights reserved 2026, Dibran Mulder</rights>
   <subtitle>Cloud, Modern web technologies, Microsoft, security and more</subtitle>
   <title>Dibran's Blog</title>
-  <updated>2026-07-31T06:35:56.779Z</updated>
+  <updated>2026-07-31T07:26:14.892Z</updated>
+  <entry>
+    <author>
+      <name>Dibran Mulder</name>
+    </author>
+    <category term="AI" scheme="https://dibranmulder.github.io/tags/AI/"/>
+    <category term="Agentic coding" scheme="https://dibranmulder.github.io/tags/Agentic-coding/"/>
+    <category term="Software development" scheme="https://dibranmulder.github.io/tags/Software-development/"/>
+    <category term="Developer tools" scheme="https://dibranmulder.github.io/tags/Developer-tools/"/>
+    <category term="Productivity" scheme="https://dibranmulder.github.io/tags/Productivity/"/>
+    <id>https://dibranmulder.github.io/2026/07/31/lights-out-02-old-school-stays-king/</id>
+    <link href="https://dibranmulder.github.io/2026/07/31/lights-out-02-old-school-stays-king/"/>
+    <published>2026-07-31T06:38:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="Lights-Out-part-2-old-school-stays-king"><a href="#Lights-Out-part-2-old-school-stays-king" class="headerlink" title="Lights Out,]]>
+    </summary>
+    <title>Lights Out, part 2: old school stays king</title>
+    <updated>2026-07-31T07:26:14.892Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Dibran Mulder</name>
@@ -29,24 +47,6 @@
     </summary>
     <title>Lights Out, part 1: the insane adoption of agentic coding</title>
     <updated>2026-07-31T06:35:56.779Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Dibran Mulder</name>
-    </author>
-    <category term="AI" scheme="https://dibranmulder.github.io/tags/AI/"/>
-    <category term="Agentic coding" scheme="https://dibranmulder.github.io/tags/Agentic-coding/"/>
-    <category term="Software development" scheme="https://dibranmulder.github.io/tags/Software-development/"/>
-    <category term="Developer tools" scheme="https://dibranmulder.github.io/tags/Developer-tools/"/>
-    <category term="Productivity" scheme="https://dibranmulder.github.io/tags/Productivity/"/>
-    <id>https://dibranmulder.github.io/2026/07/28/lights-out-02-old-school-stays-king/</id>
-    <link href="https://dibranmulder.github.io/2026/07/28/lights-out-02-old-school-stays-king/"/>
-    <published>2026-07-28T14:17:55.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="Lights-Out-part-2-old-school-stays-king"><a href="#Lights-Out-part-2-old-school-stays-king" class="headerlink" title="Lights Out,]]>
-    </summary>
-    <title>Lights Out, part 2: old school stays king</title>
-    <updated>2026-07-31T06:37:20.135Z</updated>
   </entry>
   <entry>
     <author>
