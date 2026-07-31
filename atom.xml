@@ -11,7 +11,7 @@
   <rights>All rights reserved 2026, Dibran Mulder</rights>
   <subtitle>Cloud, Modern web technologies, Microsoft, security and more</subtitle>
   <title>Dibran's Blog</title>
-  <updated>2026-07-28T14:43:41.460Z</updated>
+  <updated>2026-07-31T06:35:56.779Z</updated>
   <entry>
     <author>
       <name>Dibran Mulder</name>
@@ -28,7 +28,25 @@
       <![CDATA[<h2 id="While-You-Blinked"><a href="#While-You-Blinked" class="headerlink" title="While You Blinked"></a>While You Blinked</h2><p>On 5]]>
     </summary>
     <title>Lights Out, part 1: the insane adoption of agentic coding</title>
-    <updated>2026-07-28T14:43:41.460Z</updated>
+    <updated>2026-07-31T06:35:56.779Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Dibran Mulder</name>
+    </author>
+    <category term="AI" scheme="https://dibranmulder.github.io/tags/AI/"/>
+    <category term="Agentic coding" scheme="https://dibranmulder.github.io/tags/Agentic-coding/"/>
+    <category term="Software development" scheme="https://dibranmulder.github.io/tags/Software-development/"/>
+    <category term="Developer tools" scheme="https://dibranmulder.github.io/tags/Developer-tools/"/>
+    <category term="Productivity" scheme="https://dibranmulder.github.io/tags/Productivity/"/>
+    <id>https://dibranmulder.github.io/2026/07/28/lights-out-02-old-school-stays-king/</id>
+    <link href="https://dibranmulder.github.io/2026/07/28/lights-out-02-old-school-stays-king/"/>
+    <published>2026-07-28T14:17:55.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="Lights-Out-part-2-old-school-stays-king"><a href="#Lights-Out-part-2-old-school-stays-king" class="headerlink" title="Lights Out,]]>
+    </summary>
+    <title>Lights Out, part 2: old school stays king</title>
+    <updated>2026-07-31T06:37:20.135Z</updated>
   </entry>
   <entry>
     <author>
@@ -82,7 +100,7 @@
       <![CDATA[<figure><img src="/images/governance/framework.png" /><figcaption style="font-style: italic; text-align: center;">Cloud Republic - Azure]]>
     </summary>
     <title>Applying an Azure Governance Framework in 10 steps</title>
-    <updated>2026-07-28T11:31:10.773Z</updated>
+    <updated>2026-07-31T06:35:56.778Z</updated>
   </entry>
   <entry>
     <author>
@@ -227,7 +245,7 @@
       <![CDATA[<p>Sometimes Wordpress isn’t that bad. When for instance you’re building a SEO optimized landing page for a custom made tool and you don’t]]>
     </summary>
     <title>Using Wordpress / Woocommerce in Serverless Azure</title>
-    <updated>2026-07-28T11:35:43.906Z</updated>
+    <updated>2026-07-31T06:35:56.779Z</updated>
   </entry>
   <entry>
     <author>
@@ -305,7 +323,7 @@
       <![CDATA[<p>Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and]]>
     </summary>
     <title>Building Serverless API's in Azure</title>
-    <updated>2026-07-28T11:31:10.772Z</updated>
+    <updated>2026-07-31T06:35:56.778Z</updated>
   </entry>
   <entry>
     <author>
@@ -322,25 +340,5 @@
     </summary>
     <title>Azure AD Managed Service Identity</title>
     <updated>2026-07-28T11:18:48.895Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Dibran Mulder</name>
-    </author>
-    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
-    <category term="Entity Framework Core" scheme="https://dibranmulder.github.io/tags/Entity-Framework-Core/"/>
-    <category term="EF Core" scheme="https://dibranmulder.github.io/tags/EF-Core/"/>
-    <category term="Migrations" scheme="https://dibranmulder.github.io/tags/Migrations/"/>
-    <category term="VSTS" scheme="https://dibranmulder.github.io/tags/VSTS/"/>
-    <category term="Functions V2" scheme="https://dibranmulder.github.io/tags/Functions-V2/"/>
-    <category term="Dependency Injection" scheme="https://dibranmulder.github.io/tags/Dependency-Injection/"/>
-    <id>https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/</id>
-    <link href="https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/"/>
-    <published>2018-08-23T13:48:30.000Z</published>
-    <summary>
-      <![CDATA[<p>Last week I was trying to build an API on top of Azure Functions with a backing SQL database. This sounds like a pretty easy task]]>
-    </summary>
-    <title>Azure functions V2 with EF Core</title>
-    <updated>2026-07-28T11:35:43.907Z</updated>
   </entry>
 </feed>
