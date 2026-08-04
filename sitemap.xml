@@ -4,7 +4,7 @@
   <url>
     <loc>https://dibranmulder.github.io/2026/07/31/lights-out-02-old-school-stays-king/</loc>
     
-    <lastmod>2026-07-31T07:26:14.892Z</lastmod>
+    <lastmod>2026-08-04T09:30:30.316Z</lastmod>
     
   </url>
   
@@ -44,14 +44,14 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/</loc>
+    <loc>https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/</loc>
     
     <lastmod>2026-07-31T06:35:56.778Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/</loc>
+    <loc>https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/</loc>
     
     <lastmod>2026-07-31T06:35:56.778Z</lastmod>
     
@@ -86,14 +86,14 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/</loc>
+    <loc>https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/</loc>
     
     <lastmod>2026-07-28T11:18:48.898Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/</loc>
+    <loc>https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/</loc>
     
     <lastmod>2026-07-28T11:18:48.898Z</lastmod>
     
@@ -107,20 +107,6 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2021/02/03/Integration-patterns-using-NServiceBus-Azure-Functions/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.897Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Search-performance/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.897Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://dibranmulder.github.io/2019/06/18/Learn-CosmosDb-in-20-pictures/</loc>
     
     <lastmod>2026-07-28T11:18:48.897Z</lastmod>
@@ -128,7 +114,21 @@
   </url>
   
   <url>
+    <loc>https://dibranmulder.github.io/2021/02/03/Integration-patterns-using-NServiceBus-Azure-Functions/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.897Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dibranmulder.github.io/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.897Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Search-performance/</loc>
     
     <lastmod>2026-07-28T11:18:48.897Z</lastmod>
     
@@ -149,14 +149,14 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/</loc>
+    <loc>https://dibranmulder.github.io/2018/06/25/Expire-data-in-CosmosDb/</loc>
     
     <lastmod>2026-07-28T11:18:48.896Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/06/25/Expire-data-in-CosmosDb/</loc>
+    <loc>https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/</loc>
     
     <lastmod>2026-07-28T11:18:48.896Z</lastmod>
     
@@ -177,14 +177,14 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/12/19/Azure-API-Management-ARM-Cheatsheet/</loc>
+    <loc>https://dibranmulder.github.io/2018/11/13/Azure-Api-Management-overview/</loc>
     
     <lastmod>2026-07-28T11:18:48.895Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/11/13/Azure-Api-Management-overview/</loc>
+    <loc>https://dibranmulder.github.io/2018/12/19/Azure-API-Management-ARM-Cheatsheet/</loc>
     
     <lastmod>2026-07-28T11:18:48.895Z</lastmod>
     

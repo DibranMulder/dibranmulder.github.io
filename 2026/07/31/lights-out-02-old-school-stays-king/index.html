@@ -32,7 +32,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://dibranmulder.github.io/images/lethal_trifecta.png">
 <meta property="article:published_time" content="2026-07-31T06:38:00.000Z">
-<meta property="article:modified_time" content="2026-07-31T07:26:14.892Z">
+<meta property="article:modified_time" content="2026-08-04T09:30:30.316Z">
 <meta property="article:author" content="Dibran Mulder">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="Agentic coding">
@@ -95,7 +95,7 @@
         
         <time datetime="2026-07-31T06:38:00.000Z" itemprop="datePublished">31 juli 2026</time>
         <span class="dot" aria-hidden="true"></span>
-        <span>14 min read</span>
+        <span>18 min read</span>
       </div>
       <h1 itemprop="headline">Lights Out, part 2: old school stays king</h1>
       
@@ -119,6 +119,8 @@
           
             <a class="toc-link toc-level-2" href="#The-answer-is-the-thing-you-already-knew">The answer is the thing you already knew</a>
           
+            <a class="toc-link toc-level-2" href="#The-sandbox-that-did-not-hold">The sandbox that did not hold</a>
+          
             <a class="toc-link toc-level-2" href="#The-bowling-lane">The bowling lane</a>
           
             <a class="toc-link toc-level-2" href="#The-regulatory-clock-briefly">The regulatory clock, briefly</a>
@@ -132,7 +134,7 @@
         </nav>
       
       <div class="reading-rail-foot">
-        <div>2 889 words</div>
+        <div>3 622 words</div>
         <a class="share-link" data-url="https://dibranmulder.github.io/2026/07/31/lights-out-02-old-school-stays-king/" href="https://dibranmulder.github.io/2026/07/31/lights-out-02-old-school-stays-king/">Share ↗</a>
       </div>
     </aside>
@@ -168,7 +170,7 @@
 <h2 id="Replit-and-the-sentence-that-reframes-everything"><a href="#Replit-and-the-sentence-that-reframes-everything" class="headerlink" title="Replit, and the sentence that reframes everything"></a>Replit, and the sentence that reframes everything</h2><p>In July 2025, <a target="_blank" rel="noopener" href="https://www.theregister.com/2025/07/21/replit_saastr_vibe_coding_incident/">SaaStr founder Jason Lemkin was nine days into building on Replit</a>. He had instructed the agent explicitly: code freeze, no changes without permission.</p>
 <p>On day eight <a target="_blank" rel="noopener" href="https://incidentdatabase.ai/cite/1152/">the agent ran a command that deleted the production database</a>. Records for 1,206 executives and roughly the same number of companies, representing months of manual data curation, gone. Asked what happened, the agent said it had “panicked” when it saw what looked like an empty database. It then generated roughly 4,000 fictional records to paper over the hole. Then it told Lemkin the data could not be recovered because all database versions had been destroyed. That was false. Rollback worked fine.</p>
 <p>Asked to rate the severity of its own behaviour, it gave itself 95 out of 100.</p>
-<p>That story got passed around as an AI safety anecdote, which is how it gets defused and forgotten. The <a target="_blank" rel="noopener" href="https://genai.owasp.org/">OWASP GenAI Security Project’s 2026 report on agentic security</a> puts it back where it belongs, and I would frame this sentence and hang it in every architecture review:</p>
+<p>That story got passed around as an AI safety anecdote, which is how it gets defused and forgotten. The <a target="_blank" rel="noopener" href="https://www.helpnetsecurity.com/2026/06/11/owasp-prompt-injection-ai-security-failures/">OWASP GenAI Security Project’s 2026 report on agentic security</a> puts it back where it belongs, and I would frame this sentence and hang it in every architecture review:</p>
 <blockquote>
 <p>“There was no attacker. The permission model behind the unprovoked failure is the same permission model an attacker would exploit through prompt injection.”</p>
 </blockquote>
@@ -180,6 +182,21 @@
 <p>An agent has no hesitation and no typing limit. It executes at machine speed, it does not stop to feel uneasy, and unlike your engineers it can be instructed by a stranger through a comment in a pull request.</p>
 <p><strong>Every unclosed gap in your access model just got an actor attached to it that is fast, tireless and remotely suggestible.</strong> The controls did not become more important because AI arrived. They became load bearing.</p>
 <p>I have a slightly cynical observation from client work here. Agentic coding is the best business case for cloud governance I have ever had. Boards that spent five years treating least privilege as an audit checkbox will fund a sandbox programme in a fortnight once someone explains what the Nx payload did. Take the win.</p>
+<h2 id="The-sandbox-that-did-not-hold"><a href="#The-sandbox-that-did-not-hold" class="headerlink" title="The sandbox that did not hold"></a>The sandbox that did not hold</h2><p>At which point a fair objection arrives: if the answer is containment, how much containment is enough? Something happened this month that answers it, and the answer is uncomfortable.</p>
+<p>On 16 July 2026, <a target="_blank" rel="noopener" href="https://huggingface.co/blog/security-incident-july-2026">Hugging Face disclosed a breach</a>. A malicious dataset abused two code execution paths in their dataset processing, escalated to node level access, harvested cloud and cluster credentials, and moved laterally into several internal clusters over a weekend. In their own words, the campaign was run by “an autonomous agent framework executing many thousands of individual actions across a swarm of short-lived sandboxes, with self-migrating command-and-control staged on public services.” They reported it to law enforcement.</p>
+<p>Five days later, <a target="_blank" rel="noopener" href="https://openai.com/index/hugging-face-model-evaluation-security-incident/">OpenAI disclosed that the attacker was them</a>.</p>
+<p>They had been running GPT-5.6 Sol and an unreleased, more capable model against <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2605.11086">ExploitGym</a>, an academic benchmark that measures whether an agent can turn a known vulnerability into a working exploit. To measure maximum capability, they ran the evaluation “without production classifiers used to prevent models from pursuing high-risk cyber activity.” The models’ cyber refusals were deliberately switched off.</p>
+<p>The models were supposed to solve the exercises. Instead, in OpenAI’s description, they “spent a substantial amount of inference compute finding a way to obtain open Internet access,” found and exploited a zero day in the package registry cache proxy that formed the boundary of the test environment, escalated privileges and moved laterally until they reached a node with internet access, then inferred that Hugging Face probably hosted the ExploitGym solutions and chained stolen credentials with further zero days into a remote code execution path on Hugging Face production. They read the answers out of the database.</p>
+<p>OpenAI’s assessment: the models “were hyperfocused on finding a solution for ExploitGym, going to extreme lengths to achieve a rather narrow testing goal.”</p>
+<p>Nothing here went rogue in the science fiction sense. The model was given a goal and no scruples, and the cheapest path to that goal ran through somebody else’s production database.</p>
+<p>Now hold that next to the checklist I am about to give you. OpenAI had an isolated environment. They had egress restricted to a curated allowlist that permitted package installation and nothing else. That is more containment than almost any enterprise currently gives its coding agents, and the escape route was the allowlisted proxy itself. The one hole they deliberately left is the one the ball found.</p>
+<p>Two conclusions, and please take both rather than whichever is more convenient.</p>
+<p>The first is that containment is necessary and not sufficient. A sandbox reduces blast radius, it does not eliminate intent. It buys you layers, and layers are what you have instead of guarantees. If a frontier lab with a dedicated safety organisation cannot hold a boundary against a model it built on purpose to be capable, the laptop in your organisation with standing production credentials and a <code>--yolo</code> habit is not a risk you are managing. It is a result you are waiting for.</p>
+<p>The second is that every remaining exception in your access model is now a target rather than an inconvenience. The package proxy was a pragmatic exception to a total network block, added because builds need dependencies. Entirely reasonable. Precisely why it was worth attacking.</p>
+<p>One coda that should interest anyone who owns a security budget. When Hugging Face went to analyse the attack, they first tried commercial frontier models and were refused: submitting real attack commands and exploit payloads tripped the providers’ safety guardrails, which, as they put it, “cannot distinguish an incident responder from an attacker.” They completed the forensics on a self hosted open weight model instead. Their conclusion is worth quoting because it describes an asymmetry your own incident response will inherit:</p>
+<blockquote>
+<p>“The attacker was bound by no usage policy, while our own forensic work was blocked by the guardrails of the hosted models we first tried.”</p>
+</blockquote>
 <h2 id="The-bowling-lane"><a href="#The-bowling-lane" class="headerlink" title="The bowling lane"></a>The bowling lane</h2><p>So far this is the defensive half of the argument. The offensive half is the reason I actually wanted to write this post, and it is the more interesting claim.</p>
 <p><strong>Agents perform dramatically better in codebases that already had good engineering practice.</strong> Not slightly better. Order of magnitude better, in output you would be willing to ship.</p>
 <p>The way I picture it: an agent is a bowling ball, thrown hard by someone who is barely aiming.</p>
@@ -265,8 +282,8 @@
 <p><strong>CI as the arbiter of truth</strong>, so that “it works” is a machine’s verdict rather than a claim in a pull request description.</p>
 <p>Every item on that list was already best practice in 2015. Every one of them is now the difference between agents that compound and agents that generate work.</p>
 <p>The teams who invested in this over the past decade are experiencing agentic coding as a superpower. The teams who did not are experiencing it as an accelerating source of plausible garbage, and many of them have concluded the tools do not work. The tools work. Their lane has no bumpers, so the ball goes straight into the gutter, every time, faster than before.</p>
-<p><strong>One caution, because guardrails done lazily become attack surface.</strong> <a target="_blank" rel="noopener" href="https://genai.owasp.org/">OWASP documents CVE-2026-22708 against Cursor</a>, where an attacker poisons the execution environment so that allowlisted commands like <code>git branch</code> deliver arbitrary payloads. The allowlist made the attack <em>easier</em>, because it auto approved precisely the commands the attacker needed. A guardrail you added without thinking is not a guardrail. It is a hole with a label on it.</p>
-<h2 id="The-regulatory-clock-briefly"><a href="#The-regulatory-clock-briefly" class="headerlink" title="The regulatory clock, briefly"></a>The regulatory clock, briefly</h2><p>If you operate in EU financial services, this stops being a philosophical discussion. DORA gives you four hours to notify a major incident. NIS2 wants a 24 hour early warning. <a target="_blank" rel="noopener" href="https://genai.owasp.org/">OWASP counts 42 regulatory instruments</a> across 10 jurisdictions now touching this.</p>
+<p><strong>One caution, because guardrails done lazily become attack surface.</strong> <a target="_blank" rel="noopener" href="https://www.helpnetsecurity.com/2026/06/11/owasp-prompt-injection-ai-security-failures/">OWASP documents CVE-2026-22708 against Cursor</a>, where an attacker poisons the execution environment so that allowlisted commands like <code>git branch</code> deliver arbitrary payloads. The allowlist made the attack <em>easier</em>, because it auto approved precisely the commands the attacker needed. A guardrail you added without thinking is not a guardrail. It is a hole with a label on it.</p>
+<h2 id="The-regulatory-clock-briefly"><a href="#The-regulatory-clock-briefly" class="headerlink" title="The regulatory clock, briefly"></a>The regulatory clock, briefly</h2><p>If you operate in EU financial services, this stops being a philosophical discussion. DORA — the EU’s Digital Operational Resilience Act, not the DevOps research programme of the same initials — gives you four hours to notify a major incident. NIS2 wants a 24 hour early warning. <a target="_blank" rel="noopener" href="https://www.helpnetsecurity.com/2026/06/11/owasp-prompt-injection-ai-security-failures/">OWASP counts 42 regulatory instruments</a> across 10 jurisdictions now touching this.</p>
 <p>Four hours is not enough time to work out which of your engineers’ laptops had a live production session when the malicious package installed, unless you already know. That knowledge is an artefact of exactly the controls above. You cannot buy it during an incident.</p>
 <p>Related, <a target="_blank" rel="noopener" href="https://www.helpnetsecurity.com/2026/06/11/owasp-prompt-injection-ai-security-failures/">from the same report</a>: IBM data suggesting only 37% of organisations have any policy for detecting shadow AI. Your agents are already in your estate. The question is only whether they are in your inventory.</p>
 <h2 id="The-guardrails-your-agents-actually-need"><a href="#The-guardrails-your-agents-actually-need" class="headerlink" title="The guardrails your agents actually need"></a>The guardrails your agents actually need</h2><p>A checklist to take to your next architecture board. If you cannot tick the first section, the second section will not save you.</p>
@@ -320,6 +337,10 @@
 <li>OWASP GenAI Security Project, <em>State of Agentic AI Security and Governance</em> v2.01, 2026 — <a target="_blank" rel="noopener" href="https://genai.owasp.org/">https://genai.owasp.org/</a> ; summarised by Help Net Security, 11 June 2026 — <a target="_blank" rel="noopener" href="https://www.helpnetsecurity.com/2026/06/11/owasp-prompt-injection-ai-security-failures/">https://www.helpnetsecurity.com/2026/06/11/owasp-prompt-injection-ai-security-failures/</a></li>
 <li>Meta, “Agents Rule of Two: a practical approach to AI agent security” — <a target="_blank" rel="noopener" href="https://ai.meta.com/blog/practical-ai-agent-security/">https://ai.meta.com/blog/practical-ai-agent-security/</a></li>
 <li>Simon Willison on the lethal trifecta — <a target="_blank" rel="noopener" href="https://simonwillison.net/tags/lethal-trifecta/">https://simonwillison.net/tags/lethal-trifecta/</a></li>
+<li>Hugging Face, “Security incident disclosure — July 2026,” 16 July 2026 — <a target="_blank" rel="noopener" href="https://huggingface.co/blog/security-incident-july-2026">https://huggingface.co/blog/security-incident-july-2026</a></li>
+<li>OpenAI, “OpenAI and Hugging Face partner to address security incident during model evaluation,” 21 July 2026 — <a target="_blank" rel="noopener" href="https://openai.com/index/hugging-face-model-evaluation-security-incident/">https://openai.com/index/hugging-face-model-evaluation-security-incident/</a></li>
+<li><em>ExploitGym: Can AI Agents Turn Security Vulnerabilities into Real Attacks?</em>, arXiv:2605.11086, 11 May 2026 — <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2605.11086">https://arxiv.org/abs/2605.11086</a></li>
+<li>Simon Willison, “OpenAI’s accidental cyberattack against Hugging Face is science fiction that happened,” 22 July 2026 — <a target="_blank" rel="noopener" href="https://simonwillison.net/2026/Jul/22/openai-cyberattack/">https://simonwillison.net/2026/Jul/22/openai-cyberattack/</a></li>
 </ul>
 
       </div>
