@@ -199,8 +199,8 @@
       <name>Dibran Mulder</name>
     </author>
     <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
-    <category term="Logic Apps" scheme="https://dibranmulder.github.io/tags/Logic-Apps/"/>
     <category term="Table Storage" scheme="https://dibranmulder.github.io/tags/Table-Storage/"/>
+    <category term="Logic Apps" scheme="https://dibranmulder.github.io/tags/Logic-Apps/"/>
     <category term="SQL Server" scheme="https://dibranmulder.github.io/tags/SQL-Server/"/>
     <id>https://dibranmulder.github.io/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/</id>
     <link href="https://dibranmulder.github.io/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/"/>

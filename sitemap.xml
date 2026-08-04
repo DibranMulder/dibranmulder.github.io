@@ -30,6 +30,13 @@
   </url>
   
   <url>
+    <loc>https://dibranmulder.github.io/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/</loc>
+    
+    <lastmod>2026-07-31T06:35:56.778Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dibranmulder.github.io/2018/08/20/Azure-Service-Health/</loc>
     
     <lastmod>2026-07-31T06:35:56.778Z</lastmod>
@@ -51,42 +58,7 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/12/06/Applying-an-Azure-Governance-Framework-in-10-steps/</loc>
-    
-    <lastmod>2026-07-31T06:35:56.778Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://dibranmulder.github.io/2019/09/06/Running-an-OpenAI-Gym-on-Windows-with-WSL/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dibranmulder.github.io/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dibranmulder.github.io/2019/08/23/Sending-e-mails-with-SendGrid-and-Azure-Functions/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dibranmulder.github.io/2019/05/20/Testing-time-triggered-Azure-Functions/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/</loc>
     
     <lastmod>2026-07-28T11:18:48.898Z</lastmod>
     
@@ -100,9 +72,44 @@
   </url>
   
   <url>
+    <loc>https://dibranmulder.github.io/2019/08/23/Sending-e-mails-with-SendGrid-and-Azure-Functions/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dibranmulder.github.io/2018/06/13/Werken-voor-Caesar/</loc>
     
     <lastmod>2026-07-28T11:18:48.898Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dibranmulder.github.io/2019/05/20/Testing-time-triggered-Azure-Functions/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dibranmulder.github.io/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Search-performance/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.897Z</lastmod>
     
   </url>
   
@@ -128,13 +135,6 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Search-performance/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.897Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://dibranmulder.github.io/2019/01/14/Azure-Functions-Http-Response-caching/</loc>
     
     <lastmod>2026-07-28T11:18:48.896Z</lastmod>
@@ -149,13 +149,6 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.896Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://dibranmulder.github.io/2018/06/25/Expire-data-in-CosmosDb/</loc>
     
     <lastmod>2026-07-28T11:18:48.896Z</lastmod>
@@ -163,7 +156,21 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/08/16/Autonoom-rijden/</loc>
+    <loc>https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.896Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dibranmulder.github.io/2018/10/05/Azure-AD-Managed-Service-Identity/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.895Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dibranmulder.github.io/2018/12/19/Azure-API-Management-ARM-Cheatsheet/</loc>
     
     <lastmod>2026-07-28T11:18:48.895Z</lastmod>
     
@@ -177,14 +184,7 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/10/05/Azure-AD-Managed-Service-Identity/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.895Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dibranmulder.github.io/2018/12/19/Azure-API-Management-ARM-Cheatsheet/</loc>
+    <loc>https://dibranmulder.github.io/2019/08/16/Autonoom-rijden/</loc>
     
     <lastmod>2026-07-28T11:18:48.895Z</lastmod>
     
