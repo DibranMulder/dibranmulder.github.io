@@ -11,7 +11,25 @@
   <rights>All rights reserved 2026, Dibran Mulder</rights>
   <subtitle>Cloud, Modern web technologies, Microsoft, security and more</subtitle>
   <title>Dibran's Blog</title>
-  <updated>2026-08-04T09:30:30.316Z</updated>
+  <updated>2026-08-11T14:06:17.346Z</updated>
+  <entry>
+    <author>
+      <name>Dibran Mulder</name>
+    </author>
+    <category term="AI" scheme="https://dibranmulder.github.io/tags/AI/"/>
+    <category term="Agentic coding" scheme="https://dibranmulder.github.io/tags/Agentic-coding/"/>
+    <category term="Software development" scheme="https://dibranmulder.github.io/tags/Software-development/"/>
+    <category term="Developer tools" scheme="https://dibranmulder.github.io/tags/Developer-tools/"/>
+    <category term="Productivity" scheme="https://dibranmulder.github.io/tags/Productivity/"/>
+    <id>https://dibranmulder.github.io/2026/08/11/lights-out-03-running-the-nightshift/</id>
+    <link href="https://dibranmulder.github.io/2026/08/11/lights-out-03-running-the-nightshift/"/>
+    <published>2026-08-11T07:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="Meet-Dobby"><a href="#Meet-Dobby" class="headerlink" title="Meet Dobby"></a>Meet Dobby</h2><p>We named our agent Dobby, after the]]>
+    </summary>
+    <title>Lights Out, part 3: running the nightshift</title>
+    <updated>2026-08-11T14:06:17.346Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Dibran Mulder</name>
@@ -199,8 +217,8 @@
       <name>Dibran Mulder</name>
     </author>
     <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
-    <category term="Table Storage" scheme="https://dibranmulder.github.io/tags/Table-Storage/"/>
     <category term="Logic Apps" scheme="https://dibranmulder.github.io/tags/Logic-Apps/"/>
+    <category term="Table Storage" scheme="https://dibranmulder.github.io/tags/Table-Storage/"/>
     <category term="SQL Server" scheme="https://dibranmulder.github.io/tags/SQL-Server/"/>
     <id>https://dibranmulder.github.io/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/</id>
     <link href="https://dibranmulder.github.io/2019/03/22/Migrating-Azure-Table-Storage-to-SQL-with-Azure-Logic-Apps/"/>
@@ -324,21 +342,5 @@
     </summary>
     <title>Building Serverless API's in Azure</title>
     <updated>2026-07-31T06:35:56.778Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Dibran Mulder</name>
-    </author>
-    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
-    <category term="AD" scheme="https://dibranmulder.github.io/tags/AD/"/>
-    <category term="MSI" scheme="https://dibranmulder.github.io/tags/MSI/"/>
-    <id>https://dibranmulder.github.io/2018/10/05/Azure-AD-Managed-Service-Identity/</id>
-    <link href="https://dibranmulder.github.io/2018/10/05/Azure-AD-Managed-Service-Identity/"/>
-    <published>2018-10-05T15:09:54.000Z</published>
-    <summary>
-      <![CDATA[<h1 id="What-is-Azure-AD-Managed-Service-Identity-MSI"><a href="#What-is-Azure-AD-Managed-Service-Identity-MSI" class="headerlink"]]>
-    </summary>
-    <title>Azure AD Managed Service Identity</title>
-    <updated>2026-07-28T11:18:48.895Z</updated>
   </entry>
 </feed>

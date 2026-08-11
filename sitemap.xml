@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dibranmulder.github.io/2026/08/11/lights-out-03-running-the-nightshift/</loc>
+    
+    <lastmod>2026-08-11T14:06:17.346Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dibranmulder.github.io/2026/07/31/lights-out-02-old-school-stays-king/</loc>
     
     <lastmod>2026-08-04T09:30:30.316Z</lastmod>
@@ -44,13 +51,6 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/</loc>
-    
-    <lastmod>2026-07-31T06:35:56.778Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/</loc>
     
     <lastmod>2026-07-31T06:35:56.778Z</lastmod>
@@ -58,14 +58,14 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/09/06/Running-an-OpenAI-Gym-on-Windows-with-WSL/</loc>
+    <loc>https://dibranmulder.github.io/2018/08/23/Azure-functions-V2-with-EF-Core/</loc>
     
-    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
+    <lastmod>2026-07-31T06:35:56.778Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/</loc>
+    <loc>https://dibranmulder.github.io/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/</loc>
     
     <lastmod>2026-07-28T11:18:48.898Z</lastmod>
     
@@ -79,14 +79,7 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dibranmulder.github.io/2018/06/13/Werken-voor-Caesar/</loc>
+    <loc>https://dibranmulder.github.io/2019/09/06/Running-an-OpenAI-Gym-on-Windows-with-WSL/</loc>
     
     <lastmod>2026-07-28T11:18:48.898Z</lastmod>
     
@@ -100,21 +93,35 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/</loc>
+    <loc>https://dibranmulder.github.io/2018/06/13/Werken-voor-Caesar/</loc>
     
     <lastmod>2026-07-28T11:18:48.898Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Search-performance/</loc>
+    <loc>https://dibranmulder.github.io/2018/07/03/Unique-keys-in-Azure-Cosmos-DB/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dibranmulder.github.io/2019/04/16/Versioning-with-Azure-PaaS/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.898Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dibranmulder.github.io/2021/02/03/Integration-patterns-using-NServiceBus-Azure-Functions/</loc>
     
     <lastmod>2026-07-28T11:18:48.897Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2021/02/03/Integration-patterns-using-NServiceBus-Azure-Functions/</loc>
+    <loc>https://dibranmulder.github.io/2020/09/22/Improving-your-Azure-Search-performance/</loc>
     
     <lastmod>2026-07-28T11:18:48.897Z</lastmod>
     
@@ -149,6 +156,13 @@
   </url>
   
   <url>
+    <loc>https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/</loc>
+    
+    <lastmod>2026-07-28T11:18:48.896Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dibranmulder.github.io/2018/06/25/Expire-data-in-CosmosDb/</loc>
     
     <lastmod>2026-07-28T11:18:48.896Z</lastmod>
@@ -156,9 +170,9 @@
   </url>
   
   <url>
-    <loc>https://dibranmulder.github.io/2019/02/15/Building-a-Web-Scraper-in-Azure/</loc>
+    <loc>https://dibranmulder.github.io/2019/08/16/Autonoom-rijden/</loc>
     
-    <lastmod>2026-07-28T11:18:48.896Z</lastmod>
+    <lastmod>2026-07-28T11:18:48.895Z</lastmod>
     
   </url>
   
@@ -178,13 +192,6 @@
   
   <url>
     <loc>https://dibranmulder.github.io/2018/11/13/Azure-Api-Management-overview/</loc>
-    
-    <lastmod>2026-07-28T11:18:48.895Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dibranmulder.github.io/2019/08/16/Autonoom-rijden/</loc>
     
     <lastmod>2026-07-28T11:18:48.895Z</lastmod>
     
