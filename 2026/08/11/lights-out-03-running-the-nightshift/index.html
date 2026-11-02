@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://dibranmulder.github.io/images/dobby/dobby_ask_for_night.png">
 <meta property="og:image" content="https://dibranmulder.github.io/images/dobby/dobby_done_night.png">
 <meta property="article:published_time" content="2026-08-11T07:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-11T14:06:17.346Z">
+<meta property="article:modified_time" content="2026-11-02T08:31:36.930Z">
 <meta property="article:author" content="Dibran Mulder">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="Agentic coding">
@@ -129,7 +129,7 @@
         </nav>
       
       <div class="reading-rail-foot">
-        <div>4 216 words</div>
+        <div>4 244 words</div>
         <a class="share-link" data-url="https://dibranmulder.github.io/2026/08/11/lights-out-03-running-the-nightshift/" href="https://dibranmulder.github.io/2026/08/11/lights-out-03-running-the-nightshift/">Share ↗</a>
       </div>
     </aside>
@@ -205,7 +205,7 @@
 <p>When Dobby picks up a task, he does not do it once and hand it over. He runs a multi stage loop inside the sandbox before you ever see the output. Do the work. Then switch hats and review that work against an explicit rules checklist: our coding standards, the definition of done, the lint and type gates, and critically, does the test suite actually pass. If the review fails, go back and do the work again. Repeat until it checks out. Only then does a pull request appear.</p>
 <p>This is the practical payoff of the bowling lane from part 2. A fast, trustworthy test suite is not there to catch Dobby’s mistakes for you. It is there so Dobby can catch his own mistakes and iterate without you. The review stage is the agent grading itself against the bumpers, over and over, at machine speed, in a box you don’t have to watch. The difference between this and the casino floor is the whole game: you are delegating the inspection too, not just the typing. What lands in your inbox in the morning is not a first draft. It is a draft that already failed and fixed itself several times overnight.</p>
 <p>We run the reviewer as a genuinely separate pass with a genuinely adversarial prompt. Its job is to reject, not to bless. An agent asked “is this good?” says yes. An agent asked “find everything wrong with this against these rules” earns its keep. The output that survives that is not perfect. But it is reviewable, and reviewable is the bar.</p>
-<p><em>(Getting this loop to behave, the prompts, the checklist, the failure modes, the ways Dobby learned to game his own reviewer, is a whole post in itself. That is <strong>Lights Out, part 4: the lessons learned from configuring a coding agent.</strong> It is the most hard won of the series and it is coming next.)</em></p>
+<p><em>(Getting this loop to behave, the prompts, the checklist, the failure modes, the ways Dobby learned to game his own reviewer, is a whole post in itself. That is <strong>Lights Out, part 5: the lessons learned from configuring a coding agent.</strong> It is the most hard won of the series, and it comes right after part 4.)</em></p>
 <h2 id="The-hard-part-was-never-the-agent"><a href="#The-hard-part-was-never-the-agent" class="headerlink" title="The hard part was never the agent"></a>The hard part was never the agent</h2><p>Now the confession the whole industry is dancing around.</p>
 <p>Standing all of the above up, the sandbox, the images, the Mac Mini, the GitHub App, the triggers, the loop, took us weeks. Keeping Dobby usefully busy takes us every single day, and it is the actual job now. The bottleneck in asynchronous agentic coding is not the agent’s ability to do work. It is your organisation’s ability to specify work well enough to hand off.</p>
 <p>This is the thing nobody tells you. When your throughput is no longer bounded by typing speed, it becomes bounded by the quality and quantity of well formed units of work in your backlog. And most backlogs are not that. Most backlogs are a graveyard of one line tickets that mean something only to the person who wrote them, half of which are actually three tasks in a trench coat. A human engineer papers over that with context and a hallway conversation. Dobby cannot have a hallway conversation. He needs the work to be legible.</p>
@@ -248,7 +248,7 @@
 <p><strong>Ops.</strong> macOS <code>launchd</code> runs the webhook. <code>bin/deploy.sh</code> does git-pull, rebuild the dashboard, restart, with automatic rollback if the new version comes up unhealthy.</p>
 <p>One line, for the people who scrolled straight here: a zero dependency Node and TypeScript <code>node:http</code> orchestrator behind Tailscale and Yivi auth, driving coding-agent runs in polyglot Docker sandboxes, with a SvelteKit dashboard and flat-JSON persistence.</p>
 <hr>
-<p><em>Next in this series: <strong>Lights Out, part 4: the lessons learned from configuring a coding agent.</strong> The prompts, the checklists, the failure modes, and all the ways Dobby surprised us: the hard won, unglamorous details of making the loop above actually behave.</em></p>
+<p><em>Next in this series: <strong>Lights Out, part 4: the bottleneck moved.</strong> Why agents did not remove the bottleneck from software development, but moved it, and where it is heading next. After that, <strong>part 5: the lessons learned from configuring a coding agent.</strong> The prompts, the checklists, the failure modes, and all the ways Dobby surprised us: the hard won, unglamorous details of making the loop above actually behave.</em></p>
 <hr>
 <h2 id="Sources-tools"><a href="#Sources-tools" class="headerlink" title="Sources &amp; tools"></a>Sources &amp; tools</h2><p><strong>Security model: the lethal trifecta and the Rule of Two</strong></p>
 <ul>

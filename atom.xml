@@ -11,7 +11,26 @@
   <rights>All rights reserved 2026, Dibran Mulder</rights>
   <subtitle>Cloud, Modern web technologies, Microsoft, security and more</subtitle>
   <title>Dibran's Blog</title>
-  <updated>2026-09-10T10:16:01.107Z</updated>
+  <updated>2026-11-02T08:48:18.959Z</updated>
+  <entry>
+    <author>
+      <name>Dibran Mulder</name>
+    </author>
+    <category term="AI" scheme="https://dibranmulder.github.io/tags/AI/"/>
+    <category term="Agentic coding" scheme="https://dibranmulder.github.io/tags/Agentic-coding/"/>
+    <category term="Software development" scheme="https://dibranmulder.github.io/tags/Software-development/"/>
+    <category term="Productivity" scheme="https://dibranmulder.github.io/tags/Productivity/"/>
+    <category term="Security" scheme="https://dibranmulder.github.io/tags/Security/"/>
+    <category term="Theory of Constraints" scheme="https://dibranmulder.github.io/tags/Theory-of-Constraints/"/>
+    <id>https://dibranmulder.github.io/2026/10/30/lights-out-04-the-bottleneck-moved/</id>
+    <link href="https://dibranmulder.github.io/2026/10/30/lights-out-04-the-bottleneck-moved/"/>
+    <published>2026-10-30T08:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="Eight-times-the-code-a-third-faster"><a href="#Eight-times-the-code-a-third-faster" class="headerlink" title="Eight times the code,]]>
+    </summary>
+    <title>Lights Out, part 4: the bottleneck moved</title>
+    <updated>2026-11-02T08:48:18.959Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Dibran Mulder</name>
@@ -25,10 +44,10 @@
     <link href="https://dibranmulder.github.io/2026/09/10/lights-out-04-lessons-learned/"/>
     <published>2026-09-10T07:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="What-Dobby-taught-us"><a href="#What-Dobby-taught-us" class="headerlink" title="What Dobby taught us"></a>What Dobby taught]]>
+      <![CDATA[<h2 id="Dobby-briefly"><a href="#Dobby-briefly" class="headerlink" title="Dobby, briefly"></a>Dobby, briefly</h2><p>Dobby is our coding]]>
     </summary>
     <title>Lights Out, part 4: the lessons learned from configuring a coding agent</title>
-    <updated>2026-09-10T10:16:01.107Z</updated>
+    <updated>2026-09-10T12:06:04.160Z</updated>
   </entry>
   <entry>
     <author>
@@ -46,7 +65,7 @@
       <![CDATA[<h2 id="Meet-Dobby"><a href="#Meet-Dobby" class="headerlink" title="Meet Dobby"></a>Meet Dobby</h2><p>We named our agent Dobby, after the]]>
     </summary>
     <title>Lights Out, part 3: running the nightshift</title>
-    <updated>2026-08-11T14:06:17.346Z</updated>
+    <updated>2026-11-02T08:31:36.930Z</updated>
   </entry>
   <entry>
     <author>
@@ -328,20 +347,5 @@
     </summary>
     <title>Azure API  Management overview</title>
     <updated>2026-07-28T11:18:48.895Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Dibran Mulder</name>
-    </author>
-    <category term="Azure DevOps" scheme="https://dibranmulder.github.io/tags/Azure-DevOps/"/>
-    <category term="Security" scheme="https://dibranmulder.github.io/tags/Security/"/>
-    <id>https://dibranmulder.github.io/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/</id>
-    <link href="https://dibranmulder.github.io/2018/10/25/Secrets-in-Azure-DevOps-the-bad-parts/"/>
-    <published>2018-10-25T10:30:57.000Z</published>
-    <summary>
-      <![CDATA[<p>Storing secrets inside your build and release pipeline variables is a bad practise and Microsoft advises not to use it, but use KeyVault]]>
-    </summary>
-    <title>Secrets in Azure DevOps the bad parts</title>
-    <updated>2026-07-28T11:18:48.898Z</updated>
   </entry>
 </feed>
