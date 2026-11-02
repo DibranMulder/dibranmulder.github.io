@@ -11,7 +11,25 @@
   <rights>All rights reserved 2026, Dibran Mulder</rights>
   <subtitle>Cloud, Modern web technologies, Microsoft, security and more</subtitle>
   <title>Dibran's Blog</title>
-  <updated>2026-08-11T14:06:17.346Z</updated>
+  <updated>2026-09-10T10:16:01.107Z</updated>
+  <entry>
+    <author>
+      <name>Dibran Mulder</name>
+    </author>
+    <category term="AI" scheme="https://dibranmulder.github.io/tags/AI/"/>
+    <category term="Agentic coding" scheme="https://dibranmulder.github.io/tags/Agentic-coding/"/>
+    <category term="Software development" scheme="https://dibranmulder.github.io/tags/Software-development/"/>
+    <category term="Developer tools" scheme="https://dibranmulder.github.io/tags/Developer-tools/"/>
+    <category term="Productivity" scheme="https://dibranmulder.github.io/tags/Productivity/"/>
+    <id>https://dibranmulder.github.io/2026/09/10/lights-out-04-lessons-learned/</id>
+    <link href="https://dibranmulder.github.io/2026/09/10/lights-out-04-lessons-learned/"/>
+    <published>2026-09-10T07:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="What-Dobby-taught-us"><a href="#What-Dobby-taught-us" class="headerlink" title="What Dobby taught us"></a>What Dobby taught]]>
+    </summary>
+    <title>Lights Out, part 4: the lessons learned from configuring a coding agent</title>
+    <updated>2026-09-10T10:16:01.107Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Dibran Mulder</name>
@@ -325,22 +343,5 @@
     </summary>
     <title>Secrets in Azure DevOps the bad parts</title>
     <updated>2026-07-28T11:18:48.898Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Dibran Mulder</name>
-    </author>
-    <category term="Azure" scheme="https://dibranmulder.github.io/tags/Azure/"/>
-    <category term="Functions" scheme="https://dibranmulder.github.io/tags/Functions/"/>
-    <category term="API management" scheme="https://dibranmulder.github.io/tags/API-management/"/>
-    <category term="API Gateway" scheme="https://dibranmulder.github.io/tags/API-Gateway/"/>
-    <id>https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/</id>
-    <link href="https://dibranmulder.github.io/2018/10/19/Building-Serverless-APIs-in-Azure/"/>
-    <published>2018-10-19T13:44:40.000Z</published>
-    <summary>
-      <![CDATA[<p>Serverless is a hot topic in Cloud Development. Serverless cloud computing is all about scalability, performance, minimizing cost and]]>
-    </summary>
-    <title>Building Serverless API's in Azure</title>
-    <updated>2026-07-31T06:35:56.778Z</updated>
   </entry>
 </feed>

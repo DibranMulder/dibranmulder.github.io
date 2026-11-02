@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  
+<!-- Cloudflare Web Analytics -->
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "50191a23413448a39b4c51f3e6b976f3"}'></script>
+<!-- End Cloudflare Web Analytics -->
+
+
+  
+  <title>Lights Out, part 4: the lessons learned from configuring a coding agent | Dibran&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="What Dobby taught usPart 3 described Dobby, our house elf: a scoped GitHub App identity, a disposable sandbox, three kinds of trigger, a work-review-work loop, and a 16:30 handoff that fills his night">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lights Out, part 4: the lessons learned from configuring a coding agent">
+<meta property="og:url" content="https://dibranmulder.github.io/2026/09/10/lights-out-04-lessons-learned/index.html">
+<meta property="og:site_name" content="Dibran&#39;s Blog">
+<meta property="og:description" content="What Dobby taught usPart 3 described Dobby, our house elf: a scoped GitHub App identity, a disposable sandbox, three kinds of trigger, a work-review-work loop, and a 16:30 handoff that fills his night">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-09-10T07:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-10T10:16:01.107Z">
+<meta property="article:author" content="Dibran Mulder">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Agentic coding">
+<meta property="article:tag" content="Developer tools">
+<meta property="article:tag" content="Productivity">
+<meta property="article:tag" content="Software development">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Dibran&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="is-reading">
+  <div id="container">
+    
+      <div id="reading-progress" aria-hidden="true"><span></span></div>
+    
+    
+<header id="header">
+  <div class="header-inner">
+    <a class="wordmark" href="/">Dibran Mulder</a>
+    <nav class="site-nav" aria-label="Main">
+      
+        <a href="/" class="is-current" aria-current="page">Writing</a>
+      
+        <a href="/archives">Archive</a>
+      
+        <a href="/about">About</a>
+      
+      
+        <a href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <main id="main">
+<article class="page page-post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-kicker">
+        
+          <a class="post-kicker-topic" href="/tags/AI/">AI</a>
+          <span class="dot" aria-hidden="true"></span>
+        
+        <time datetime="2026-09-10T07:00:00.000Z" itemprop="datePublished">10 september 2026</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>36 min read</span>
+      </div>
+      <h1 itemprop="headline">Lights Out, part 4: the lessons learned from configuring a coding agent</h1>
+      
+    </div>
+  </header>
+
+  <div class="reading-grid">
+
+    <aside class="reading-rail reading-rail-toc">
+      
+        <nav class="toc" aria-label="Contents">
+          <div class="eyebrow">Contents</div>
+          
+            <a class="toc-link toc-level-2" href="#What-Dobby-taught-us">What Dobby taught us</a>
+          
+            <a class="toc-link toc-level-2" href="#01-Reliability-an-agent-you-still-have-to-check-costs-more-than-no-agent">01. Reliability: an agent you still have to check costs more than no agent</a>
+          
+            <a class="toc-link toc-level-2" href="#02-From-70-to-usable">02. From 70% to usable</a>
+          
+            <a class="toc-link toc-level-2" href="#03-Everything-an-agent-writes-grows">03. Everything an agent writes, grows</a>
+          
+            <a class="toc-link toc-level-2" href="#04-Delivering-context">04. Delivering context</a>
+          
+            <a class="toc-link toc-level-2" href="#05-Attention-is-scarce">05. Attention is scarce</a>
+          
+            <a class="toc-link toc-level-2" href="#06-Boundaries-cost-and-identity">06. Boundaries, cost and identity</a>
+          
+            <a class="toc-link toc-level-2" href="#The-90-the-9-and-the-1">The 90, the 9 and the 1</a>
+          
+            <a class="toc-link toc-level-2" href="#Sources-tools">Sources tools</a>
+          
+        </nav>
+      
+      <div class="reading-rail-foot">
+        <div>7 129 words</div>
+        <a class="share-link" data-url="https://dibranmulder.github.io/2026/09/10/lights-out-04-lessons-learned/" href="https://dibranmulder.github.io/2026/09/10/lights-out-04-lessons-learned/">Share ↗</a>
+      </div>
+    </aside>
+
+    <div class="reading-main">
+      <div class="prose article-entry" itemprop="articleBody">
+        <h2 id="What-Dobby-taught-us"><a href="#What-Dobby-taught-us" class="headerlink" title="What Dobby taught us"></a>What Dobby taught us</h2><p>Part 3 described Dobby, our house elf: a scoped GitHub App identity, a disposable sandbox, three kinds of trigger, a work-review-work loop, and a 16:30 handoff that fills his night. It ended with a promise. The next post would be about the unglamorous part: the prompts, the checklists, the failure modes, and the ways Dobby learned to game his own reviewer.</p>
+<p>This is that post. It is the most hard won of the series, and it has a single thesis that I did not hold when we started.</p>
+<p><strong>Deterministic, well built systems are so much better than AI that does whatever it wants.</strong> And yet AI can do things I sometimes cannot program. Not because I am dim, but because the world is chaotic and imperfect. So build a platform that gets you to 90%. Use AI for the last 9%, the part that was never possible before.</p>
+<p>Some numbers on the platform, because they say something about where the effort went.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>First commit</td>
+<td>12 June 2026</td>
+</tr>
+<tr>
+<td>Commits to date</td>
+<td>993</td>
+</tr>
+<tr>
+<td>TypeScript source, excluding tests</td>
+<td>~85,000 lines</td>
+</tr>
+<tr>
+<td>Test code</td>
+<td>~80,000 lines across 261 test files</td>
+</tr>
+<tr>
+<td>Prompt text in the committed pipeline graphs</td>
+<td>~74 KB</td>
+</tr>
+</tbody></table>
+<p>The test suite is almost as large as the code it tests. That ratio is not an accident, and the rest of this post is mostly about why it ended up that way.</p>
+<p>As for gaming the reviewer: the first fix in the history is from day one, 12 June. Dobby opened a PR, reviewed it himself, and his review comment contained the trigger word, which fired a webhook, which started another review of the same PR, which contained the trigger word. An infinite loop of self-review before lunch. Every guard in this post is a descendant of that afternoon.</p>
+<p>Everything below is organised into six lessons. Each one starts with the thing that went wrong.</p>
+<h2 id="01-Reliability-an-agent-you-still-have-to-check-costs-more-than-no-agent"><a href="#01-Reliability-an-agent-you-still-have-to-check-costs-more-than-no-agent" class="headerlink" title="01. Reliability: an agent you still have to check costs more than no agent"></a>01. Reliability: an agent you still have to check costs more than no agent</h2><p><strong>You think the agent is working and find out hours later that nothing happened.</strong></p>
+<p>The first version of Dobby had a thirty minute node timeout, written as a constant in the server, and a three hour wall-clock watchdog that was supposed to kill runaway containers. Nobody noticed that the ladder was upside down. The timeout fired first, every time, which meant the watchdog could never fire at all and every task on the deployment was silently capped at half an hour. A forty seven minute run doing real work was declared crashed mid-work, with its container still alive and still spending tokens. The comment that now sits at the top of the timeout module records the invariant that fixed it: the node backstop must sit above the watchdog budget, not below it.</p>
+<p>That one incident is a good summary of the whole lesson. Reliability is not something you get from a better prompt. It is a system layer, and it has to be built like one:</p>
+<ul>
+<li><strong>A flat, total state machine.</strong> A run is in exactly one of eight phases: queued, acquiring, running, reply, rate limited, done, error, killed. The transition table is the whole machine. Anything not listed resolves to error. In the words of the module, “there is no way to express an illegal phase move.” Position in the graph is data tracked separately, which is what stops the phase set exploding into <code>review_acquiring</code>, <code>rules_acquiring</code> and friends.</li>
+<li><strong>Watchdogs with a ladder.</strong> Three hours per execution by default, an eight hour coarse net behind it, and a run budget on top: three hours base plus three hours per open sub-issue, capped at twenty four. Spend is derived from the execution ledger rather than counted, so a nine hour wait on a weekly rate limit costs the budget nothing. The hop ceiling scales the same way, because a fifteen slice overnight run wants about ninety hops and a fixed fifty would have aborted it at slice nine.</li>
+<li><strong>Rescue as a node, not a subsystem.</strong> When a container dies before reaching a terminal node, a rescue node reads the dead node’s transcript and picks one of three exits: retry, continue as if the dead node had emitted a given outcome, or abort with a plain-words reply. The rescue itself is never rescued, which terminates the recursion.</li>
+<li><strong>Cleanup and guards around resources that linger after a stop.</strong> A sweep every thirty seconds reconciles leaked run slots, recycles warm containers before their GitHub token expires, and kills anything over budget in the <code>killed</code> phase rather than <code>error</code>, so the dashboard can tell “we stopped it” from “it fell over.”</li>
+</ul>
+<p>The rescue node has its own war story. For weeks it chose between retry and abort on the strength of a section headed “Tail of the dead container’s logs” that never contained any logs. The host filled it with the one line crash string. A heading that promises a transcript and delivers a sentence is worse than an empty heading: the rescue read the absence as evidence that nothing had been done, retried, and on the second pass told the user that “no transcript or partial output survived.” The dead node’s 1.8 MB transcript sat in the log archive the whole time, and its draft PR had been open for twenty eight minutes. Both facts were on the host. Now the host hands the rescue the actual tail and every PR link in it, and the prompt says outright: “never treat missing evidence as evidence.”</p>
+<p><strong>After you give an instruction you cannot tell quickly enough whether it was understood.</strong></p>
+<p>So the router confirms. Every incoming event goes through a deterministic gate first. Zero matching pipelines means the event is ignored. Exactly one means no model is consulted at all. Only when several pipelines could plausibly handle the event does the router model get to pick, and the design note puts it well: “The router LLM is a tiebreaker, not a gate.” Whatever it picks, an acknowledgement goes back to the thread before any work starts. The acknowledgement persona is deliberately hemmed in. It must “confirm you’re on it and say what you’re about to do,” must “not promise specific results, fixes, or timelines,” and must never announce workflow mechanics like opening a draft PR unless the context makes them apply. A request made on an existing pull request is handled inside that PR, so the ack is forbidden from promising a new one. Most of the wrong promises we saw early on were exactly that: Dobby cheerfully announcing a PR for a question.</p>
+<p><strong>An agent should only report when the work is really finished.</strong></p>
+<p>Only end nodes answer. Work nodes never post to GitHub or Slack themselves. They emit one structured outcome to the host, with the complete user-facing answer in a <code>details</code> field, and a reply node turns that into one short message. The basic pipeline says it bluntly: “anything not in <code>details</code> never reaches the user.” The reply persona has hard rules too: only URLs that appear verbatim in the outcome, a few sentences, no headings, no praise. It took us a while to accept that a node posting its own progress updates is not transparency. It is noise that trains people to stop reading.</p>
+<p><strong>You want to see at a glance what is running.</strong></p>
+<p>The dashboard is named after human work rather than after our architecture. Desk is what Dobby is doing for you right now. Tasks is the queue and the live runs. Routines is the standing schedule. It only became legible once every run had a clear owner, which is a story for lesson six.</p>
+<p><strong>Stalled work needs a visible end state.</strong></p>
+<p>Every pipeline graph has explicit exits for the ways things stop. The coder has a give-up edge. The conflict resolver has “recommended close” and “gave up” as distinct outcomes, each requiring a comment that says why and who can take it over. A watchdog kill is <code>killed</code>, not <code>error</code>. A run that cannot continue has to say so in a form a human can act on, because a run that just goes quiet is the most expensive failure of all: you think it is working.</p>
+<h2 id="02-From-70-to-usable"><a href="#02-From-70-to-usable" class="headerlink" title="02. From 70% to usable"></a>02. From 70% to usable</h2><p>AI does 70% of the work with ease. If you want to rely on it, 70% is nothing. The road to usable ran through four steps here, in this order, and I think the order is general.</p>
+<p><strong>Step 1: better prompts help until they drown in their own rules.</strong></p>
+<p>We prompted our way through the first month, and the prompts grew. Then we measured. Someone pulled a corpus of 300 delivered prompts and their transcripts and asked, for each sentence, whether it had ever done anything. One warning about a <code>gh issue view</code> pitfall appeared in 300 of 300 prompts, was ignored in 2, and failed in 0. There was nothing for it to prevent. Cut, 266 bytes off every prompt. Out of that exercise came a small set of gates for what earns a line its place: not if the model can derive it, not if the model can discover it and has reason to look, and not if a check is the durable copy of the rule. The root instruction file was cut by a quarter under those gates in one afternoon.</p>
+<p>The moment less text gives better output is the moment to stop prompting and start building structure.</p>
+<p><strong>Step 2: the agent delivers work that does not pass the checks.</strong></p>
+<p>The fix is boring. Give him the ordinary developer tooling before he starts, baked into the image, so that “the tests pass” means something before a reviewer looks. Dobby’s container ships Node 22 with pnpm and yarn, Rust with rust-analyzer, clippy and rustfmt, .NET 10, Go, Python with ruff and pip-audit, Java 17 with the Android SDK and Flutter, Playwright with Chromium, and language servers for TypeScript, Go and C#. Part 2 called this the bowling lane. Here it just means the agent can typecheck, format and run a browser at three in the morning without asking anyone.</p>
+<p><strong>Step 3: the research, code, test loop gets reinvented in every prompt.</strong></p>
+<p>Make the loop the host’s. Our Code Change pipeline is a graph, and the graph decides who writes, who reviews, who posts findings, and when it is done.</p>
+<figure style="max-width:820px;margin:2rem auto;">
+<svg viewBox="0 0 880 330" role="img" aria-labelledby="loopTitle loopDesc" style="width:100%;height:auto;display:block;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;">
+<title id="loopTitle">The Code Change pipeline graph: trigger, PR Dobby, Review Dobby, Rules Dobby, Done, with a bounded fix loop and a give-up exit.</title>
+<desc id="loopDesc">A GitHub or Slack trigger enters PR Dobby, which opens a draft PR and hands to Review Dobby. Review Dobby analyses and runs the diff and hands findings to Rules Dobby, which merges them with a rule-compliance pass and either loops back to PR Dobby for fixes, at most three times, or marks the PR ready and ends at Done. PR Dobby also has a direct give-up exit to Done for a premise that does not hold.</desc>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7796"/></marker>
+<marker id="arrRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e5484d"/></marker>
+<marker id="arrGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4ade80"/></marker>
+</defs>
+<rect x="0" y="0" width="880" height="330" rx="24" fill="#0d1428"/>
+<g font-size="13" fill="#e6ebf5" text-anchor="middle" font-weight="700">
+<rect x="20" y="120" width="110" height="60" rx="12" fill="#17203a" stroke="#33406a" stroke-width="2"/>
+<text x="75" y="145">GitHub</text><text x="75" y="163">or Slack</text>
+<rect x="190" y="120" width="130" height="60" rx="12" fill="#1e2a4a" stroke="#6ea8fe" stroke-width="2"/>
+<text x="255" y="145">PR Dobby</text><text x="255" y="163" font-weight="400" font-size="11" fill="#b8c3dc">opens a DRAFT PR</text>
+<rect x="380" y="120" width="140" height="60" rx="12" fill="#1e2a4a" stroke="#b18bff" stroke-width="2"/>
+<text x="450" y="145">Review Dobby</text><text x="450" y="163" font-weight="400" font-size="11" fill="#b8c3dc">runs the diff</text>
+<rect x="580" y="120" width="140" height="60" rx="12" fill="#1e2a4a" stroke="#f4a259" stroke-width="2"/>
+<text x="650" y="145">Rules Dobby</text><text x="650" y="163" font-weight="400" font-size="11" fill="#b8c3dc">posts, decides</text>
+<rect x="780" y="120" width="80" height="60" rx="12" fill="#123a1f" stroke="#4ade80" stroke-width="2"/>
+<text x="820" y="155">Done</text>
+</g>
+<g stroke="#6b7796" stroke-width="2" fill="none" marker-end="url(#arr)">
+<line x1="130" y1="150" x2="188" y2="150"/>
+<line x1="320" y1="150" x2="378" y2="150"/>
+<line x1="520" y1="150" x2="578" y2="150"/>
+</g>
+<line x1="720" y1="150" x2="778" y2="150" stroke="#4ade80" stroke-width="2" marker-end="url(#arrGreen)"/>
+<path d="M650,120 C650,60 255,60 255,118" stroke="#e5484d" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#arrRed)"/>
+<path d="M255,180 C255,260 820,260 820,182" stroke="#6b7796" stroke-width="2" fill="none" stroke-dasharray="3 6" marker-end="url(#arr)"/>
+<g font-size="12" text-anchor="middle">
+<text x="452" y="78" fill="#ff8fab" font-weight="700">fix issues: bug-severity only, at most 3 loops</text>
+<text x="540" y="255" fill="#8a95ab">give up: premise did not hold, or genuinely stuck. Also a good ending.</text>
+<text x="750" y="205" fill="#9be7a8">approve: mark ready</text>
+</g>
+<text x="440" y="310" text-anchor="middle" fill="#8a95ab" font-size="12">The model chooses the payload. The host chooses the route.</text>
+</svg>
+<figcaption style="text-align:center;font-size:0.85rem;color:#6b7280;margin-top:0.5rem;">The Code Change graph as committed. PR Dobby writes and opens a draft. Review Dobby analyses and actually runs the diff but posts nothing. Rules Dobby merges the findings with a rule check, posts one consolidated review, and is the only node allowed to send the PR back or mark it ready.</figcaption>
+</figure>
+
+<p>Three details in that graph matter more than the shape.</p>
+<p>The reviewer and the rule checker are separate nodes with separate jobs. The reviewer is told “Rule compliance is NOT your job” and spends ten to fifteen minutes actually building and running the code, because “static review catches the obvious mistakes; running the code catches the ones that bite.” The rule checker fans the rule bundle out to cheap Haiku sub-agents in batches of three to five rules, then is told to treat everything they return as a candidate: “Haiku over-flags (wrong WCAG contrast arithmetic, ‘no CI’ claims without checking, flagging the expected mid-review draft state). Drop anything you cannot confirm.”</p>
+<p>The loop is bounded in the graph, not in the prompt. The fix-issues edge carries a loopback limit of three. Nits never send a PR back. Only bug-severity findings do.</p>
+<p>And there is a handoff gate the model cannot see. The coder prompt used to ask, in words, to sync with the base branch and watch CI once after pushing, and nothing checked whether that happened. We measured it: across 265 Dobby-authored PRs since mid June, 8 needed a human to type a re-dispatch asking for a rebase. The paragraphs are gone. When a coder node emits its outcome, the host reads the PR it just left behind and refuses the outcome if the branch conflicts with its base or CI is red where the base’s is green. The gate never blocks a walk it cannot answer for, and it refuses at most twice per pull request. That is the pattern in one sentence: <strong>a rule you can check should be a check, not a sentence.</strong></p>
+<p><strong>Step 4: a new model must not reinterpret the workflow.</strong></p>
+<p>Under the first engine, each prompt embedded a URL to call for each possible next step, the model picked one, and the host resolved it globally. Nothing checked whether the transition was legal. The graph was descriptive. Now it is prescriptive, and the module header is worth quoting in full because it is the design principle of the whole system:</p>
+<blockquote>
+<p>“A dobby NEVER names a target node. It emits exactly ONE <code>outcome</code> label from its node’s declared set, plus a payload. The HOST owns the map outcome → edge → next node. The LLM controls the payload; the host controls the routing. Resolution validates against a POSITIVE set, so an unknown&#x2F;hallucinated outcome has no edge and resolves to <code>error</code>. Illegal transitions are impossible to EXPRESS, not merely vetoed.”</p>
+</blockquote>
+<p>The practical consequence is the one that matters for anyone running agents in production: when the vendor ships a new model, the workflow does not change. The model reports the result of its node. Triggers, edges and end nodes belong to the engine.</p>
+<p><strong>The agent sometimes writes good code for the wrong problem.</strong></p>
+<p>This one cost us four thrown-away PRs before we saw the pattern, and they were four different failures. In one, the issue predated by six days the commit Dobby blamed, and the version bump he reverted was the fix. In another, Dobby found the dependency unused, wrote that in his own PR body, and opened the PR anyway. In a third, the issue went from filed to PR in ten minutes and the root cause was a Terraform deploy, nothing in the code at all. In the fourth, the issue was true when written and stale after twenty four days in the queue.</p>
+<p>The coder prompt now has a section called “Confirm the premise before you write the diff.” It asks three questions against HEAD: does the reported behaviour still reproduce, is the code you would change still reachable, and did the fix already land? And it changes what counts as finishing: “‘actionable but unnecessary’ is a valid way to finish, and the better outcome: a PR on a dead premise is reviewed and then thrown away.” No PR is a normal, good result. The test that pins this section lists the four PRs by name, so the next person who wants to trim the prompt knows what each sentence paid for.</p>
+<p><strong>Without log analysis you keep repairing individual runs.</strong></p>
+<p>Everything above came out of reading transcripts in bulk. The 300 task corpus gave us the dead prompt lines, the duplicated facts, the premise failures, and one thing nobody expected: the model alias we stored on each run was not the model that answered. The alias <code>opus</code> resolved to four different concrete models in three days, and six runs whose nodes said opus ran end-to-end on something else. So the host now reads the resolved model id off the archived transcript rather than trusting its own request. Log the runs, look for patterns, then change the system. Sometimes the change is a prompt cut, sometimes a guard test, sometimes host behaviour.</p>
+<p><strong>The agent builds quickly something that already exists in the codebase.</strong></p>
+<p>We treat this like every other convention: it goes in the rule bundle, next to our comment-density rule and the rest of the fixed habits. Look for the existing function or subsystem first is a check, and a check belongs where the checks live.</p>
+<h2 id="03-Everything-an-agent-writes-grows"><a href="#03-Everything-an-agent-writes-grows" class="headerlink" title="03. Everything an agent writes, grows"></a>03. Everything an agent writes, grows</h2><p>Prompt text, rules and knowledge bases grow on their own. Cutting only helps if the cut is pinned somewhere.</p>
+<p><strong>You remove content and it is quickly back.</strong></p>
+<p>Here is the whole lesson as a timeline of one file, our root <code>CLAUDE.md</code>, the instruction file Claude Code reads at start.</p>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Size</th>
+<th>What happened</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3 August</td>
+<td>115,480 → 86,988 B</td>
+<td>Cut by 24.7% under the prompt gates</td>
+</tr>
+<tr>
+<td>20 August</td>
+<td>195,010 B</td>
+<td>Had more than doubled in 17 days</td>
+</tr>
+<tr>
+<td>20 August</td>
+<td>1,514 B</td>
+<td>Replaced with a four paragraph orientation file</td>
+</tr>
+<tr>
+<td>Since</td>
+<td>capped at 4,000 B</td>
+<td>A test fails the build if it grows</td>
+</tr>
+</tbody></table>
+<p>The cut held. The file doubled anyway. Because the removals had no gate, and the prompts had a producer: every work node was told to write what it learned into the repo’s <code>CLAUDE.md</code> in the same PR. A knowledge base grows exactly as instructed. Find the producer. The test that guards the file now checks both halves: the file’s size, and the absence of any instruction in any assembled prompt that tells a node to write to it. The corpus is not lost, incidentally. It is in git history, and the orientation file says at which revision to look.</p>
+<p><strong>A cleanup without a ceiling is undone again.</strong></p>
+<p>Every cut now ships with a maximum. The successor to the giant file is a repo-scoped rule bundle, and every number in it is a ceiling:</p>
+<ul>
+<li>One rule is at most 600 bytes, because the rule checker was already distilling every rule it used down to about 595 bytes, so anything above that was measured waste.</li>
+<li>Thirty permanent rules that bind everywhere, plus ten per repository, in two buckets, because a single number let one repo’s rules crowd out every other repo’s.</li>
+<li>A bundle a container receives is at most 80,000 bytes.</li>
+<li>A temporary rule lapses after fourteen days, measured from the last time it failed rather than from when it was filed, so the corpus prunes by irrelevance rather than by age.</li>
+</ul>
+<p><strong>A self-learning system keeps adding knowledge.</strong></p>
+<p>So there is a judge on the write path and a filter on the read path. A container that hits a wall no rule warned it about files the fact. That filing used to become a rule immediately, which made the corpus grow with every wall anyone hit. Now it is a request, answered “202 queued,” and an adjudicator decides one of three things: add, because nothing covers this; amend, because a rule covers it and its wording or scope is what failed; or discard, because the existing rule would have worked. If the covering rule was in force in that very container and the container hit the wall anyway, that is recorded as a defeat of the rule, not as a new rule. On the read path, the host narrows the bundle to the repo the task is in, and the rule checker is told it “selects nothing and adds nothing.” Once a week a codifier routine reads the corpus and the defeat ledger and proposes changes to the permanent set. It proposes. A human decides, on a settings page. “There is no rule you can change yourself.”</p>
+<p><strong>A rule in prose is not an enforceable rule.</strong></p>
+<p>Make conventions testable. If an invariant matters, the build has to go red the moment someone breaks it. That is where 261 test files come from, and a fair number of them test prose. One test asserts that each coder node still has the premise section and the give-up wording. One asserts that Dobby posts no review on his own PRs. One asserts the orientation file stays small. This is the same move as the handoff gate, applied to ourselves: the people editing prompts are also fallible producers.</p>
+<p><strong>A test on individual files misses what the agent actually receives.</strong></p>
+<p>The test called “one fact, one home” exists because of a measurement: six facts were stated two or three times inside a single delivered prompt. Nobody had noticed, because each copy was the only one in its own file. The waste is only visible once you concatenate the surfaces the way the container receives them. So the test rebuilds the assembled prompt per node, the context block plus the node’s system prompt plus the host-built sections, and counts. A field can be correct everywhere and still arrive wrong.</p>
+<p><strong>A green guard can still catch nothing.</strong></p>
+<p>Run a new guard on old history. The one-fact test’s header says how it was validated: “run this file’s <code>homes()</code> over the tree at the commit before the cleanup and every fact reports 2 or 3.” If a guard never goes red on the history that motivated it, you do not yet know whether it guards anything. The handoff gate got the same treatment, with the 8 out of 265 figure as its warrant.</p>
+<p><strong>A convention test that is too broad turns open PRs red for no reason.</strong></p>
+<p>Scope guards to their source. Our dashboard lets someone author a pipeline in the UI, and that pushes a commit straight to main. A test asserted over every pipeline graph would red-CI every open PR the moment somebody did that. So the prose guards are scoped to the two committed coder nodes by id, and the header explains the trade: a new coder pipeline is not covered, but a rename or deletion of the existing two fails loudly instead of passing with zero nodes matched. Host-injected text can be tested broadly. Hand-written prompt prose wants a narrower check.</p>
+<p><strong>You build a subsystem for work the framework can already do.</strong></p>
+<p>Ask first whether the work fits in a graph. Dobby used to have a separate campaign subsystem for multi-issue work. It was deleted in July, superseded by a pipeline graph with a chooser node. Rescue was a separate subsystem with its own dispatch core and a hardcoded retry count. It became a node with a loopback budget on an edge. Reply was two hand-written container builders. It became one node with three modes. Each time, the new entrance for the same intention had saved a few words of typing and cost a parallel implementation.</p>
+<h2 id="04-Delivering-context"><a href="#04-Delivering-context" class="headerlink" title="04. Delivering context"></a>04. Delivering context</h2><p>Good context comes from source code, scope, and ownership of facts.</p>
+<p><strong>The agent lacks the information to give the right answer.</strong></p>
+<p>Three things fixed most of it. The target repo is pre-cloned into the container before the prompt arrives. Rules are scoped per repo before they are delivered, so a rule about one project never reaches a container working on another. And for UI work the coder is told to find and work from the repo’s existing design source, a <code>DESIGN.md</code> or token files, and “never introduce a new palette, font stack, radius&#x2F;shadow language, or icon set into a repo that already has one; new UI must be indistinguishable from its neighbours.” If a design decision is not derivable from the source, ask in the PR instead of inventing.</p>
+<p><strong>A big job does not fit in one context.</strong></p>
+<p>Split it into a superissue and sub-issues. The superissue pipeline has a chooser node that does no coding at all. Each cycle it lists the sub-issues in order, works out from GitHub which are done, picks the first that is not, and hands it to a coder that opens a stacked draft PR based on the previous one. The chooser is told to “re-derive all progress from GitHub every cycle, so the flow is restart-proof and survives human edits.” Every cycle starts with a fresh context and a fresh review budget. An eight sub-issue superissue derives a twenty four hour run budget, which is the whole reason the budget machinery from lesson one exists.</p>
+<p><strong>Even within a run the context window can fill up.</strong></p>
+<p>Measure context usage and put a threshold on it. Stay well under the window and you rely less on compaction, which is where subtle losses happen. The measurement side of this is where the cache work came from: with per-machine sections moved out of the system prompt so the cached prefix is identical across the fleet, about three quarters of every prompt is a cache read. The threshold side is a rule we hold ourselves to when writing node prompts: a node that needs the whole window is a node that should be two.</p>
+<p><strong>The same facts end up in several prompts.</strong></p>
+<p>Treat prompt text as a bundle. Each fact gets one place, one owner, and one check on the final prompt. The Context section of every node prompt is now composed by the host from facts about the walk, rather than from a template each node author filled in by hand. Every host-built section has a declared byte budget in one table: the job description gets 1,500 bytes, the organisation section 800, the standing rules 700, and the host-built part of a work node’s prompt as a whole is held at 13,000 with a warning past 14,000. A section that wants to grow has to take bytes from a named neighbour. A recent guard test asserts that every composed prompt names a <code>dobby</code> CLI command for its callbacks and that “no host, header, secret or workspace remains” in the text. The container talks to the host through one small CLI, one subcommand per callback, built from the same contract module the host uses. When the contract changes, both sides change together or the build fails.</p>
+<h2 id="05-Attention-is-scarce"><a href="#05-Attention-is-scarce" class="headerlink" title="05. Attention is scarce"></a>05. Attention is scarce</h2><p>An agent has to take work off people’s hands without giving them more review work than they can process.</p>
+<p><strong>The agent quickly does too much and pushes work into review.</strong></p>
+<p>Use an open-PR budget per person. Each developer carries a budget of open PRs coupled to them as reviewer, three by default, editable on their own Desk. The rule about who it applies to is the interesting part. Work a human asked for always runs, even over budget: “6&#x2F;3 is honest: they asked for six.” Work Dobby initiated on his own, from a routine, must find room in someone’s budget or not start. The two are told apart by an invisible HTML comment the coder puts in the body of every PR nobody asked for, and only those count. When the budget is full, the work is parked with a comment on the issue saying whose queue is full and how to re-trigger it once something merges. The nightly budget-fill routine runs at 03:15, after the audits and after the developers’ own overnight plans, and its instructions open with the principle: “Finishing beats starting: if nobody has room, you do nothing.” A full night is a success.</p>
+<p><strong>The agent produces reviews nobody reads.</strong></p>
+<p>Measure whether people react. Over 266 Dobby PRs, the review loop had posted 559 reviews, about 600 KB of them, and 349 inline threads. Three of them ever drew a human reply. So Dobby no longer posts reviews on his own PRs. The loop still runs, but the rules node writes one line into the PR body instead, what was checked, what ran, the verdict, plus an “Attention:” line per finding it could not fix itself. The findings themselves go to a ledger on the host, because the PR outlives the run store by months. If nobody uses the output, stop producing the output. That principle sounds obvious and is very hard to apply to something you built.</p>
+<p>I should be honest that this was a hand measurement, written into the header of the test that pins the change. Nothing in the system continuously measures whether a comment was read. We would like that, and we do not have it.</p>
+<p><strong>Every nit costs a human reading time and typing.</strong></p>
+<p>The first measurement here was 113 inline review comments across 9 human PRs and exactly zero GitHub suggestion blocks. Every nit was a paragraph a maintainer retyped. After the first fix, 810 inline comments averaged 860 bytes, and 52 of 456 carried a suggestion, so about 88% still arrived as prose, “at the cost of a 45-minute container run per nit they wanted.” Hence the current wording: on a person’s PR, a suggestion is required, not optional, “on every finding whose fix is a concrete edit to lines already in the diff — the ones the reader accepts in one click, at no cost to them.” If a finding reaches the poster without one and it can name the replacement, it authors the suggestion itself. Beside a suggestion, the comment is one line. And no Haiku sub-agent may author a suggestion, because a suggestion is a one-click patch to somebody’s branch and Haiku over-flags.</p>
+<p><strong>Someone on holiday should not be disturbed.</strong></p>
+<p>Make holiday a fact on the user. It is one flag with four readers: handoffs asked of that person are accepted automatically, the reviewer picker stops assigning them PRs, both scheduled DMs stop, and colleagues see them as away in the handoff picker. The reviewer picker’s comment says why this is not a nicety: “A review request is a claim on somebody’s WEEK, not on their seat, and parking one on a person who is provably not there is how a PR comes to sit for a fortnight with nothing wrong with it.” An admin may set the flag too, which is the deliberate exception to our rule that nobody records consent for someone else. Holiday is a fact about somebody’s week that the person, by construction, is not at their desk to record. Every admin write is logged with both names and the person is DM’d.</p>
+<p>There is a retired feature buried here that I want to confess to, because it is the kind of shortcut everyone reaches for. The first vacation mode did something else entirely: when a colleague was away, the token pool tried their Claude credential first, so Alice’s seat ran Bob’s work while Alice was on a beach. It was efficient. It was also one person’s credential doing another person’s work, which our provider’s terms rule out and which makes every audit trail a lie. It is gone, guarded by a test that stops it coming back, and the current flag only ever moves a run through the ordinary handoff path. Work taken on while you are away is your own work, on your own seat, on your own dashboard when you get back.</p>
+<p><strong>PR descriptions that are too long are not read.</strong></p>
+<p>Keep the body short. We did not end up with a byte limit here, and the reason is instructive: the body is also where a finding outside the diff lands, so a numeric cap would have deleted findings rather than shortened prose. What we have instead is a rule of shape. The review body is one line, with an example in the prompt: “Checked 6 changed files against 9 rules; npm test passed (312&#x2F;312); 1 blocking finding and 2 nits inline.” The findings are the inline comments, and a body that restates them is the wall of text the rule exists to remove. The same applies to every message Dobby sends. The reply persona is capped at a few sentences and forbidden from padding, and the evening planning DM is at most four suggestions in under twelve lines.</p>
+<h2 id="06-Boundaries-cost-and-identity"><a href="#06-Boundaries-cost-and-identity" class="headerlink" title="06. Boundaries, cost and identity"></a>06. Boundaries, cost and identity</h2><p>A roomy sandbox only works if the irreversible actions, the costs and the credentials are bounded elsewhere.</p>
+<p><strong>An agent with freedom can do irreversible damage.</strong></p>
+<p>The container never merges or deploys. Part 3 covered the GitHub App permissions. What the pipeline adds is the draft discipline. A standing rule injected into every work container reads “Always create DRAFT pull requests, never merge directly,” and there is no merge command anywhere in the graphs, the routines or the host. The coder is told “do NOT mark it ready yourself.” Only the rules node flips a PR to ready, only on an approve verdict, and even then it first checks for a security advisory reference and holds the PR in draft if it finds one. The superissue pipeline advances on a PR being ready, never on it being merged, because “humans merge the stack; you do not.” Deploying is out of reach for a different reason: the App has no permission to write workflow files, so the coder is told to hand any such change to a maintainer as a comment they can read and apply. People decide what lands.</p>
+<p>The sandbox itself is tighter than “a container.” Every launch drops all capabilities, forbids new privileges, runs as an unprivileged user with a process limit, four gigabytes of memory and two CPUs, and mounts the entrypoint and the callback CLI read-only. The host caps live task containers at twenty as a fork-bomb backstop.</p>
+<p><strong>A prompt-injected agent can send a token anywhere.</strong></p>
+<p>Enforce egress outside the container. The egress module opens with the threat: a container launched with permissions skipped “launches with Docker’s default bridge network: unrestricted outbound reach to the entire internet. That is the real exfiltration lever for a prompt-injected agent.” Docker has no native domain allowlist, so enforcement is two parts: a proxy that only forwards to the allowlisted hosts, and a dedicated Docker network whose firewall blocks direct egress so the proxy is the only route out. The allowlist is short. GitHub, the model API, the npm registry, and the org’s own product domains. The comment is careful to say the obvious thing that people skip: the proxy and allowlist only help once direct egress is actually closed at the network layer, which is an ops job, not a Node.js one. Honesty requires one more sentence. The allowlist mode is a deployment switch, and the default is still open, so the guard exists and the closing of the network is a step you have to take on purpose. Part 2 was right that the exception you leave is the one that gets used.</p>
+<p><strong>Security problems are only found when someone looks.</strong></p>
+<p>So a routine looks, every night at 00:45, with about forty minutes of budget. It audits one repository per night, rotating through all of them on a cursor the host holds, so a single night can never produce an org-wide flood. And it sits inside the same attention system as everything else. Before it may dispatch work it has to ask the host who owns the repo and whether they have room, and it is told to name only an owner who is both connected and has room, and otherwise “skip the work rather than coupling it to someone who does not own the repo.” Security scanning and review pressure are the same system.</p>
+<p>The same reflex shows up in every routine that can create work. The weekly rule codifier may have at most ten advisories pending before it is refused. The overnight plan dispatch caps at five items a night, and the comment on that constant is the lesson of this whole post in one line: “an instruction in a prompt is a request, and this one guards how many containers a single evening’s chat can spend.”</p>
+<p><strong>The best model is often too expensive for every node.</strong></p>
+<p>Model and effort are settable per node and per routine. The work nodes run Sonnet at the highest effort short of max. The rule checker fans out to Haiku sub-agents and is told to embed the rules and diff slice in each sub-agent’s prompt rather than let them read the repo, because that “costs ~30× more.” The nightly routines that decide direction run on Opus. The router and the reply run on Sonnet. Every container’s spend is written to an append-only ledger with the owner, the requested model, the model that actually answered, and the tokens, because the run store prunes after a hundred finished runs and a Dobby PR stays open for months.</p>
+<p>We count tokens, not money, and even that was enough to find the biggest single saving. Cache writes turned out to be 3.1% of the token count and 27.9% of the cost, because the headless CLI takes the one hour cache window at a doubled write price, while pipeline nodes run back to back and never idle long enough for a one hour window to buy a read. One environment variable moved every container to the five minute window. Nothing about the agent changed.</p>
+<p><strong>Work runs on a credential without a clear owner.</strong></p>
+<p>Decide the seat before work starts. A seat is one person’s Claude credential, and the rule is one credential, one owner: “a seat token serves only its owner’s work… there is no round-robin and no cross-user failover, so no run can ever be served by another person’s key.” Every trigger has a caller: a human who asked, directly or via a dispatch the host attributed to them; Dobby himself; or the scheduler. The distinction that matters is not the platform but who is behind it, and it decides both whose credential the work spends and whether it counts against a budget. The two questions are kept apart on purpose. As the comment puts it, ownership decides whose seat, never how autonomous the work is. A third-party bot’s PR runs on its registered human’s seat and still counts as unsolicited.</p>
+<p>Two design decisions here are worth stealing. First, the container names the work and the host names the owner, “so identity never travels as text a container wrote.” An earlier version let bot-authored trigger text carry markers for the owner and the model. It was removed when someone noticed that a Dependabot PR body quotes an upstream changelog verbatim, so an instruction hidden in one would have been an instruction we followed. Second, ownership has to run all the way down. The overnight plan dispatch used to be a routine running on one named human’s seat. When that seat was busy, cooling on a rate limit or gone, nobody’s plan was dispatched, and the failure was silent until the morning report. One person’s credential had become a single point of failure for five people’s overnight work. Now the host sweeps the stored plans every minute between 22:00 and 06:00 and starts each item as an ordinary owned run on the seat of the developer who planned it. Warm pools are keyed by owner too, because a warm container is built before any task exists, so “its credential is chosen before its work is known,” and the baked credential rather than the requester decides what it may serve. Rate limits cool down per token rather than globally. Routines name the human whose seat they spend, or run on the deployment’s own metered API token, or are adopted onto an admin-chosen stand-in seat, and an empty stand-in is a real answer that means they do not run. Every one of those keys on the same question: whose work is this.</p>
+<h2 id="The-90-the-9-and-the-1"><a href="#The-90-the-9-and-the-1" class="headerlink" title="The 90, the 9 and the 1"></a>The 90, the 9 and the 1</h2><p>I want to end where I started, because three months of commits changed my mind about what this work is.</p>
+<p>I expected to spend the time on prompts. We spent it on a state machine, watchdogs, a rescue path, a rule store with ceilings, a handoff gate, a PR budget, a seat model, and about eighty thousand lines of tests, a good share of which test sentences. Almost none of that is AI. It is the deterministic platform that gets you to 90%, and it is the part that makes the agent trustworthy enough to leave alone overnight.</p>
+<p>The 9% is real and it is the reason to bother. Reading a diff and deciding whether the premise still holds. Resolving a merge conflict so that the result is what both sides meant. Turning a developer’s last three days of activity into a concrete suggestion for tonight. Judging whether a filed rule is new, a rewording, or a defeat. I could not have programmed any of that, and not because I am dim.</p>
+<p>The last 1% has not moved since part 3. It is a human clicking merge.</p>
+<p>Every one of the guards in this post is a place where we caught the agent being confidently, plausibly wrong, and decided that the fix was not a better sentence but a system that made the wrong thing impossible to express. That is the lesson, and it is the same lesson as part 2 wearing different clothes. Old school stays king. The agent is the new part. The engineering is the old part. The old part is what makes the new part work.</p>
+<hr>
+<p><em>Next in this series: <strong>Lights Out, part 5: the atrophy problem.</strong> Karpathy’s warning from part 1, taken seriously: what happens to a team’s craft when the generation muscle stops being used and the discrimination muscle is the only one that pays.</em></p>
+<hr>
+<h2 id="Sources-tools"><a href="#Sources-tools" class="headerlink" title="Sources &amp; tools"></a>Sources &amp; tools</h2><p><strong>This post draws on the Dobby codebase itself: pipeline graphs, engine modules, guard tests and commit history, June to September 2026. Where a passage is quoted, it is a code comment, a test header, a commit message or a node prompt from that repository.</strong></p>
+<p><strong>The agent runtime</strong></p>
+<ul>
+<li>Claude Code CLI, the agent inside each container, including the <code>--effort</code> and <code>--model</code> flags the per-node profiles map onto: <a target="_blank" rel="noopener" href="https://code.claude.com/">https://code.claude.com/</a></li>
+<li>Anthropic, “Configure the sandboxed Bash tool”: <a target="_blank" rel="noopener" href="https://code.claude.com/docs/en/sandboxing">https://code.claude.com/docs/en/sandboxing</a></li>
+<li>Anthropic, prompt caching, the mechanism behind the fleet-wide identical prefix: <a target="_blank" rel="noopener" href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching">https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching</a></li>
+</ul>
+<p><strong>GitHub mechanics the pipelines rely on</strong></p>
+<ul>
+<li>GitHub, “About pull requests: draft pull requests”: <a target="_blank" rel="noopener" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#draft-pull-requests">https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#draft-pull-requests</a></li>
+<li>GitHub, “Incorporating feedback in your pull request: applying suggested changes”: <a target="_blank" rel="noopener" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request">https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request</a></li>
+<li>GitHub, “Adding sub-issues”: <a target="_blank" rel="noopener" href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/adding-sub-issues">https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/adding-sub-issues</a></li>
+<li>GitHub Apps and fine grained permissions: <a target="_blank" rel="noopener" href="https://docs.github.com/en/apps">https://docs.github.com/en/apps</a></li>
+</ul>
+<p><strong>Baked-in skills and standards</strong></p>
+<ul>
+<li>Conor Bronsdon, <code>avoid-ai-writing</code>, the skill every human-facing PR description and comment runs through: <a target="_blank" rel="noopener" href="https://github.com/conorbronsdon/avoid-ai-writing">https://github.com/conorbronsdon/avoid-ai-writing</a></li>
+<li>Agent Skills specification: <a target="_blank" rel="noopener" href="https://agentskills.io/">https://agentskills.io/</a></li>
+<li>W3C, WCAG 2.2, one of the standards families vendored into the image: <a target="_blank" rel="noopener" href="https://www.w3.org/TR/WCAG22/">https://www.w3.org/TR/WCAG22/</a></li>
+<li>OWASP Application Security Verification Standard: <a target="_blank" rel="noopener" href="https://owasp.org/www-project-application-security-verification-standard/">https://owasp.org/www-project-application-security-verification-standard/</a></li>
+</ul>
+<p><strong>Containment</strong></p>
+<ul>
+<li>Docker, container networking and user-defined networks: <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/network/">https://docs.docker.com/engine/network/</a></li>
+<li>Simon Willison, the lethal trifecta: <a target="_blank" rel="noopener" href="https://simonwillison.net/tags/lethal-trifecta/">https://simonwillison.net/tags/lethal-trifecta/</a></li>
+<li>Meta, “Agents Rule of Two”: <a target="_blank" rel="noopener" href="https://ai.meta.com/blog/practical-ai-agent-security/">https://ai.meta.com/blog/practical-ai-agent-security/</a></li>
+</ul>
+<p><strong>The callbacks</strong></p>
+<ul>
+<li><em>Lights Out, part 1: the insane adoption of agentic coding</em>, the accountability question and Karpathy on generation versus discrimination.</li>
+<li><em>Lights Out, part 2: old school stays king</em>, the bowling lane and the sandbox this post’s guards sit inside.</li>
+<li><em>Lights Out, part 3: running the nightshift</em>, Dobby’s identity, triggers and the 16:30 handoff.</li>
+</ul>
+
+      </div>
+
+      
+        <div class="tag-row">
+          
+            <a href="/tags/AI/">AI</a>
+          
+            <a href="/tags/Agentic-coding/">Agentic coding</a>
+          
+            <a href="/tags/Software-development/">Software development</a>
+          
+            <a href="/tags/Developer-tools/">Developer tools</a>
+          
+            <a href="/tags/Productivity/">Productivity</a>
+          
+        </div>
+      
+
+      
+
+<nav class="post-nav">
+  
+    <a class="post-nav-link post-nav-prev" href="/2026/08/11/lights-out-03-running-the-nightshift/">
+      <span class="eyebrow">← Previous</span>
+      <span class="post-nav-title">Lights Out, part 3: running the nightshift</span>
+    </a>
+  
+  
+</nav>
+
+
+    </div>
+
+    <aside class="reading-rail reading-rail-author">
+      <div class="eyebrow">Author</div>
+      
+        <img class="author-avatar" src="/images/dibran.png" alt="Dibran Mulder">
+      
+      <p class="author-bio">
+        <strong>Dibran Mulder</strong> — CTO at Yivi and Caesar Groep. Digital identity, and engineering with agents.
+      </p>
+      
+        <a class="underlined" href="/about/">About →</a>
+      
+    </aside>
+  </div>
+</article>
+</main>
+    <footer id="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Dibran Mulder</span>
+    
+      <span>Yivi · Caesar Groep</span>
+    
+  </div>
+</footer>
+
+  </div>
+  
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>
